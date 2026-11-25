@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>GMUX</title>
-<meta name="description" content="GMUX is a macOS terminal for AI coding agents, with a file explorer, a commit graph and live diffs of the files your agents edit. Clone it from GitHub and build it on your Mac.">
+<meta name="description" content="GMUX brings your terminal and your editor into one macOS window: terminals, a file explorer, git history and live diffs. Clone it from GitHub and build it on your Mac.">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="icon.png">
 <meta property="og:title" content="GMUX">
-<meta property="og:description" content="Watch your agents change the code. A macOS terminal with a file explorer and live diffs.">
+<meta property="og:description" content="Your terminal and your editor. One window.">
 <meta property="og:image" content="icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,28 +37,64 @@
         <p class="g-eyebrow g-green g-t1 g-m-l g-fade" style="--i:0">Meet GMUX</p>
         <p class="g-eyebrow g-t3 g-m-r g-end g-fade" style="--i:1;color:var(--g-on-dark-faded)">macOS · Apple Silicon</p>
       </div>
-      <div class="g-row g-grid g-grow" style="align-content:center">
-        <div class="g-full g-ticks"><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i></div>
-        <div class="g-t1">
-          <img class="gmux-big-icon g-fade" style="--i:0;margin-bottom:28px" src="icon.png" alt="GMUX app icon">
-          <h1 class="g-xxl g-fade" style="--i:1;color:#fff">Watch your agents<br>change the code.</h1>
-          <p class="g-body g-fade" style="--i:2;margin-top:18px;color:rgba(255,255,255,.62)">GMUX is a Ghostty-based terminal for Claude, Codex and other coding agents. It adds a file explorer, a commit graph and live diffs of every file an agent touches.</p>
-          <div class="g-actions g-fade" style="--i:3;margin-top:24px">
-            <a class="g-chip g-chip--green" href="https://github.com/Gabe-Soler/GMUX#run-gmux-locally">Install from GitHub</a>
-            <a class="g-chip g-chip--white" href="#install">See the steps</a>
-          </div>
+      <div class="g-row gmux-hero-head">
+        <img class="gmux-big-icon g-fade" style="--i:0" src="icon.png" alt="GMUX app icon">
+        <h1 class="g-xxl gmux-hero-title g-fade" style="--i:1">Your terminal and your editor.<br>One window.</h1>
+        <p class="g-body gmux-hero-body g-fade" style="--i:2">Terminals, a file explorer, git history and live diffs, side by side. Write, run and review code, by hand or with AI agents, without switching apps.</p>
+        <div class="g-actions gmux-hero-actions g-fade" style="--i:3">
+          <a class="g-chip g-chip--green" href="https://github.com/Gabe-Soler/GMUX#run-gmux-locally">Install from GitHub</a>
+          <a class="g-chip g-chip--white" href="#install">See the steps</a>
         </div>
-        <div class="g-t23 g-fade" style="--i:3;align-self:center">
-          <div class="gmux-term" aria-label="Install commands">
-            <div class="gmux-term-bar"><span class="gmux-dots"><i></i><i></i><i></i></span><span>~/GMUX — zsh</span><span>00:00:30</span></div>
-<pre><span class="c"># clone and fetch the terminal library</span>
-<span class="p">&gt;_</span> git clone https://github.com/Gabe-Soler/GMUX.git ~/GMUX
-<span class="p">&gt;_</span> cd ~/GMUX &amp;&amp; ./scripts/setup.sh
-
-<span class="c"># build, install to /Applications and open</span>
-<span class="p">&gt;_</span> ./scripts/gmux-install.sh
-<span class="c">Installed /Applications/GMUX.app</span>
-<span class="p">&gt;_</span> <span class="gmux-cursor"></span></pre>
+      </div>
+      <div class="g-row g-fade" style="--i:4">
+        <!-- drawn app window: workspaces · explorer + graph · terminal · diff -->
+        <div class="gmux-app" role="img" aria-label="The GMUX window: workspace tabs, a file explorer with git status, a terminal and a live diff, side by side">
+          <div class="gmux-app-bar"><span class="gmux-dots"><i></i><i></i><i></i></span><span>GMUX</span><span></span></div>
+          <div class="gmux-app-body">
+            <aside class="gx-tabs">
+              <div class="gx-tab is-on"><b>web-app</b><span>~/code/web-app</span></div>
+              <div class="gx-tab"><b>api</b><span>~/code/api</span></div>
+              <div class="gx-tab"><b>docs</b><span>~/code/docs</span></div>
+            </aside>
+            <aside class="gx-explorer">
+              <div class="gx-branch"><span>⎇ main</span><span class="gx-dim">↑1 ↓0 <i class="gx-dot"></i></span></div>
+              <div class="gx-head">Explorer</div>
+              <div class="gx-row">▾ src</div>
+              <div class="gx-row gx-in gx-mod">app.ts <i class="gx-dot"></i></div>
+              <div class="gx-row gx-in gx-new">auth.ts <i class="gx-dot"></i></div>
+              <div class="gx-row gx-in">routes.ts</div>
+              <div class="gx-row gx-in">utils.ts</div>
+              <div class="gx-row">▸ tests</div>
+              <div class="gx-row gx-ign">▸ node_modules</div>
+              <div class="gx-row">package.json</div>
+              <div class="gx-head" style="margin-top:14px">Graph</div>
+              <div class="gx-row gx-graph"><i class="gx-n"></i>Add sign-in route <span class="gx-tag">main</span></div>
+              <div class="gx-row gx-graph"><i class="gx-n"></i>Fix session expiry</div>
+              <div class="gx-row gx-graph"><i class="gx-n gx-n2"></i>Merge branch auth</div>
+              <div class="gx-row gx-graph"><i class="gx-n"></i>Initial commit</div>
+            </aside>
+            <section class="gx-term">
+              <div class="gx-pane-head">zsh — web-app</div>
+<pre><span class="gx-g">~/code/web-app</span> <span class="gx-dim">on</span> main
+<span class="gx-g">&gt;_</span> npm test
+<span class="gx-dim">  ✓ routes  (12 tests)</span>
+<span class="gx-dim">  ✓ auth    (8 tests)</span>
+<span class="gx-g">&gt;_</span> claude "add a sign-in route"
+<span class="gx-dim">  Editing src/auth.ts</span>
+<span class="gx-dim">  Editing src/app.ts</span>
+<span class="gx-g">&gt;_</span> <span class="gmux-cursor"></span></pre>
+            </section>
+            <section class="gx-diff">
+              <div class="gx-pane-head">app.ts <span class="gx-dim">· live diff</span></div>
+<pre><span class="gx-ln">12</span> import { router } from "./routes"
+<span class="gx-ln">13</span> <span class="gx-del">import { legacyAuth } from "./old"</span>
+<span class="gx-ln">13</span> <span class="gx-add">import { signIn } from "./auth"</span>
+<span class="gx-ln">14</span>
+<span class="gx-ln">15</span> app.use(router)
+<span class="gx-ln">16</span> <span class="gx-del">app.use(legacyAuth())</span>
+<span class="gx-ln">16</span> <span class="gx-add">app.post("/sign-in", signIn)</span>
+<span class="gx-ln">17</span> <span class="gx-add">app.listen(3000)</span></pre>
+            </section>
           </div>
         </div>
       </div>
@@ -70,8 +106,8 @@
       <div class="g-row g-ticks"><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i></div>
       <div class="g-row g-row--tight g-grid">
         <div class="g-t1">
-          <h2 class="g-title g-fade" style="--i:0">Built on cmux.<br>Made to follow agents.</h2>
-          <p class="g-body g-fade" style="--i:1">Everything in cmux still works: vertical tabs, splits, notifications and the browser. GMUX adds the views you'd otherwise keep VS Code open for.</p>
+          <h2 class="g-title g-fade" style="--i:0">Everything you code with.<br>In one place.</h2>
+          <p class="g-body g-fade" style="--i:1">Vertical workspace tabs, splits, a built-in browser and notifications, with the file tree, history and diffs right beside your terminals.</p>
         </div>
       </div>
       <div class="g-row g-ticks" style="padding-top:calc(150 * var(--g-u))"><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i></div>
@@ -160,7 +196,7 @@
     <div class="g-row g-ticks"><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i></div>
     <div class="g-row g-row--tight g-grid">
       <div class="g-t1 g-col" style="display:flex;align-items:flex-start;gap:12px"><img class="gmux-logo-img" src="icon.png" alt=""><span class="g-l" style="font-size:20px;color:#fff;line-height:30px">GMUX</span></div>
-      <div class="g-t2 g-col"><p class="g-l">Built on cmux.<br>Made for agents at work.</p></div>
+      <div class="g-t2 g-col"><p class="g-l">Terminal and editor.<br>One window.</p></div>
       <div class="g-t3a g-col g-mono">
         <a class="g-link" href="https://github.com/Gabe-Soler/GMUX">GitHub</a>
         <a class="g-link" href="https://github.com/Gabe-Soler/GMUX#run-gmux-locally">Install guide</a>
