@@ -24,11 +24,11 @@ Everything in cmux still works. GMUX adds the following:
 
 ## Run GMUX locally
 
-GMUX is built from source on your own Mac. No Apple developer account is needed: the app is signed locally and is meant for your own use.
+GMUX is built from source on your own Mac. You need an Apple Silicon Mac (M1 or later) and about 30 minutes for the first build. No Apple developer account is needed: the app is signed on your Mac and is meant for your own use.
 
-### One-time setup
+### 1. Install the tools (once)
 
-1. Install **Xcode** from the App Store, open it once to accept the license, then install the Metal toolchain:
+1. Install **Xcode** from the App Store and open it once to accept the license. Then, in Terminal:
 
    ```bash
    xcodebuild -downloadComponent MetalToolchain
@@ -40,30 +40,49 @@ GMUX is built from source on your own Mac. No Apple developer account is needed:
    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
    ```
 
-3. Install **Zig 0.16.0**. Download `zig-aarch64-macos-0.16.0.tar.xz` from [ziglang.org/download](https://ziglang.org/download/) and unpack it to `~/.local/zig/zig-aarch64-macos-0.16.0`.
-
-4. Set up the checkout (submodules, prebuilt GhosttyKit, git hooks):
+3. Install **Zig 0.16.0**:
 
    ```bash
-   cd ~/GMUX
-   export PATH="$HOME/.local/zig/zig-aarch64-macos-0.16.0:$HOME/.cargo/bin:$PATH"
-   ./scripts/setup.sh
+   mkdir -p ~/.local/zig
+   curl -L https://ziglang.org/download/0.16.0/zig-aarch64-macos-0.16.0.tar.xz | tar -xJ -C ~/.local/zig
    ```
 
-Go is not needed. It only powers cmux Cloud's VPN, which a locally signed build can't use.
+You don't need Go. It's only used by cmux Cloud's VPN, which a locally signed build can't use.
 
-### Build and install
+### 2. Get the code (once)
 
 ```bash
+git clone https://github.com/Gabe-Soler/GMUX.git ~/GMUX
 cd ~/GMUX
-./scripts/gmux-install.sh
+export PATH="$HOME/.local/zig/zig-aarch64-macos-0.16.0:$HOME/.cargo/bin:$PATH"
+./scripts/setup.sh
 ```
 
-Run it from macOS's Terminal app, not from a GMUX terminal, because installing quits GMUX and would kill the script. It builds GMUX in Release mode, which takes several minutes. It then quits GMUX if it's running, installs it as `/Applications/GMUX.app` and opens it. Run the same command again to update after you change the code or pull from upstream. `--no-open` skips opening the app, and `--skip-build` reinstalls the last build.
+`setup.sh` fetches the submodules and the prebuilt Ghostty terminal library.
 
-The script only ever touches GMUX. It refuses to replace anything at `/Applications/GMUX.app` that isn't GMUX, and never quits or overwrites a regular cmux install.
+### 3. Build and install
+
+Run this from macOS's **Terminal** app, not from inside GMUX, because installing quits GMUX:
+
+```bash
+cd ~/GMUX && ./scripts/gmux-install.sh
+```
+
+The script builds GMUX, installs it as `/Applications/GMUX.app` and opens it. The first build takes a while; later ones are faster.
 
 On first launch macOS may say the app is from an unidentified developer. Right-click **GMUX** in Applications, choose **Open**, then **Open** again. You only need to do this once.
+
+### Updating
+
+Pull the latest code, then run the install script again:
+
+```bash
+cd ~/GMUX && git pull && ./scripts/gmux-install.sh
+```
+
+Two options: `--skip-build` reinstalls the last build without compiling again, and `--no-open` doesn't open the app afterwards.
+
+The script only ever touches GMUX. It refuses to replace anything at `/Applications/GMUX.app` that isn't GMUX, and never quits or overwrites a regular cmux install.
 
 ### What the installed app has switched off
 
