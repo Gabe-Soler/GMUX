@@ -73,3 +73,14 @@
 
 .gmux-big-icon { width: calc(120 * var(--g-u)); height: auto; border-radius: calc(26 * var(--g-u)); }
 @media (max-width: 899px) { .gmux-hide-phone { display:none; } }
+
+/* readability: larger paragraph text than the Genesis default (14px) */
+:root { --g-fs-s: 16.5px; --g-lh-s: 1.35; }
+.g-body { max-width: 400px; }
+.g-header a { font-size: 15px; }
+.g-table td { font-size: 12px; }
+.gmux-code pre { font-size: 11.5px; }
+.gmux-term { font-size: 13px; }
+@media (max-width: 899px) {
+  :root:not(.g-fixed) { --g-fs-s: 16px; }
+}
