@@ -28,7 +28,7 @@ struct GitStatusProvider: Sendable {
         // both to one spelling for the containment check, and emit keys under the caller's
         // spelling so FileExplorerStore lookups match.
         return parseGitStatus(
-            output: runGit(in: repoRoot, arguments: ["status", "--porcelain=v1", "-z"]),
+            output: runGit(in: repoRoot, arguments: ["status", "--porcelain=v1", "-z", "--ignored=matching"]),
             repoRoot: Self.canonicalPath(repoRoot),
             explorerRoot: Self.canonicalPath(directory),
             keyRoot: directory
@@ -44,7 +44,7 @@ struct GitStatusProvider: Sendable {
             "cd '\(escapedDir)' 2>/dev/null",
             "\(Self.nonLockingRemoteGitCommand) rev-parse --show-toplevel 2>/dev/null",
             "echo '---GIT_STATUS---'",
-            "\(Self.nonLockingRemoteGitCommand) status --porcelain=v1 -z 2>/dev/null",
+            "\(Self.nonLockingRemoteGitCommand) status --porcelain=v1 -z --ignored=matching 2>/dev/null",
         ].joined(separator: " && ")
         guard let output = runSSH(
             command: cmd, destination: destination,
@@ -78,7 +78,8 @@ struct GitStatusProvider: Sendable {
             }
             let indexStatus = entry[entry.startIndex]
             let workTreeStatus = entry[entry.index(after: entry.startIndex)]
-            let path = String(entry.dropFirst(3))
+            // `--ignored=matching` reports an ignored folder once, with a trailing slash.
+            let path = Self.pathWithoutTrailingSlashes(String(entry.dropFirst(3)))
             let usesSecondPath = Self.statusUsesSecondPath(index: indexStatus, workTree: workTreeStatus)
             entryIndex += usesSecondPath ? 2 : 1
             guard let status = parseStatusChars(index: indexStatus, workTree: workTreeStatus) else { continue }
@@ -99,6 +100,8 @@ struct GitStatusProvider: Sendable {
             }
 
             statusMap[key] = status
+            // An ignored file must not color its folders the way a change does.
+            guard status != .ignored else { continue }
             markParentDirectories(
                 absolutePath: key,
                 explorerRoot: normalizedKeyRoot,
@@ -111,6 +114,7 @@ struct GitStatusProvider: Sendable {
 
     private func parseStatusChars(index: Character, workTree: Character) -> GitFileStatus? {
         if index == "?" && workTree == "?" { return .untracked }
+        if index == "!" && workTree == "!" { return .ignored }
         if index == "U" || workTree == "U" { return .modified }
         if index == "T" || workTree == "T" { return .modified }
         if index == "A" || workTree == "A" { return .added }

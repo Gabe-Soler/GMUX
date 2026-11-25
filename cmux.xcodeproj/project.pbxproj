@@ -68,6 +68,8 @@
 		A9F200000000000000000002 /* AgentExecutableResolverError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F100000000000000000002 /* AgentExecutableResolverError.swift */; };
 		A9E020000000000000000005 /* AgentExecutableResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E010000000000000000005 /* AgentExecutableResolverTests.swift */; };
 		95E8A230263D43FC4643B904 /* AgentFeedSemanticInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B17F904F7764F1CA16D27F3 /* AgentFeedSemanticInput.swift */; };
+		F17D3F9486F6708379C2EA14 /* AgentFileActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE48EA08373F6BB178334F /* AgentFileActivity.swift */; };
+		8C0034D0F8755E4B6E02D096 /* AgentFileActivityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 467869F0029595F2018B9EFE /* AgentFileActivityTests.swift */; };
 		C0DEF0C30000000000000001 /* AgentForkCapabilityProbeCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DEF0C30000000000000002 /* AgentForkCapabilityProbeCache.swift */; };
 		C0DEF0D20000000000000001 /* AgentForkCommandOutputDrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DEF0D20000000000000002 /* AgentForkCommandOutputDrain.swift */; };
 		C0DEF0D10000000000000001 /* AgentForkCommandOutputRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DEF0D10000000000000002 /* AgentForkCommandOutputRunner.swift */; };
@@ -287,6 +289,7 @@
 		DCDC3000000000000000E001 /* AppDelegate+DockShortcutRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDC3000000000000000E002 /* AppDelegate+DockShortcutRouting.swift */; };
 		DCDC1000000000000000C000 /* AppDelegate+DockSurfaceMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDC1000000000000000C001 /* AppDelegate+DockSurfaceMove.swift */; };
 		E3309A01 /* AppDelegate+EqualizeSplitsShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3309A02 /* AppDelegate+EqualizeSplitsShortcut.swift */; };
+		59CF9C541E8429BBE72A5F2A /* AppDelegate+ExplorerColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8662C710AA1D6644FD4DC388 /* AppDelegate+ExplorerColumn.swift */; };
 		A5F100000000000000000013 /* AppDelegate+FocusedNotificationSeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5F100000000000000000014 /* AppDelegate+FocusedNotificationSeam.swift */; };
 		C4160A040000000000000001 /* AppDelegate+FocusHistoryContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4160A040000000000000002 /* AppDelegate+FocusHistoryContextMenu.swift */; };
 		3865A0063865A0063865A006 /* AppDelegate+GlobalSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3865B0063865B0063865B006 /* AppDelegate+GlobalSearch.swift */; };
@@ -1380,6 +1383,7 @@
 		B9000035A1B2C3D4E5F60719 /* CMUXCLI+DocsSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9000031A1B2C3D4E5F60719 /* CMUXCLI+DocsSettings.swift */; };
 		B9000064A1B2C3D4E5F60719 /* CMUXCLI+Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9000065A1B2C3D4E5F60719 /* CMUXCLI+Events.swift */; };
 		B9000046A1B2C3D4E5F60719 /* CMUXCLI+ExecutableResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9000047A1B2C3D4E5F60719 /* CMUXCLI+ExecutableResolution.swift */; };
+		B744F4A620EC808A7374C20A /* CMUXCLI+Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9E6FD18E9A5A7011508870 /* CMUXCLI+Files.swift */; };
 		112950000000000000000008 /* CMUXCLI+Fork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112950000000000000000007 /* CMUXCLI+Fork.swift */; };
 		11295000000000000000000A /* CMUXCLI+ForkExecution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112950000000000000000009 /* CMUXCLI+ForkExecution.swift */; };
 		A13385000000000000000002 /* CMUXCLI+Glaeda.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13385000000000000000001 /* CMUXCLI+Glaeda.swift */; };
@@ -2144,6 +2148,11 @@
 		5732A0095732A0095732A009 /* EnvironmentValues+MinimalModeInvalidationProbe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5732B0095732B0095732B009 /* EnvironmentValues+MinimalModeInvalidationProbe.swift */; };
 		5732A0135732A0135732A013 /* EnvironmentValues+SidebarLazyContractProbe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5732B0135732B0135732B013 /* EnvironmentValues+SidebarLazyContractProbe.swift */; };
 		DA3DCBDE094DF34AA5CF264F /* ExitingProcessCensusReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43345B5B3C60929B9F661CB /* ExitingProcessCensusReader.swift */; };
+		A83D9E631FFB7812B38D977C /* ExplorerColumnHostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9680F9C36AD1FFDA7F1BA3CD /* ExplorerColumnHostView.swift */; };
+		BCA9A2FF7032BC2E3B3275B1 /* ExplorerColumnState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6EFF6B6409A55F17C621B9 /* ExplorerColumnState.swift */; };
+		226E480FBE9778321789F4DE /* ExplorerColumnStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4200027F3A5A628912110BFC /* ExplorerColumnStateTests.swift */; };
+		357B5D434366BB87F57450CA /* ExplorerFileOpenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974BDF09998876118F28E212 /* ExplorerFileOpenCoordinator.swift */; };
+		E31E5E7C6D9088D684BC13E3 /* ExplorerFollowAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E45C959941C5038D64E6C37 /* ExplorerFollowAgent.swift */; };
 		E4C001000000000000000001 /* ExtensionSidebarWorkspaceRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C001000000000000000002 /* ExtensionSidebarWorkspaceRowView.swift */; };
 		E4C001000000000000000003 /* ExtensionWorktreePrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C001000000000000000004 /* ExtensionWorktreePrototype.swift */; };
 		E50320010000000000000001 /* ExtensionWorktreeSpawnArgsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50320010000000000000002 /* ExtensionWorktreeSpawnArgsTests.swift */; };
@@ -2205,13 +2214,17 @@
 		D12925020000000000000001 /* FileDropPaneTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12925020000000000000002 /* FileDropPaneTarget.swift */; };
 		F12748000000000000000001 /* FileEditorWordWrapShortcutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12748000000000000000002 /* FileEditorWordWrapShortcutTests.swift */; };
 		FE5996010000000000000002 /* FileExplorerCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5996010000000000000001 /* FileExplorerCellView.swift */; };
+		83DC1AC175A0162B2188FFDA /* FileExplorerChangeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962DD2431B04887811E2FCBA /* FileExplorerChangeRouter.swift */; };
+		5498A6D2315F5D99773656FB /* FileExplorerChangeRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F98623DD7D448BCAB555171 /* FileExplorerChangeRouterTests.swift */; };
 		58577BB461FB6F36BB3ACF86 /* FileExplorerContainerView+SearchStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF8AA8182149D0EC033A391 /* FileExplorerContainerView+SearchStatus.swift */; };
 		12914C0112914C0112914C01 /* FileExplorerContextMenuReloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12914C0212914C0212914C02 /* FileExplorerContextMenuReloadTests.swift */; };
 		C40410010000000000000021 /* FileExplorerDoubleClickActionSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40410010000000000000020 /* FileExplorerDoubleClickActionSettings.swift */; };
 		FE002110 /* FileExplorerDoubleClickActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE002010 /* FileExplorerDoubleClickActionTests.swift */; };
 		FEAC00000000000000000003 /* FileExplorerError+Mutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAC00000000000000000004 /* FileExplorerError+Mutation.swift */; };
+		3A94C90786B5EC52ACE16DC7 /* FileExplorerExcludedNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F1CAE1C7251C1DA4509486 /* FileExplorerExcludedNames.swift */; };
 		FE5996080000000000000002 /* FileExplorerExternalOpenMenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5996080000000000000001 /* FileExplorerExternalOpenMenuItems.swift */; };
 		FE5996090000000000000002 /* FileExplorerExternalOpenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5996090000000000000001 /* FileExplorerExternalOpenRequest.swift */; };
+		ADC94D5EAFD35E1D02BAB19A /* FileExplorerGitStatusLookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04846DEF0CF69AA2A148340B /* FileExplorerGitStatusLookup.swift */; };
 		FE002112 /* FileExplorerGitStatusProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE002012 /* FileExplorerGitStatusProviderTests.swift */; };
 		FE5996020000000000000002 /* FileExplorerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5996020000000000000001 /* FileExplorerHeaderView.swift */; };
 		FE001105 /* FileExplorerKeyboardShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE001005 /* FileExplorerKeyboardShortcuts.swift */; };
@@ -4029,6 +4042,7 @@
 		A28B087F000000000000000B /* TerminalController+DiffViewerTrust.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28B087F000000000000000C /* TerminalController+DiffViewerTrust.swift */; };
 		8777C0018777C0018777C001 /* TerminalController+DockControlTopology.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8777C0028777C0028777C002 /* TerminalController+DockControlTopology.swift */; };
 		8672D0038672D0038672D003 /* TerminalController+FeedAcknowledgment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8672D0048672D0048672D004 /* TerminalController+FeedAcknowledgment.swift */; };
+		E91C87D8663F0DA879816B62 /* TerminalController+Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAEDFC768C380469D539F5A /* TerminalController+Files.swift */; };
 		CF8062B5358EF8BACDC4B11E /* TerminalController+MemoryDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465DC70102FF7A836544B98A /* TerminalController+MemoryDiagnostics.swift */; };
 		A7C0F0020000000000000002 /* TerminalController+MobileAttachTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C0F0020000000000000001 /* TerminalController+MobileAttachTicket.swift */; };
 		F2100000000000000000000E /* TerminalController+MobileBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1100000000000000000000E /* TerminalController+MobileBrowser.swift */; };
@@ -4962,6 +4976,8 @@
 		A9F100000000000000000002 /* AgentExecutableResolverError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentExecutableResolverError.swift; sourceTree = "<group>"; };
 		A9E010000000000000000005 /* AgentExecutableResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentExecutableResolverTests.swift; sourceTree = "<group>"; };
 		2B17F904F7764F1CA16D27F3 /* AgentFeedSemanticInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentFeedSemanticInput.swift; sourceTree = "<group>"; };
+		DBAE48EA08373F6BB178334F /* AgentFileActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerColumn/AgentFileActivity.swift; sourceTree = "<group>"; };
+		467869F0029595F2018B9EFE /* AgentFileActivityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AgentFileActivityTests.swift"; sourceTree = "<group>"; };
 		C0DEF0C30000000000000002 /* AgentForkCapabilityProbeCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentForkCapabilityProbeCache.swift; sourceTree = "<group>"; };
 		C0DEF0D20000000000000002 /* AgentForkCommandOutputDrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentForkCommandOutputDrain.swift; sourceTree = "<group>"; };
 		C0DEF0D10000000000000002 /* AgentForkCommandOutputRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentForkCommandOutputRunner.swift; sourceTree = "<group>"; };
@@ -5173,6 +5189,7 @@
 		DCDC3000000000000000E002 /* AppDelegate+DockShortcutRouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+DockShortcutRouting.swift"; sourceTree = "<group>"; };
 		DCDC1000000000000000C001 /* AppDelegate+DockSurfaceMove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+DockSurfaceMove.swift"; sourceTree = "<group>"; };
 		E3309A02 /* AppDelegate+EqualizeSplitsShortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+EqualizeSplitsShortcut.swift"; sourceTree = "<group>"; };
+		8662C710AA1D6644FD4DC388 /* AppDelegate+ExplorerColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExplorerColumn/AppDelegate+ExplorerColumn.swift"; sourceTree = "<group>"; };
 		A5F100000000000000000014 /* AppDelegate+FocusedNotificationSeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+FocusedNotificationSeam.swift"; sourceTree = "<group>"; };
 		C4160A040000000000000002 /* AppDelegate+FocusHistoryContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+FocusHistoryContextMenu.swift"; sourceTree = "<group>"; };
 		3865B0063865B0063865B006 /* AppDelegate+GlobalSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Search/AppDelegate+GlobalSearch.swift"; sourceTree = "<group>"; };
@@ -6214,6 +6231,7 @@
 		B9000031A1B2C3D4E5F60719 /* CMUXCLI+DocsSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMUXCLI+DocsSettings.swift"; sourceTree = "<group>"; };
 		B9000065A1B2C3D4E5F60719 /* CMUXCLI+Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMUXCLI+Events.swift"; sourceTree = "<group>"; };
 		B9000047A1B2C3D4E5F60719 /* CMUXCLI+ExecutableResolution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMUXCLI+ExecutableResolution.swift"; sourceTree = "<group>"; };
+		1D9E6FD18E9A5A7011508870 /* CMUXCLI+Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMUXCLI+Files.swift"; sourceTree = "<group>"; };
 		112950000000000000000007 /* CMUXCLI+Fork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMUXCLI+Fork.swift"; sourceTree = "<group>"; };
 		112950000000000000000009 /* CMUXCLI+ForkExecution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMUXCLI+ForkExecution.swift"; sourceTree = "<group>"; };
 		A13385000000000000000001 /* CMUXCLI+Glaeda.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMUXCLI+Glaeda.swift"; sourceTree = "<group>"; };
@@ -6855,6 +6873,11 @@
 		5732B0095732B0095732B009 /* EnvironmentValues+MinimalModeInvalidationProbe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Debug/EnvironmentValues+MinimalModeInvalidationProbe.swift"; sourceTree = "<group>"; };
 		5732B0135732B0135732B013 /* EnvironmentValues+SidebarLazyContractProbe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Debug/EnvironmentValues+SidebarLazyContractProbe.swift"; sourceTree = "<group>"; };
 		A43345B5B3C60929B9F661CB /* ExitingProcessCensusReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExitingProcessCensusReader.swift"; sourceTree = "<group>"; };
+		9680F9C36AD1FFDA7F1BA3CD /* ExplorerColumnHostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerColumn/ExplorerColumnHostView.swift; sourceTree = "<group>"; };
+		7D6EFF6B6409A55F17C621B9 /* ExplorerColumnState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerColumn/ExplorerColumnState.swift; sourceTree = "<group>"; };
+		4200027F3A5A628912110BFC /* ExplorerColumnStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExplorerColumnStateTests.swift"; sourceTree = "<group>"; };
+		974BDF09998876118F28E212 /* ExplorerFileOpenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerColumn/ExplorerFileOpenCoordinator.swift; sourceTree = "<group>"; };
+		3E45C959941C5038D64E6C37 /* ExplorerFollowAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerColumn/ExplorerFollowAgent.swift; sourceTree = "<group>"; };
 		E4C001000000000000000002 /* ExtensionSidebarWorkspaceRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionSidebarWorkspaceRowView.swift; sourceTree = "<group>"; };
 		E4C001000000000000000004 /* ExtensionWorktreePrototype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionWorktreePrototype.swift; sourceTree = "<group>"; };
 		E50320010000000000000002 /* ExtensionWorktreeSpawnArgsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionWorktreeSpawnArgsTests.swift; sourceTree = "<group>"; };
@@ -6915,13 +6938,17 @@
 		D12925020000000000000002 /* FileDropPaneTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDropPaneTarget.swift; sourceTree = "<group>"; };
 		F12748000000000000000002 /* FileEditorWordWrapShortcutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileEditorWordWrapShortcutTests.swift; sourceTree = "<group>"; };
 		FE5996010000000000000001 /* FileExplorerCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExplorerCellView.swift; sourceTree = "<group>"; };
+		962DD2431B04887811E2FCBA /* FileExplorerChangeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExplorerChangeRouter.swift; sourceTree = "<group>"; };
+		7F98623DD7D448BCAB555171 /* FileExplorerChangeRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileExplorerChangeRouterTests.swift"; sourceTree = "<group>"; };
 		5BF8AA8182149D0EC033A391 /* FileExplorerContainerView+SearchStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileExplorerContainerView+SearchStatus.swift"; sourceTree = "<group>"; };
 		12914C0212914C0212914C02 /* FileExplorerContextMenuReloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExplorerContextMenuReloadTests.swift; sourceTree = "<group>"; };
 		C40410010000000000000020 /* FileExplorerDoubleClickActionSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExplorerDoubleClickActionSettings.swift; sourceTree = "<group>"; };
 		FE002010 /* FileExplorerDoubleClickActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExplorerDoubleClickActionTests.swift; sourceTree = "<group>"; };
 		FEAC00000000000000000004 /* FileExplorerError+Mutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileExplorerError+Mutation.swift"; sourceTree = "<group>"; };
+		A3F1CAE1C7251C1DA4509486 /* FileExplorerExcludedNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExplorerExcludedNames.swift; sourceTree = "<group>"; };
 		FE5996080000000000000001 /* FileExplorerExternalOpenMenuItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExplorerExternalOpenMenuItems.swift; sourceTree = "<group>"; };
 		FE5996090000000000000001 /* FileExplorerExternalOpenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExplorerExternalOpenRequest.swift; sourceTree = "<group>"; };
+		04846DEF0CF69AA2A148340B /* FileExplorerGitStatusLookup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExplorerGitStatusLookup.swift; sourceTree = "<group>"; };
 		FE002012 /* FileExplorerGitStatusProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExplorerGitStatusProviderTests.swift; sourceTree = "<group>"; };
 		FE5996020000000000000001 /* FileExplorerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExplorerHeaderView.swift; sourceTree = "<group>"; };
 		FE001005 /* FileExplorerKeyboardShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileExplorerKeyboardShortcuts.swift; sourceTree = "<group>"; };
@@ -8709,6 +8736,7 @@
 		A28B087F000000000000000C /* TerminalController+DiffViewerTrust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TerminalController+DiffViewerTrust.swift"; sourceTree = "<group>"; };
 		8777C0028777C0028777C002 /* TerminalController+DockControlTopology.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TerminalController+DockControlTopology.swift"; sourceTree = "<group>"; };
 		8672D0048672D0048672D004 /* TerminalController+FeedAcknowledgment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TerminalController+FeedAcknowledgment.swift"; sourceTree = "<group>"; };
+		CAAEDFC768C380469D539F5A /* TerminalController+Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExplorerColumn/TerminalController+Files.swift"; sourceTree = "<group>"; };
 		465DC70102FF7A836544B98A /* TerminalController+MemoryDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TerminalController+MemoryDiagnostics.swift"; sourceTree = "<group>"; };
 		A7C0F0020000000000000001 /* TerminalController+MobileAttachTicket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TerminalController+MobileAttachTicket.swift"; sourceTree = "<group>"; };
 		F1100000000000000000000E /* TerminalController+MobileBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TerminalController+MobileBrowser.swift"; sourceTree = "<group>"; };
@@ -12704,6 +12732,16 @@
 				D4D9700C7689786CCDB82CAE /* TerminalController+AgentMessageClaim.swift */,
 				17A22999A4C0E113B255C2E7 /* NotificationsPopoverView.swift */,
 				067ED4C318664E11B67921F3 /* AppDelegate+NotificationsPopoverDigits.swift */,
+				7D6EFF6B6409A55F17C621B9 /* ExplorerColumnState.swift */,
+				9680F9C36AD1FFDA7F1BA3CD /* ExplorerColumnHostView.swift */,
+				8662C710AA1D6644FD4DC388 /* AppDelegate+ExplorerColumn.swift */,
+				04846DEF0CF69AA2A148340B /* FileExplorerGitStatusLookup.swift */,
+				A3F1CAE1C7251C1DA4509486 /* FileExplorerExcludedNames.swift */,
+				962DD2431B04887811E2FCBA /* FileExplorerChangeRouter.swift */,
+				974BDF09998876118F28E212 /* ExplorerFileOpenCoordinator.swift */,
+				CAAEDFC768C380469D539F5A /* TerminalController+Files.swift */,
+				DBAE48EA08373F6BB178334F /* AgentFileActivity.swift */,
+				3E45C959941C5038D64E6C37 /* ExplorerFollowAgent.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -12994,6 +13032,7 @@
 				FC2F17506A4B7E143A4D2E0A /* CMUXCLI+KiroProcess.swift */,
 				11A675FF7535DC3EFEF6C352 /* CMUXCLI+AgentHookEnvironment.swift */,
 				80066C12BE02CC6DEA3CDE46 /* CMUXCLI+AgentInboxHooks.swift */,
+				1D9E6FD18E9A5A7011508870 /* CMUXCLI+Files.swift */,
 			);
 			path = CLI;
 			sourceTree = "<group>";
@@ -14359,6 +14398,9 @@
 				C0C7EE23B232921D28CA56FD /* NotificationsPopoverDrawnRowsTests.swift */,
 				C6BD7F10185DA1F7C53B33A3 /* RemoteTmuxHostSocketNameTests.swift */,
 				9A7B328A8031722C38545CA7 /* SafariCookieImportTests.swift */,
+				4200027F3A5A628912110BFC /* ExplorerColumnStateTests.swift */,
+				7F98623DD7D448BCAB555171 /* FileExplorerChangeRouterTests.swift */,
+				467869F0029595F2018B9EFE /* AgentFileActivityTests.swift */,
 			);
 			path = cmuxTests;
 			sourceTree = "<group>";
@@ -15252,6 +15294,7 @@
 				A9F200000000000000000001 /* AgentExecutableResolver.swift in Sources */,
 				A9F200000000000000000002 /* AgentExecutableResolverError.swift in Sources */,
 				95E8A230263D43FC4643B904 /* AgentFeedSemanticInput.swift in Sources */,
+				F17D3F9486F6708379C2EA14 /* AgentFileActivity.swift in Sources */,
 				C0DEF0C30000000000000001 /* AgentForkCapabilityProbeCache.swift in Sources */,
 				C0DEF0D20000000000000001 /* AgentForkCommandOutputDrain.swift in Sources */,
 				C0DEF0D10000000000000001 /* AgentForkCommandOutputRunner.swift in Sources */,
@@ -15405,6 +15448,7 @@
 				DCDC3000000000000000E001 /* AppDelegate+DockShortcutRouting.swift in Sources */,
 				DCDC1000000000000000C000 /* AppDelegate+DockSurfaceMove.swift in Sources */,
 				E3309A01 /* AppDelegate+EqualizeSplitsShortcut.swift in Sources */,
+				59CF9C541E8429BBE72A5F2A /* AppDelegate+ExplorerColumn.swift in Sources */,
 				A5F100000000000000000013 /* AppDelegate+FocusedNotificationSeam.swift in Sources */,
 				C4160A040000000000000001 /* AppDelegate+FocusHistoryContextMenu.swift in Sources */,
 				3865A0063865A0063865A006 /* AppDelegate+GlobalSearch.swift in Sources */,
@@ -16220,6 +16264,10 @@
 				A7206C010000000000000001 /* EffectiveAppearanceObservation.swift in Sources */,
 					5732A0095732A0095732A009 /* EnvironmentValues+MinimalModeInvalidationProbe.swift in Sources */,
 					5732A0135732A0135732A013 /* EnvironmentValues+SidebarLazyContractProbe.swift in Sources */,
+				A83D9E631FFB7812B38D977C /* ExplorerColumnHostView.swift in Sources */,
+				BCA9A2FF7032BC2E3B3275B1 /* ExplorerColumnState.swift in Sources */,
+				357B5D434366BB87F57450CA /* ExplorerFileOpenCoordinator.swift in Sources */,
+				E31E5E7C6D9088D684BC13E3 /* ExplorerFollowAgent.swift in Sources */,
 				E4C001000000000000000001 /* ExtensionSidebarWorkspaceRowView.swift in Sources */,
 				E4C001000000000000000003 /* ExtensionWorktreePrototype.swift in Sources */,
 				C0A717030000000000000002 /* ExternalApplicationWindowDependencies.swift in Sources */,
@@ -16263,11 +16311,14 @@
 				D0B10022A1B2C3D4E5F60001 /* FileDropOverlayViewHitTesting.swift in Sources */,
 				D12925020000000000000001 /* FileDropPaneTarget.swift in Sources */,
 				FE5996010000000000000002 /* FileExplorerCellView.swift in Sources */,
+				83DC1AC175A0162B2188FFDA /* FileExplorerChangeRouter.swift in Sources */,
 				58577BB461FB6F36BB3ACF86 /* FileExplorerContainerView+SearchStatus.swift in Sources */,
 				C40410010000000000000021 /* FileExplorerDoubleClickActionSettings.swift in Sources */,
 				FEAC00000000000000000003 /* FileExplorerError+Mutation.swift in Sources */,
+				3A94C90786B5EC52ACE16DC7 /* FileExplorerExcludedNames.swift in Sources */,
 				FE5996080000000000000002 /* FileExplorerExternalOpenMenuItems.swift in Sources */,
 				FE5996090000000000000002 /* FileExplorerExternalOpenRequest.swift in Sources */,
+				ADC94D5EAFD35E1D02BAB19A /* FileExplorerGitStatusLookup.swift in Sources */,
 				FE5996020000000000000002 /* FileExplorerHeaderView.swift in Sources */,
 				FE001105 /* FileExplorerKeyboardShortcuts.swift in Sources */,
 				FE5996030000000000000002 /* FileExplorerNSOutlineView.swift in Sources */,
@@ -17440,6 +17491,7 @@
 				A28B087F000000000000000B /* TerminalController+DiffViewerTrust.swift in Sources */,
 				8777C0018777C0018777C001 /* TerminalController+DockControlTopology.swift in Sources */,
 				8672D0038672D0038672D003 /* TerminalController+FeedAcknowledgment.swift in Sources */,
+				E91C87D8663F0DA879816B62 /* TerminalController+Files.swift in Sources */,
 				CF8062B5358EF8BACDC4B11E /* TerminalController+MemoryDiagnostics.swift in Sources */,
 				A7C0F0020000000000000002 /* TerminalController+MobileAttachTicket.swift in Sources */,
 				F2100000000000000000000E /* TerminalController+MobileBrowser.swift in Sources */,
@@ -18103,6 +18155,7 @@
 				B9000035A1B2C3D4E5F60719 /* CMUXCLI+DocsSettings.swift in Sources */,
 				B9000064A1B2C3D4E5F60719 /* CMUXCLI+Events.swift in Sources */,
 				B9000046A1B2C3D4E5F60719 /* CMUXCLI+ExecutableResolution.swift in Sources */,
+				B744F4A620EC808A7374C20A /* CMUXCLI+Files.swift in Sources */,
 				112950000000000000000008 /* CMUXCLI+Fork.swift in Sources */,
 				11295000000000000000000A /* CMUXCLI+ForkExecution.swift in Sources */,
 				A13385000000000000000002 /* CMUXCLI+Glaeda.swift in Sources */,
@@ -18406,6 +18459,7 @@
 				88A8F9C77DFA3ECF80805D22 /* AgentChatTranscriptServiceLifetimeTests.swift in Sources */,
 				93800001AA11BB22CC33EE01 /* AgentDeliveryTTYBindingTests.swift in Sources */,
 				A9E020000000000000000005 /* AgentExecutableResolverTests.swift in Sources */,
+				8C0034D0F8755E4B6E02D096 /* AgentFileActivityTests.swift in Sources */,
 				D686A8C1DBD4EABD91766211 /* AgentHibernationBackgroundWorkTests.swift in Sources */,
 				8740E0018740E0018740E001 /* AgentHibernationEvaluationSchedulingTests.swift in Sources */,
 				FFBC336B2DCB6EB7AAAE0212 /* AgentHibernationLaunchFidelityTests.swift in Sources */,
@@ -19024,6 +19078,7 @@
 				0BD2AA506F906B6A5382A280 /* DuplicateInstanceHandlerTests.swift in Sources */,
 				D3622100A1B2C3D4E5F60718 /* EditableTextViewArrowKeyForwardingTests.swift in Sources */,
 				DA3DCBDE094DF34AA5CF264F /* ExitingProcessCensusReader.swift in Sources */,
+				226E480FBE9778321789F4DE /* ExplorerColumnStateTests.swift in Sources */,
 				E50320010000000000000001 /* ExtensionWorktreeSpawnArgsTests.swift in Sources */,
 				C0A716900000000000000002 /* ExternalApplicationWindowTrackerTests.swift in Sources */,
 				C0A717100000000000000002 /* ExternalWindowSamplingServiceTests.swift in Sources */,
@@ -19039,6 +19094,7 @@
 				C82094EE9C3CFA5BE97C4833 /* FileDropOverlayViewLifecycleTests.swift in Sources */,
 				D0B10018A1B2C3D4E5F60001 /* FileDropOverlayViewTests.swift in Sources */,
 				F12748000000000000000001 /* FileEditorWordWrapShortcutTests.swift in Sources */,
+				5498A6D2315F5D99773656FB /* FileExplorerChangeRouterTests.swift in Sources */,
 				12914C0112914C0112914C01 /* FileExplorerContextMenuReloadTests.swift in Sources */,
 				FE002110 /* FileExplorerDoubleClickActionTests.swift in Sources */,
 				FE002112 /* FileExplorerGitStatusProviderTests.swift in Sources */,

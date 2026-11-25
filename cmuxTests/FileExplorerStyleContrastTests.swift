@@ -280,6 +280,7 @@ import Testing
         case .deleted: "deleted"
         case .renamed: "renamed"
         case .untracked: "untracked"
+        case .ignored: "ignored"
         }
     }
 }

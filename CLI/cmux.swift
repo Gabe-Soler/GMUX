@@ -7048,6 +7048,8 @@ struct CMUXCLI {
         switch command {
         case "automation":
             try runAutomationCommand(commandArgs: commandArgs, client: client, jsonOutput: jsonOutput)
+        case "files":
+            try runFilesCommand(commandArgs: commandArgs, client: client, jsonOutput: jsonOutput)
         case "__sidebar_footer_icon_balance":
             let response = try sendV1Command("__sidebar_footer_icon_balance", client: client)
             print(response)
@@ -21280,6 +21282,8 @@ struct CMUXCLI {
             """
         case "automation":
             return CMUXCLI.automationUsage()
+        case "files":
+            return CMUXCLI.filesUsage()
         case "vpn":
             return """
             Usage: cmux vpn <up|down|status|revoke>

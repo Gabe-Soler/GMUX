@@ -1165,6 +1165,23 @@ final class FileExplorerStore: ObservableObject {
     @Published private(set) var isRootLoading: Bool = false
     @Published private(set) var gitStatusByPath: [String: GitFileStatus] = [:]
     @Published private(set) var contentRevision = 0
+    /// Bumped by ``reveal(path:)`` so the view scrolls the selection into view.
+    @Published private(set) var revealGeneration = 0
+    /// Bumped when per-row decoration (git status, agent marks) changes, so the
+    /// view redraws visible rows that an in-place folder refresh leaves alone.
+    @Published private(set) var decorationRevision = 0
+    /// GMUX: files agents edited recently, per workspace (see AgentFileActivity).
+    private(set) var agentActivity = AgentFileActivity()
+
+    func recordAgentEdits(paths: [String], agent: String, workspaceId: UUID, at now: Date = Date()) {
+        agentActivity.record(paths: paths, agent: agent, workspaceId: workspaceId, at: now)
+        if workspaceId == workspaceRootIdentity { decorationRevision &+= 1 }
+    }
+
+    func agentTouch(for node: FileExplorerNode, now: Date = Date()) -> AgentFileActivity.Touch? {
+        guard let workspaceId = workspaceRootIdentity else { return nil }
+        return agentActivity.touch(for: node.path, isDirectory: node.isDirectory, workspaceId: workspaceId, now: now)
+    }
     @Published private(set) var rootStatusMessage: String?
     private(set) var workspaceRootIdentity: UUID?
 
@@ -1173,8 +1190,12 @@ final class FileExplorerStore: ObservableObject {
     /// Whether hidden files are shown. Set from FileExplorerState externally.
     var showHiddenFiles: Bool = false
 
-    /// Watches the root directory for filesystem changes (local only).
-    private var directoryWatcher: FileWatcher?
+    /// Watches the whole local tree (FSEvents) so changes in expanded
+    /// subfolders appear without a full reload.
+    private var directoryWatcher: RecursivePathWatcher?
+    /// True once the recursive watcher is registered; tests wait on it because
+    /// FSEvents does not replay changes made before registration.
+    var isDirectoryWatcherActive: Bool { directoryWatcher != nil }
     private var directoryWatchTask: Task<Void, Never>?
     private var directoryWatchPath: String?
 
@@ -1333,7 +1354,10 @@ final class FileExplorerStore: ObservableObject {
                 return source.fetchStatus(directory: path)
             }.value
             guard let self, self.gitStatusGeneration == generation, self.resourceContextID == context else { return }
-            self.gitStatusByPath = status
+            if self.gitStatusByPath != status {
+                self.gitStatusByPath = status
+                self.decorationRevision &+= 1
+            }
         }
     }
 
@@ -1540,22 +1564,76 @@ final class FileExplorerStore: ObservableObject {
 
     private func updateDirectoryWatcher() {
         if provider is LocalFileExplorerProvider, !rootPath.isEmpty {
-            guard directoryWatchPath != rootPath || directoryWatcher == nil else { return }
+            guard directoryWatchPath != rootPath || directoryWatchTask == nil else { return }
             stopDirectoryWatcher()
-            // Preserve the previous 0.3s coalescing as a leading-edge throttle.
-            let watcher = FileWatcher(path: rootPath, throttle: .milliseconds(300))
-            directoryWatcher = watcher
-            directoryWatchPath = rootPath
-            let events = watcher.events
+            let root = rootPath
+            directoryWatchPath = root
             directoryWatchTask = Task { @MainActor [weak self] in
-                for await _ in events {
-                    guard let self else { break }
-                    self.reload()
-                    self.refreshGitStatus()
+                // Symlink resolution and FSEvents registration stay off the main actor.
+                let canonicalRoot = await Task.detached(priority: .utility) {
+                    // realpath, not resolvingSymlinksInPath: Foundation strips a
+                    // "/private" prefix, but FSEvents reports /private/var/...
+                    guard let resolved = realpath(root, nil) else { return root }
+                    defer { free(resolved) }
+                    return String(cString: resolved)
+                }.value
+                // Preserve the previous 0.3s coalescing as a leading-edge throttle.
+                guard let watcher = await RecursivePathWatcher(
+                    paths: [root],
+                    throttleInterval: .milliseconds(300)
+                ) else { return }
+                guard !Task.isCancelled, self?.directoryWatchPath == root else {
+                    await watcher.stop()
+                    return
                 }
+                self?.directoryWatcher = watcher
+                let router = FileExplorerChangeRouter(rootPath: root, canonicalRootPath: canonicalRoot)
+                for await change in watcher.pathEvents {
+                    guard let self, !Task.isCancelled else { break }
+                    self.applyWatchedChange(change, router: router)
+                }
+                await watcher.stop()
             }
         } else {
             stopDirectoryWatcher()
+        }
+    }
+
+    /// Re-lists only the loaded folders a change touched, keeping node identity
+    /// so expansion and selection survive.
+    private func applyWatchedChange(_ change: RecursivePathChange, router: FileExplorerChangeRouter) {
+        guard router.rootPath == rootPath else { return }
+        var loaded: Set<String> = []
+        for node in nodesByPath.values where node.isDirectory && node.children != nil {
+            loaded.insert(node.path)
+        }
+        let status = gitStatusByPath
+        let root = rootPath
+        let plan = router.plan(
+            changedPaths: change.paths,
+            requiresFullRescan: change.requiresFullRescan,
+            loadedDirectories: loaded,
+            isIgnored: { FileExplorerGitStatusLookup.status(for: $0, in: status, rootPath: root) == .ignored }
+        )
+        for directory in plan.directories {
+            refreshLoadedDirectory(directory)
+        }
+        if plan.refreshGitStatus {
+            refreshGitStatus()
+        }
+    }
+
+    private func refreshLoadedDirectory(_ path: String) {
+        guard loadTasks[path] == nil else { return }
+        let node: FileExplorerNode?
+        if path == rootPath {
+            node = nil
+        } else {
+            guard let loadedNode = nodesByPath[path], loadedNode.children != nil else { return }
+            node = loadedNode
+        }
+        loadTasks[path] = Task { [weak self] in
+            await self?.loadChildren(for: node, at: path, silent: true)
         }
     }
 
@@ -1616,6 +1694,9 @@ final class FileExplorerStore: ObservableObject {
     private func stopDirectoryWatcher() {
         directoryWatchTask?.cancel()
         directoryWatchTask = nil
+        if let watcher = directoryWatcher {
+            Task { await watcher.stop() }
+        }
         directoryWatcher = nil
         directoryWatchPath = nil
     }
@@ -1712,6 +1793,37 @@ final class FileExplorerStore: ObservableObject {
         }
     }
 
+    /// Expands every folder from the root down to `path`, then selects it and
+    /// asks the view to scroll it into view. Used by `cmux files reveal`.
+    ///
+    /// - Returns: false when `path` is outside the root, excluded, or gone.
+    @discardableResult
+    func reveal(path rawPath: String) async -> Bool {
+        let root = rootPath
+        var path = rawPath
+        while path.count > 1, path.hasSuffix("/") { path.removeLast() }
+        guard !root.isEmpty, path != root,
+              path.hasPrefix(root == "/" ? "/" : root + "/") else { return false }
+        if let rootLoad = loadTasks[root] { await rootLoad.value }
+
+        var ancestors: [String] = []
+        var current = (path as NSString).deletingLastPathComponent
+        while current.count > root.count {
+            ancestors.insert(current, at: 0)
+            current = (current as NSString).deletingLastPathComponent
+        }
+        for directory in ancestors {
+            guard rootPath == root, let node = nodesByPath[directory], node.isDirectory else { return false }
+            expand(node: node)
+            if let load = loadTasks[directory] { await load.value }
+        }
+        guard rootPath == root, let target = nodesByPath[path] else { return false }
+        select(node: target)
+        revealGeneration &+= 1
+        objectWillChange.send()
+        return true
+    }
+
     func requestDescendIntoFirstChild(of node: FileExplorerNode) {
         guard node.resourceContextID == nil || node.resourceContextID == resourceContextID, node.isDirectory else { return }
         selectedPath = node.path
@@ -1770,7 +1882,14 @@ final class FileExplorerStore: ObservableObject {
         do {
             let entries = try await provider.listDirectory(path: path, showHidden: showHiddenFiles)
             try Task.checkCancellation()
-            let children = entries.map { entry in
+            let previousPaths = (parentNode?.children ?? (parentNode == nil ? rootNodes : [])).map(\.path)
+            let children = entries.filter { !FileExplorerExcludedNames.contains($0.name) }.map { entry in
+                // A refresh reuses the loaded node, keeping its expanded subtree.
+                if silent, let existing = nodesByPath[entry.path],
+                   existing.isDirectory == entry.isDirectory,
+                   existing.resourceContextID == resourceContextID {
+                    return existing
+                }
                 let node = FileExplorerNode(name: entry.name, path: entry.path, isDirectory: entry.isDirectory)
                 node.resourceContextID = resourceContextID
                 nodesByPath[entry.path] = node
@@ -1794,6 +1913,11 @@ final class FileExplorerStore: ObservableObject {
                 rootNodes = children
                 isRootLoading = false
                 setRootStatusMessage(nil)
+                // The view only notices root count changes; a same-count rename
+                // at the root needs a revision bump to redraw the top level.
+                if silent, children.count == previousPaths.count, children.map(\.path) != previousPaths {
+                    contentRevision &+= 1
+                }
                 if selectedPath == nil {
                     selectedPath = children.first?.path
                     selectedPaths = selectedPath.map { Set([$0]) } ?? []
@@ -1803,8 +1927,10 @@ final class FileExplorerStore: ObservableObject {
             loadTasks.removeValue(forKey: path)
             objectWillChange.send()
 
-            // Auto-expand children that were previously expanded
-            for child in children where child.isDirectory && expandedPaths.contains(child.path) {
+            // Auto-expand children that were previously expanded. A refresh keeps
+            // already-loaded subtrees as they are; the watcher refreshes them itself.
+            for child in children where child.isDirectory && expandedPaths.contains(child.path)
+                && !(silent && child.children != nil) {
                 child.isLoading = true
                 objectWillChange.send()
                 let childPath = child.path

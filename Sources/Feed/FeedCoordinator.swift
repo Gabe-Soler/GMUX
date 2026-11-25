@@ -25,6 +25,10 @@ private enum FeedEventAcceptance: Sendable {
 /// Hooks then receive the decision inline in the `feed.push` response.
 final class FeedCoordinator: @unchecked Sendable {
     static let shared = FeedCoordinator()
+
+    /// GMUX: sees every accepted hook event so the Explorer can mark files
+    /// agents edit. Must stay cheap; heavy work belongs off the main actor.
+    @MainActor var agentToolEventObserver: ((WorkstreamEvent) -> Void)?
     static let storeInstalledNotification = Notification.Name("cmux.feed.storeInstalled")
 
     // The store runs on the main actor. The coordinator is not isolated,
@@ -193,6 +197,7 @@ final class FeedCoordinator: @unchecked Sendable {
         _ event: WorkstreamEvent,
         transientAttentionTarget: (ownerId: UUID, surfaceId: UUID?)? = nil
     ) -> WorkstreamItem? {
+        agentToolEventObserver?(event)
         guard let store else { return nil }
         guard let item = store.ingestReturningItem(event) else { return nil }
         retireTransientAttention(for: event)

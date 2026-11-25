@@ -97,7 +97,7 @@ private extension FileExplorerPanelPlacement {
         var context = AppDelegate.shared?.shortcutEventFocusContext(event).shortcutContext ??
             ShortcutFocusState(browser: false, markdown: false, sidebar: false).context
         switch self {
-        case .rightSidebar, .pane:
+        case .rightSidebar, .pane, .explorerColumn:
             context.setBool(ShortcutFocusAtom.sidebarFocus.rawValue, true)
             context.setBool(ShortcutFocusAtom.browserFocus.rawValue, false)
             context.setBool(ShortcutFocusAtom.markdownFocus.rawValue, false)

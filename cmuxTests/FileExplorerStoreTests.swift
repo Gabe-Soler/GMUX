@@ -407,6 +407,48 @@ struct FileExplorerStoreTests {
     }
 
     @Test
+    func testRevealExpandsAncestorsHidesGitAndLiveUpdatesKeepNodes() async throws {
+        let rootURL = try Self.makeTemporaryDirectory("cmux-file-explorer-reveal")
+        defer { try? FileManager.default.removeItem(at: rootURL) }
+        let deepURL = rootURL.appendingPathComponent("src/app", isDirectory: true)
+        try FileManager.default.createDirectory(at: deepURL, withIntermediateDirectories: true)
+        try FileManager.default.createDirectory(
+            at: rootURL.appendingPathComponent(".git", isDirectory: true), withIntermediateDirectories: false
+        )
+        let targetURL = deepURL.appendingPathComponent("main.swift")
+        try Data("x".utf8).write(to: targetURL)
+
+        let store = FileExplorerStore()
+        store.showHiddenFiles = true
+        store.setProviderForTesting(LocalFileExplorerProvider(), reloadIfAvailable: false)
+        store.setRootPath(rootURL.path)
+        try await waitFor("root loaded") { !store.rootNodes.isEmpty }
+
+        // .git is never listed, even with hidden files shown.
+        #expect(store.rootNodes.map(\.name) == ["src"])
+
+        #expect(await store.reveal(path: targetURL.path))
+        #expect(store.selectedPath == targetURL.path)
+        #expect(store.expandedPaths.contains(rootURL.appendingPathComponent("src").path))
+        #expect(store.expandedPaths.contains(deepURL.path))
+        #expect(await store.reveal(path: "/elsewhere/file.txt") == false)
+
+        // A file created deep in the tree appears through the recursive watcher,
+        // and the expanded folders keep their node objects (no full rebuild).
+        let srcNode = try #require(store.rootNodes.first)
+        let appNode = try #require(srcNode.children?.first { $0.name == "app" })
+        let revision = store.contentRevision
+        try await waitFor("watcher registered") { store.isDirectoryWatcherActive }
+        try Data("y".utf8).write(to: deepURL.appendingPathComponent("added.swift"))
+        try await waitFor("nested file appears", timeout: 10) {
+            appNode.children?.contains { $0.name == "added.swift" } == true
+        }
+        #expect(store.rootNodes.first === srcNode)
+        #expect(srcNode.children?.first { $0.name == "app" } === appNode)
+        #expect(store.contentRevision == revision)
+    }
+
+    @Test
     func testLocalStoreMutationsSupportCaseOnlyRename() async throws {
         let rootURL = FileManager.default.temporaryDirectory
             .appendingPathComponent("cmux-file-explorer-case-rename-\(UUID().uuidString)", isDirectory: true)

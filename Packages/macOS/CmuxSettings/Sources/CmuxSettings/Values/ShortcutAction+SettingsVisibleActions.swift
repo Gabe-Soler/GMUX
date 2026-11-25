@@ -40,6 +40,7 @@ private extension ShortcutAction {
         let colocatedSidebarActions = [
             .focusRightSidebar,
             .toggleRightSidebar,
+            .toggleExplorerColumn,
             .findInDirectory,
             .fileExplorerOpenSelection,
             .fileExplorerOpenSelectionFinderAlias,

@@ -35,6 +35,58 @@ struct FileExplorerGitStatusProviderTests {
     }
 
     @Test
+    func statusQueryReportsIgnoredFilesAndFoldersWithoutColoringParents() throws {
+        let repoURL = try Self.makeTemporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: repoURL) }
+        try Self.initializeRepo(at: repoURL)
+
+        try "node_modules/\n*.log\n".write(
+            to: repoURL.appendingPathComponent(".gitignore"), atomically: true, encoding: .utf8
+        )
+        try Self.runGit(["add", ".gitignore"], in: repoURL)
+        try Self.runGit(["commit", "-m", "ignore"], in: repoURL)
+
+        let packageURL = repoURL.appendingPathComponent("node_modules/pkg", isDirectory: true)
+        try FileManager.default.createDirectory(at: packageURL, withIntermediateDirectories: true)
+        try "x\n".write(to: packageURL.appendingPathComponent("index.js"), atomically: true, encoding: .utf8)
+        let logsURL = repoURL.appendingPathComponent("logs", isDirectory: true)
+        try FileManager.default.createDirectory(at: logsURL, withIntermediateDirectories: true)
+        let logURL = logsURL.appendingPathComponent("debug.log")
+        try "x\n".write(to: logURL, atomically: true, encoding: .utf8)
+
+        let status = GitStatusProvider().fetchStatus(directory: repoURL.path)
+        let nodeModulesPath = repoURL.appendingPathComponent("node_modules").path
+
+        #expect(status[nodeModulesPath] == .some(.ignored))
+        #expect(status[logURL.path] == .some(.ignored))
+        // An ignored file does not mark its folder as changed.
+        #expect(status[logsURL.path] == nil)
+        // Rows inside an ignored folder inherit the dimmed state.
+        #expect(
+            FileExplorerGitStatusLookup.status(
+                for: packageURL.appendingPathComponent("index.js").path,
+                in: status,
+                rootPath: repoURL.path
+            ) == .some(.ignored)
+        )
+        #expect(
+            FileExplorerGitStatusLookup.status(
+                for: repoURL.appendingPathComponent(".gitignore").path,
+                in: status,
+                rootPath: repoURL.path
+            ) == nil
+        )
+    }
+
+    @Test
+    func fileTreeExcludesVersionControlNoise() {
+        #expect(FileExplorerExcludedNames.contains(".git"))
+        #expect(FileExplorerExcludedNames.contains(".DS_Store"))
+        #expect(!FileExplorerExcludedNames.contains(".github"))
+        #expect(!FileExplorerExcludedNames.contains(".gitignore"))
+    }
+
+    @Test
     func statusQueryPreservesQuotedAndEscapedFilenames() throws {
         let repoURL = try Self.makeTemporaryDirectory()
         defer { try? FileManager.default.removeItem(at: repoURL) }

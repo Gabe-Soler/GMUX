@@ -11187,10 +11187,12 @@ final class Workspace: Identifiable, ObservableObject, FilePreviewTabMetadataHos
         targetPane paneId: PaneID,
         orientation: SplitOrientation,
         insertFirst: Bool,
-        filePath: String
+        filePath: String,
+        focus: Bool = true
     ) -> FilePreviewPanel? {
         guard !isRetiredFromOwningTabManager,
               admitsSplitSpacePreflight(splitting: paneId, orientation: orientation) else { return nil }
+        let previousFocusedPanelId = focusedPanelId
         let filePreviewPanel = FilePreviewPanel(
             workspaceId: id,
             filePath: filePath,
@@ -11218,10 +11220,20 @@ final class Workspace: Identifiable, ObservableObject, FilePreviewTabMetadataHos
             removeSurfaceMapping(forSurfaceId: newTab.id)
             return nil
         }
-        publishCmuxSplitCreated(newPaneId, sourcePaneId: paneId, orientation: orientation, surfaceId: filePreviewPanel.id, kind: "file_preview", origin: "file_preview_split", focused: true)
+        publishCmuxSplitCreated(newPaneId, sourcePaneId: paneId, orientation: orientation, surfaceId: filePreviewPanel.id, kind: "file_preview", origin: "file_preview_split", focused: focus)
 
-        bonsplitController.selectTab(newTab.id)
-        filePreviewPanel.focus()
+        if focus {
+            bonsplitController.selectTab(newTab.id)
+            filePreviewPanel.focus()
+        } else {
+            // GMUX follow-agent mode: show the file without taking keyboard
+            // focus from the terminal the agent is running in.
+            preserveFocusAfterNonFocusSplit(
+                preferredPanelId: previousFocusedPanelId,
+                splitPanelId: filePreviewPanel.id,
+                previousHostedView: focusedTerminalInputTarget()?.panel.hostedView
+            )
+        }
         filePreviewPanel.bindTabMetadata(to: self)
         return filePreviewPanel
     }

@@ -919,6 +919,7 @@ struct ContentView: View {
     @EnvironmentObject var sidebarSelectionState: SidebarSelectionState
     @EnvironmentObject var cmuxConfigStore: CmuxConfigStore
     @EnvironmentObject var fileExplorerState: FileExplorerState
+    @Environment(ExplorerColumnState.self) private var explorerColumnState: ExplorerColumnState?
     @Environment(\.colorScheme) private var colorScheme
 #if DEBUG
     @Environment(\.minimalModeInvalidationProbe) private var minimalModeInvalidationProbe
@@ -1876,7 +1877,38 @@ struct ContentView: View {
         ))
     }
 
+    @ViewBuilder
     private func terminalContentWithSidebarDropOverlay(appearance: WindowAppearanceSnapshot) -> some View {
+        if let explorerColumnState {
+            // GMUX: [Explorer column | terminal]. All three layout branches route
+            // through here, so the left sidebar's own layout stays untouched.
+            ExplorerColumnLayout(
+                state: explorerColumnState,
+                minimumTerminalWidth: SidePanelWidthFit.minimumTerminalWidth,
+                column: { width in
+                    ExplorerColumnPanel(
+                        width: width,
+                        state: explorerColumnState,
+                        store: fileExplorerStore,
+                        fileExplorerState: fileExplorerState,
+                        appearance: appearance,
+                        isFullScreen: isFullScreen,
+                        runtimeCache: workspacePresentationModeRuntimeCache,
+                        onOpenFilePreview: { openFileFromExplorerColumn($0, state: explorerColumnState, pin: true) },
+                        onPreviewFile: { openFileFromExplorerColumn($0, state: explorerColumnState, pin: false) }
+                    )
+                },
+                terminal: { terminalContentOnly(appearance: appearance) }
+            )
+            .onAppear { explorerColumnState.attachedStore = fileExplorerStore }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .layoutPriority(1)
+        } else {
+            terminalContentOnly(appearance: appearance)
+        }
+    }
+
+    private func terminalContentOnly(appearance: WindowAppearanceSnapshot) -> some View {
         terminalContent(appearance: appearance)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .layoutPriority(1)
@@ -2431,6 +2463,25 @@ struct ContentView: View {
             pane: paneId, isCurrent: { tabManager.selectedTabId == workspace.id })
     }
 
+    /// Explorer column opens use VS Code preview tabs for local files; remote
+    /// trees keep the sidebar's download-then-preview path.
+    private func openFileFromExplorerColumn(_ filePath: String, state: ExplorerColumnState, pin: Bool) {
+        guard let workspace = tabManager.selectedWorkspace,
+              fileExplorerStore.workspaceRootIdentity == workspace.id,
+              fileExplorerStore.provider is LocalFileExplorerProvider,
+              !workspace.usesRemoteDirectoryProvenance else {
+            openFilePreviewFromSidebar(filePath: filePath)
+            return
+        }
+        guard let paneId = workspace.bonsplitController.focusedPaneId ?? workspace.bonsplitController.allPaneIds.first else {
+            return
+        }
+        sidebarSelectionState.selection = .tabs
+        ExplorerFileOpenCoordinator(state: state).open(
+            path: filePath, workspace: workspace, pane: paneId, pin: pin, focus: true
+        )
+    }
+
     private func syncFileExplorerDirectory() {
         guard let selectedId = tabManager.selectedTabId,
               let tab = tabManager.tabs.first(where: { $0.id == selectedId }) else {
@@ -2457,7 +2508,8 @@ struct ContentView: View {
     private var shouldSyncFileExplorerStore: Bool {
         FileExplorerRootSyncPolicy.shouldSyncFileExplorerStore(
             isRightSidebarVisible: fileExplorerState.isVisible,
-            mode: fileExplorerState.mode
+            mode: fileExplorerState.mode,
+            isExplorerColumnVisible: explorerColumnState?.isVisible ?? false
         )
     }
 
@@ -3488,6 +3540,10 @@ struct ContentView: View {
         })
 
         view = AnyView(view.onChange(of: fileExplorerState.mode) { _, _ in
+            syncFileExplorerDirectory()
+        })
+
+        view = AnyView(view.onChange(of: explorerColumnState?.isVisible ?? false) { _, _ in
             syncFileExplorerDirectory()
         })
 

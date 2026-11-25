@@ -2707,6 +2707,7 @@ enum CmuxEmbeddedConfigSchema {
               "canvasDistributeHorizontally",
               "canvasDistributeVertically",
               "toggleFileExplorer",
+              "toggleExplorerColumn",
               "fileExplorerOpenSelection",
               "fileExplorerOpenSelectionFinderAlias",
               "saveFilePreview",

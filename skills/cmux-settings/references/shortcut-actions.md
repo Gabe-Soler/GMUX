@@ -194,6 +194,7 @@ Values for `shortcuts.bindings.<action>`:
 - `shortcuts.bindings.saveFilePreview`
 - `shortcuts.bindings.toggleFileEditorWordWrap`
 - `shortcuts.bindings.toggleFileExplorer`
+- `shortcuts.bindings.toggleExplorerColumn`
 - `shortcuts.bindings.toggleReactGrab`
 
 ## Markdown and diff viewer

@@ -637,6 +637,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
         let sidebarState: SidebarState
         let sidebarSelectionState: SidebarSelectionState
         var fileExplorerState: FileExplorerState?
+        /// GMUX Explorer column state; set right after registration.
+        var explorerColumnState: ExplorerColumnState?
         let keyboardFocusCoordinator: MainWindowFocusController
         var cmuxConfigStore: CmuxConfigStore?
         var closeObserver: WindowCloseObserver?
@@ -10786,6 +10788,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
         cmuxConfigStore.loadAll()
 
         let fileExplorerState = FileExplorerState()
+        let explorerColumnState = ExplorerColumnState()
+        installExplorerAgentActivityObserverIfNeeded()
 #if DEBUG
         if ProcessInfo.processInfo.environment["CMUX_UI_TEST_BONSPLIT_SHOW_RIGHT_SIDEBAR"] == "1" {
             fileExplorerState.mode = .files
@@ -10804,6 +10808,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
             .environmentObject(sidebarState)
             .environmentObject(sidebarSelectionState)
             .environmentObject(fileExplorerState)
+            .environment(explorerColumnState)
             .environmentObject(cmuxConfigStore)
             .environment(\.sessionDragRegistry, sessionDragRegistry)
             .environment(\.tabDragTransferRegistry, tabDragTransferRegistry)
@@ -10961,6 +10966,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
             fileExplorerState: fileExplorerState,
             cmuxConfigStore: cmuxConfigStore
         )
+        contextForMainWindow(window)?.explorerColumnState = explorerColumnState
         refreshCmuxConfigDiagnostics()
         restoreWindowDockSessionSnapshot(
             forWindowId: windowId,
@@ -15873,6 +15879,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCent
             let preferredWindow = mainWindowForShortcutEvent(event) ?? event.window ?? shortcutRoutingActiveWindow
             DispatchQueue.main.async { [weak self, weak preferredWindow] in
                 _ = self?.toggleRightSidebarInActiveMainWindow(preferredWindow: preferredWindow)
+            }
+            return true
+        }
+
+        if matchConfiguredShortcut(event: event, action: .toggleExplorerColumn) {
+            // Deferred for the same animation-context reason as the right sidebar.
+            let preferredWindow = mainWindowForShortcutEvent(event) ?? event.window ?? shortcutRoutingActiveWindow
+            DispatchQueue.main.async { [weak self, weak preferredWindow] in
+                _ = self?.toggleExplorerColumnInActiveMainWindow(preferredWindow: preferredWindow)
             }
             return true
         }

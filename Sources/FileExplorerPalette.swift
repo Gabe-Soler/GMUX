@@ -17,6 +17,7 @@ struct FileExplorerPalette {
         case .deleted: deletedText
         case .renamed: renamedText
         case .untracked: untrackedText
+        case .ignored: .tertiaryLabelColor
         }
     }
 

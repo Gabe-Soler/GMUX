@@ -25,7 +25,13 @@ enum RightSidebarContentMountPolicy {
 }
 
 enum FileExplorerRootSyncPolicy {
-    static func shouldSyncFileExplorerStore(isRightSidebarVisible: Bool, mode: RightSidebarMode) -> Bool {
+    static func shouldSyncFileExplorerStore(
+        isRightSidebarVisible: Bool,
+        mode: RightSidebarMode,
+        isExplorerColumnVisible: Bool = false
+    ) -> Bool {
+        // The GMUX Explorer column shares this store, so it keeps the root live too.
+        if isExplorerColumnVisible { return true }
         guard isRightSidebarVisible else { return false }
         switch mode {
         case .files, .find:

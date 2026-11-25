@@ -141,6 +141,7 @@ extension KeyboardShortcutSettings.Action {
              .canvasDistributeHorizontally,
              .canvasDistributeVertically,
              .toggleRightSidebar,
+             .toggleExplorerColumn,
              .focusPaneByNumber,
              .findInDirectory,
              .openDiffViewer:

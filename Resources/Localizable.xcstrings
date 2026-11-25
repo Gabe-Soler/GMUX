@@ -679683,6 +679683,360 @@
           }
         }
       }
+    },
+    "shortcut.toggleExplorerColumn.label": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toggle Explorer"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تبديل المستكشف"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Explorer ein-/ausblenden"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar/ocultar explorador"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher/masquer l’explorateur"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "エクスプローラーを切り替え"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "탐색기 전환"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "切换资源管理器"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "切換檔案總管"
+          }
+        }
+      }
+    },
+    "menu.view.toggleExplorerColumn": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toggle Explorer"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تبديل المستكشف"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Explorer ein-/ausblenden"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar/ocultar explorador"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher/masquer l’explorateur"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "エクスプローラーを切り替え"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "탐색기 전환"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "切换资源管理器"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "切換檔案總管"
+          }
+        }
+      }
+    },
+    "cli.files.help": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usage: cmux files <state|tree|reveal|open|follow|show|hide|toggle> [args]\n\nDrive the Explorer column: the file tree beside the workspace tabs.\nPaths may be absolute or relative to the current directory. Commands\nonly act on the workspace the person is viewing and never move focus.\n\n  cmux files tree [--depth N] [--max N]   Print the tree as shown (expanded folders only)\n  cmux files reveal <path>                 Expand to, select and scroll to a file\n  cmux files open <path> [--pin] [--select] Open in the preview tab (or pinned) and reveal\n  cmux files state                         Root, selection, expanded folders, preview tab\n  cmux files show | hide | toggle          Show or hide the Explorer column\n  cmux files follow [on|off]               Open each file an agent edits beside its terminal\n\nTree markers: M modified, A added, D deleted, R renamed, ? untracked, ! ignored."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usage: cmux files <state|tree|reveal|open|follow|show|hide|toggle> [args]\n\nيتحكم في عمود المستكشف: شجرة الملفات بجانب علامات تبويب مساحات العمل.\nيمكن أن تكون المسارات مطلقة أو نسبية إلى المجلد الحالي. تعمل الأوامر\nعلى مساحة العمل المعروضة فقط ولا تنقل التركيز أبدًا.\n\n  cmux files tree [--depth N] [--max N]   طباعة الشجرة كما تظهر (المجلدات الموسّعة فقط)\n  cmux files reveal <path>                 توسيع الشجرة حتى ملف وتحديده والتمرير إليه\n  cmux files open <path> [--pin] [--select] الفتح في علامة تبويب المعاينة (أو مثبّتًا) وإظهاره\n  cmux files state                         الجذر والتحديد والمجلدات الموسّعة وعلامة المعاينة\n  cmux files show | hide | toggle          إظهار عمود المستكشف أو إخفاؤه\n  cmux files follow [on|off]               فتح كل ملف يعدّله وكيل بجانب الطرفية الخاصة به\n\nعلامات الشجرة: M معدّل، A مضاف، D محذوف، R معاد تسميته، ? غير متتبَّع، ! متجاهَل."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usage: cmux files <state|tree|reveal|open|follow|show|hide|toggle> [args]\n\nSteuert die Explorer-Spalte: den Dateibaum neben den Workspace-Tabs.\nPfade können absolut oder relativ zum aktuellen Verzeichnis sein. Befehle\nwirken nur auf den angezeigten Workspace und verschieben nie den Fokus.\n\n  cmux files tree [--depth N] [--max N]   Baum wie angezeigt ausgeben (nur aufgeklappte Ordner)\n  cmux files reveal <path>                 Zu einer Datei aufklappen, sie auswählen und hinscrollen\n  cmux files open <path> [--pin] [--select] Im Vorschau-Tab (oder angeheftet) öffnen und anzeigen\n  cmux files state                         Wurzel, Auswahl, aufgeklappte Ordner, Vorschau-Tab\n  cmux files show | hide | toggle          Explorer-Spalte ein- oder ausblenden\n  cmux files follow [on|off]               Jede von einem Agenten bearbeitete Datei neben seinem Terminal öffnen\n\nBaummarkierungen: M geändert, A hinzugefügt, D gelöscht, R umbenannt, ? nicht verfolgt, ! ignoriert."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usage: cmux files <state|tree|reveal|open|follow|show|hide|toggle> [args]\n\nControla la columna Explorador: el árbol de archivos junto a las pestañas de espacios de trabajo.\nLas rutas pueden ser absolutas o relativas a la carpeta actual. Los comandos\nsolo actúan sobre el espacio que se está viendo y nunca mueven el foco.\n\n  cmux files tree [--depth N] [--max N]   Imprime el árbol tal como se ve (solo carpetas expandidas)\n  cmux files reveal <path>                 Expande hasta un archivo, lo selecciona y se desplaza a él\n  cmux files open <path> [--pin] [--select] Abre en la pestaña de vista previa (o fijada) y lo muestra\n  cmux files state                         Raíz, selección, carpetas expandidas, pestaña de vista previa\n  cmux files show | hide | toggle          Muestra u oculta la columna Explorador\n  cmux files follow [on|off]               Abre cada archivo que edita un agente junto a su terminal\n\nMarcas: M modificado, A añadido, D eliminado, R renombrado, ? sin seguimiento, ! ignorado."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usage: cmux files <state|tree|reveal|open|follow|show|hide|toggle> [args]\n\nPilote la colonne Explorateur : l’arborescence à côté des onglets d’espace de travail.\nLes chemins peuvent être absolus ou relatifs au dossier courant. Les commandes\nn’agissent que sur l’espace affiché et ne déplacent jamais le focus.\n\n  cmux files tree [--depth N] [--max N]   Affiche l’arborescence telle qu’elle apparaît (dossiers dépliés seulement)\n  cmux files reveal <path>                 Déplie jusqu’à un fichier, le sélectionne et le fait défiler\n  cmux files open <path> [--pin] [--select] Ouvre dans l’onglet d’aperçu (ou épinglé) et l’affiche\n  cmux files state                         Racine, sélection, dossiers dépliés, onglet d’aperçu\n  cmux files show | hide | toggle          Affiche ou masque la colonne Explorateur\n  cmux files follow [on|off]               Ouvre chaque fichier modifié par un agent à côté de son terminal\n\nMarqueurs : M modifié, A ajouté, D supprimé, R renommé, ? non suivi, ! ignoré."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usage: cmux files <state|tree|reveal|open|follow|show|hide|toggle> [args]\n\nエクスプローラー列を操作します: ワークスペースタブの横にあるファイルツリーです。\nパスは絶対パス、または現在のディレクトリからの相対パスで指定できます。コマンドは\n表示中のワークスペースにのみ作用し、フォーカスを移動しません。\n\n  cmux files tree [--depth N] [--max N]   表示どおりにツリーを出力（展開済みフォルダーのみ）\n  cmux files reveal <path>                 ファイルまで展開して選択し、スクロール\n  cmux files open <path> [--pin] [--select] プレビュータブ（または固定）で開いて表示\n  cmux files state                         ルート、選択項目、展開済みフォルダー、プレビュータブ\n  cmux files show | hide | toggle          エクスプローラー列の表示・非表示\n  cmux files follow [on|off]               エージェントが編集する各ファイルをそのターミナルの横に開く\n\nマーカー: M 変更、A 追加、D 削除、R 名前変更、? 未追跡、! 無視。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usage: cmux files <state|tree|reveal|open|follow|show|hide|toggle> [args]\n\n탐색기 열을 제어합니다: 워크스페이스 탭 옆의 파일 트리입니다.\n경로는 절대 경로이거나 현재 디렉터리 기준 상대 경로일 수 있습니다. 명령은\n사용자가 보고 있는 워크스페이스에만 적용되며 포커스를 옮기지 않습니다.\n\n  cmux files tree [--depth N] [--max N]   보이는 그대로 트리 출력 (펼친 폴더만)\n  cmux files reveal <path>                 파일까지 펼치고 선택한 뒤 스크롤\n  cmux files open <path> [--pin] [--select] 미리보기 탭(또는 고정)으로 열고 표시\n  cmux files state                         루트, 선택 항목, 펼친 폴더, 미리보기 탭\n  cmux files show | hide | toggle          탐색기 열 표시 또는 숨기기\n  cmux files follow [on|off]               에이전트가 편집하는 각 파일을 터미널 옆에 열기\n\n트리 표시: M 수정됨, A 추가됨, D 삭제됨, R 이름 변경됨, ? 추적 안 됨, ! 무시됨."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usage: cmux files <state|tree|reveal|open|follow|show|hide|toggle> [args]\n\n控制资源管理器栏：工作区标签旁的文件树。\n路径可以是绝对路径，或相对于当前目录。命令只作用于\n用户正在查看的工作区，且绝不移动焦点。\n\n  cmux files tree [--depth N] [--max N]   按显示内容输出文件树（仅已展开的文件夹）\n  cmux files reveal <path>                 展开到文件、选中并滚动到该处\n  cmux files open <path> [--pin] [--select] 在预览标签（或固定）中打开并显示\n  cmux files state                         根目录、选中项、已展开文件夹、预览标签\n  cmux files show | hide | toggle          显示或隐藏资源管理器栏\n  cmux files follow [on|off]               在代理的终端旁打开其编辑的每个文件\n\n标记：M 已修改、A 已添加、D 已删除、R 已重命名、? 未跟踪、! 已忽略。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usage: cmux files <state|tree|reveal|open|follow|show|hide|toggle> [args]\n\n控制檔案總管欄：工作區分頁旁的檔案樹。\n路徑可以是絕對路徑，或相對於目前目錄。指令只作用於\n使用者正在檢視的工作區，且絕不移動焦點。\n\n  cmux files tree [--depth N] [--max N]   依顯示內容輸出檔案樹（僅已展開的資料夾）\n  cmux files reveal <path>                 展開至檔案、選取並捲動到該處\n  cmux files open <path> [--pin] [--select] 在預覽分頁（或釘選）中開啟並顯示\n  cmux files state                         根目錄、選取項目、已展開資料夾、預覽分頁\n  cmux files show | hide | toggle          顯示或隱藏檔案總管欄\n  cmux files follow [on|off]               在代理程式的終端機旁開啟其編輯的每個檔案\n\n標記：M 已修改、A 已新增、D 已刪除、R 已重新命名、? 未追蹤、! 已忽略。"
+          }
+        }
+      }
+    },
+    "fileExplorer.agentTouch.fileTooltip": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edited by %1$@ %2$@"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عدّله %1$@ %2$@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bearbeitet von %1$@ %2$@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Editado por %1$@ %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifié par %1$@ %2$@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ が %2$@ に編集"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@이(가) %2$@ 편집함"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "由 %1$@ 编辑（%2$@）"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "由 %1$@ 編輯（%2$@）"
+          }
+        }
+      }
+    },
+    "fileExplorer.agentTouch.folderTooltip": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contains files an agent edited"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يحتوي على ملفات عدّلها وكيل"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enthält von einem Agenten bearbeitete Dateien"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contiene archivos editados por un agente"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contient des fichiers modifiés par un agent"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "エージェントが編集したファイルを含む"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "에이전트가 편집한 파일 포함"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "包含代理编辑过的文件"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "包含代理程式編輯過的檔案"
+          }
+        }
+      }
+    },
+    "explorerColumn.followAgent.tooltip": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Follow agent: open each file an agent edits beside its terminal"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "متابعة الوكيل: فتح كل ملف يعدّله الوكيل بجانب الطرفية الخاصة به"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Agent folgen: jede von einem Agenten bearbeitete Datei neben seinem Terminal öffnen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seguir al agente: abrir cada archivo que edita junto a su terminal"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suivre l’agent : ouvrir chaque fichier qu’il modifie à côté de son terminal"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "エージェントを追跡: エージェントが編集する各ファイルをそのターミナルの横に開く"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "에이전트 따라가기: 에이전트가 편집하는 각 파일을 터미널 옆에 열기"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "跟随代理：在其终端旁打开代理编辑的每个文件"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "跟隨代理程式：在其終端機旁開啟代理程式編輯的每個檔案"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

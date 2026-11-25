@@ -31,6 +31,8 @@ enum FileExplorerPanelPresentation: Equatable {
 enum FileExplorerPanelPlacement: Equatable {
     case rightSidebar
     case pane
+    /// GMUX: the Explorer column between the workspace tabs and the terminal.
+    case explorerColumn
 }
 
 /// The entire file explorer panel as one AppKit view hierarchy.
@@ -43,10 +45,12 @@ struct FileExplorerPanelView: NSViewRepresentable {
     var placement: FileExplorerPanelPlacement = .rightSidebar
     var onFocus: (() -> Void)?
     var onContainerChange: ((FileExplorerContainerView?) -> Void)?
+    /// Explorer column only: a single click previews a file (VS Code preview tab).
+    var onPreviewFile: ((String) -> Void)?
     @Environment(\.colorScheme) private var colorScheme
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(
+        let coordinator = Coordinator(
             store: store,
             state: state,
             onOpenFilePreview: onOpenFilePreview,
@@ -54,6 +58,8 @@ struct FileExplorerPanelView: NSViewRepresentable {
             onFocus: onFocus,
             onContainerChange: onContainerChange
         )
+        coordinator.onPreviewFile = onPreviewFile
+        return coordinator
     }
 
     func makeNSView(context: Context) -> FileExplorerContainerView {
@@ -72,6 +78,7 @@ struct FileExplorerPanelView: NSViewRepresentable {
         context.coordinator.placement = placement
         context.coordinator.onFocus = onFocus
         context.coordinator.onContainerChange = onContainerChange
+        context.coordinator.onPreviewFile = onPreviewFile
         context.coordinator.onContainerChange?(container)
         container.updateShortcutPlacement(placement)
         container.updateHeader(store: store)
@@ -99,10 +106,13 @@ struct FileExplorerPanelView: NSViewRepresentable {
         var placement: FileExplorerPanelPlacement
         var onFocus: (() -> Void)?
         var onContainerChange: ((FileExplorerContainerView?) -> Void)?
+        var onPreviewFile: ((String) -> Void)?
         weak var containerView: FileExplorerContainerView?
         weak var outlineView: NSOutlineView?
         private var lastRootNodeCount: Int = -1
         private var lastContentRevision: Int = -1
+        private var lastRevealGeneration: Int = 0
+        private var lastDecorationRevision: Int = 0
         private var observationCancellable: AnyCancellable?
         private var styleObserver: Any?
         private var isUpdatingOutlineProgrammatically = false
@@ -173,7 +183,7 @@ struct FileExplorerPanelView: NSViewRepresentable {
             case .rightSidebar:
                 guard let window else { return }
                 AppDelegate.shared?.noteRightSidebarKeyboardFocusIntent(mode: mode, in: window)
-            case .pane:
+            case .pane, .explorerColumn:
                 onFocus?()
             }
         }
@@ -227,7 +237,21 @@ struct FileExplorerPanelView: NSViewRepresentable {
                 } else {
                     refreshLoadedNodes(in: outlineView)
                 }
-                applyStoredSelection(in: outlineView, fallbackToFirstVisible: false, scroll: false)
+                if store.decorationRevision != lastDecorationRevision {
+                    lastDecorationRevision = store.decorationRevision
+                    // Only visible rows; off-screen rows configure when they scroll in.
+                    let visible = outlineView.rows(in: outlineView.visibleRect)
+                    if visible.length > 0 {
+                        outlineView.reloadData(
+                            forRowIndexes: IndexSet(integersIn: visible.location..<(visible.location + visible.length)),
+                            columnIndexes: IndexSet(integer: 0)
+                        )
+                    }
+                }
+                // `cmux files reveal` scrolls its target into view; other updates never move the scroll.
+                let revealed = store.revealGeneration != lastRevealGeneration
+                lastRevealGeneration = store.revealGeneration
+                applyStoredSelection(in: outlineView, fallbackToFirstVisible: false, scroll: revealed)
             }
         }
 
@@ -315,8 +339,13 @@ struct FileExplorerPanelView: NSViewRepresentable {
                 cellView = FileExplorerCellView(identifier: identifier)
             }
 
-            let gitStatus = store.gitStatusByPath[node.path]
+            let gitStatus = FileExplorerGitStatusLookup.status(
+                for: node.path,
+                in: store.gitStatusByPath,
+                rootPath: store.rootPath
+            )
             cellView.configure(with: node, gitStatus: gitStatus)
+            cellView.setAgentTouch(store.agentTouch(for: node), isDirectory: node.isDirectory, now: Date())
             cellView.onHover = { [weak self] isHovering in
                 guard let self else { return }
                 if isHovering {
@@ -832,7 +861,36 @@ struct FileExplorerPanelView: NSViewRepresentable {
         @MainActor
         @objc func handleDoubleClick(_ sender: NSOutlineView) {
             let row = sender.clickedRow >= 0 ? sender.clickedRow : sender.selectedRow
+            // In the Explorer column the first click already toggled the folder;
+            // toggling again on the double click would undo it.
+            if placement == .explorerColumn,
+               let node = sender.item(atRow: row) as? FileExplorerNode, node.isDirectory {
+                return
+            }
             openNode(in: sender, at: row)
+        }
+
+        /// Explorer column single click: toggle a folder or preview a file, as in VS Code.
+        @MainActor
+        @objc func handleSingleClick(_ sender: NSOutlineView) {
+            guard placement == .explorerColumn,
+                  sender.clickedRow >= 0,
+                  let event = NSApp.currentEvent,
+                  event.clickCount == 1,
+                  event.modifierFlags.intersection([.command, .shift, .option, .control]).isEmpty,
+                  let node = sender.item(atRow: sender.clickedRow) as? FileExplorerNode else { return }
+            if node.isDirectory {
+                // The disclosure arrow has already toggled the folder itself.
+                let point = sender.convert(event.locationInWindow, from: nil)
+                if sender.frameOfOutlineCell(atRow: sender.clickedRow).contains(point) { return }
+                if sender.isItemExpanded(node) {
+                    sender.collapseItem(node)
+                } else {
+                    sender.expandItem(node)
+                }
+            } else {
+                onPreviewFile?(node.path)
+            }
         }
 
         // MARK: - Context Menu (NSMenuDelegate)
@@ -1284,6 +1342,7 @@ final class FileExplorerContainerView: NSView {
             coordinator?.prepareForNativeDragBoundary(on: outlineView)
         }
         outlineView.doubleAction = #selector(FileExplorerPanelView.Coordinator.handleDoubleClick(_:))
+        outlineView.action = #selector(FileExplorerPanelView.Coordinator.handleSingleClick(_:))
         outlineView.setDraggingSourceOperationMask(.move, forLocal: true)
         coordinator.outlineView = outlineView
         outlineView.onContextMenuDidClose = { [weak coordinator] in

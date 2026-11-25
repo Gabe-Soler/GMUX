@@ -6,6 +6,8 @@ final class FileExplorerCellView: NSTableCellView {
     private let iconView = CmuxResolvedIconImageView()
     private let nameLabel = NSTextField(labelWithString: "")
     private let loadingIndicator = NSProgressIndicator()
+    /// GMUX: marks files (and folders containing files) an agent edited recently.
+    private let agentDot = NSView()
     private var trackingArea: NSTrackingArea?
     var onHover: ((Bool) -> Void)?
     private var nameLabelTrailingToLoadingConstraint: NSLayoutConstraint!
@@ -40,9 +42,24 @@ final class FileExplorerCellView: NSTableCellView {
         loadingIndicator.isHidden = true
         loadingIndicator.setAccessibilityIdentifier("FileExplorerLoadingIndicator")
 
+        agentDot.translatesAutoresizingMaskIntoConstraints = false
+        agentDot.wantsLayer = true
+        agentDot.layer?.cornerRadius = 3.5
+        agentDot.layer?.borderWidth = 1
+        agentDot.isHidden = true
+
         addSubview(iconView)
         addSubview(nameLabel)
         addSubview(loadingIndicator)
+        addSubview(agentDot)
+        // A badge on the icon's corner, like a Finder tag: always visible,
+        // whatever the column width, and it never takes space from the name.
+        NSLayoutConstraint.activate([
+            agentDot.widthAnchor.constraint(equalToConstant: 7),
+            agentDot.heightAnchor.constraint(equalToConstant: 7),
+            agentDot.centerXAnchor.constraint(equalTo: iconView.trailingAnchor, constant: -1),
+            agentDot.centerYAnchor.constraint(equalTo: iconView.bottomAnchor, constant: -1),
+        ])
 
         iconWidthConstraint = iconView.widthAnchor.constraint(equalToConstant: 16)
         iconHeightConstraint = iconView.heightAnchor.constraint(equalToConstant: 16)
@@ -136,6 +153,9 @@ final class FileExplorerCellView: NSTableCellView {
             nameLabelTrailingToContainerConstraint.isActive = true
         }
 
+        // Ignored files and folders are dimmed, icon included, as in VS Code.
+        iconView.alphaValue = gitStatus == .ignored ? 0.5 : 1
+
         if let error = node.error {
             nameLabel.textColor = .systemRed
             nameLabel.toolTip = error
@@ -145,6 +165,32 @@ final class FileExplorerCellView: NSTableCellView {
         } else {
             nameLabel.textColor = .labelColor
             nameLabel.toolTip = node.path
+        }
+    }
+
+    /// Shows the agent-activity dot: full strength for a couple of minutes, then faded.
+    func setAgentTouch(_ touch: AgentFileActivity.Touch?, isDirectory: Bool, now: Date) {
+        guard let touch else {
+            agentDot.isHidden = true
+            return
+        }
+        agentDot.isHidden = false
+        let fresh = now.timeIntervalSince(touch.lastAt) < AgentFileActivity.freshInterval
+        agentDot.layer?.backgroundColor = NSColor.controlAccentColor
+            .withAlphaComponent(fresh ? 1 : 0.5).cgColor
+        // A ring in the row background keeps the badge legible over the icon.
+        agentDot.layer?.borderColor = NSColor.windowBackgroundColor.cgColor
+        let relative = RelativeDateTimeFormatter().localizedString(for: touch.lastAt, relativeTo: now)
+        if isDirectory {
+            agentDot.toolTip = String(
+                localized: "fileExplorer.agentTouch.folderTooltip",
+                defaultValue: "Contains files an agent edited"
+            )
+        } else {
+            agentDot.toolTip = String(
+                format: String(localized: "fileExplorer.agentTouch.fileTooltip", defaultValue: "Edited by %1$@ %2$@"),
+                touch.agent, relative
+            )
         }
     }
 

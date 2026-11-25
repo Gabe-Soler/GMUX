@@ -71,6 +71,7 @@ enum KeyboardShortcutSettings {
         let colocatedSidebarActions = [
             .focusRightSidebar,
             .toggleRightSidebar,
+            .toggleExplorerColumn,
             .findInDirectory,
             .fileExplorerOpenSelection,
             .fileExplorerOpenSelectionFinderAlias,
@@ -223,6 +224,7 @@ enum KeyboardShortcutSettings {
 
         // File Explorer
         case toggleRightSidebar = "toggleFileExplorer"
+        case toggleExplorerColumn
         case fileExplorerOpenSelection
         case fileExplorerOpenSelectionFinderAlias
 
@@ -405,6 +407,7 @@ enum KeyboardShortcutSettings {
             case .canvasDistributeHorizontally: return String(localized: "shortcut.canvasDistributeHorizontally.label", defaultValue: "Canvas: Distribute Horizontally")
             case .canvasDistributeVertically: return String(localized: "shortcut.canvasDistributeVertically.label", defaultValue: "Canvas: Distribute Vertically")
             case .toggleRightSidebar: return String(localized: "shortcut.toggleRightSidebar.label", defaultValue: "Toggle Right Sidebar")
+            case .toggleExplorerColumn: return String(localized: "shortcut.toggleExplorerColumn.label", defaultValue: "Toggle Explorer")
             case .fileExplorerOpenSelection: return String(localized: "shortcut.fileExplorerOpenSelection.label", defaultValue: "File Explorer: Open Selection")
             case .fileExplorerOpenSelectionFinderAlias: return String(localized: "shortcut.fileExplorerOpenSelectionFinderAlias.label", defaultValue: "File Explorer: Open Selection (Finder Alias)")
             case .saveFilePreview: return String(localized: "shortcut.saveFilePreview.label", defaultValue: "Save File Preview")
@@ -713,6 +716,8 @@ enum KeyboardShortcutSettings {
             case .moveWorkspaceDown: return StoredShortcut(key: "]", command: true, shift: false, option: true, control: true)
             case .toggleRightSidebar:
                 return StoredShortcut(key: "b", command: true, shift: false, option: true, control: false)
+            case .toggleExplorerColumn:
+                return StoredShortcut(key: "e", command: true, shift: false, option: false, control: true)
             case .fileExplorerOpenSelection:
                 return StoredShortcut(key: "\r", command: false, shift: false, option: false, control: false)
             case .fileExplorerOpenSelectionFinderAlias:
