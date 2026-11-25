@@ -60,6 +60,7 @@ extension TerminalController {
             "files.hide",
             "files.toggle",
             "files.follow",
+            "files.graph",
             "comments.list",
             "mobile.host.status",
             "mobile.attach_ticket.create",

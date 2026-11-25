@@ -108,6 +108,6 @@ enum ExplorerFollowAgent {
     private static func liveDiffPanel(for path: String, in workspace: Workspace) -> FilePreviewPanel? {
         workspace.panels.values.lazy
             .compactMap { $0 as? FilePreviewPanel }
-            .first { $0.agentLiveDiff != nil && $0.filePath == path }
+            .first { $0.agentLiveDiff != nil && $0.agentLiveDiff?.commitSHA == nil && $0.filePath == path }
     }
 }

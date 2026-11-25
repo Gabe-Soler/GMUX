@@ -28,13 +28,10 @@ struct AgentLiveDiffView: View {
 
     private var summaryBar: some View {
         HStack(spacing: 10) {
-            Image(systemName: "eye.fill")
+            Image(systemName: model.commitSHA == nil ? "eye.fill" : "point.3.connected.trianglepath.dotted")
                 .foregroundStyle(Color.accentColor)
-            Text(String(
-                format: String(localized: "liveDiff.summary.agent", defaultValue: "Live changes by %@"),
-                model.agent
-            ))
-            .foregroundStyle(Color(nsColor: foregroundColor))
+            Text(summaryTitle)
+                .foregroundStyle(Color(nsColor: foregroundColor))
             Spacer(minLength: 8)
             Text(verbatim: "+\(model.addedCount)")
                 .foregroundStyle(Self.addedTint)
@@ -44,6 +41,19 @@ struct AgentLiveDiffView: View {
         .font(.system(size: 11, weight: .medium).monospacedDigit())
         .padding(.horizontal, 10)
         .padding(.vertical, 5)
+    }
+
+    private var summaryTitle: String {
+        if let sha = model.commitSHA {
+            return String(
+                format: String(localized: "liveDiff.summary.commit", defaultValue: "Changes in %@"),
+                String(sha.prefix(7))
+            )
+        }
+        return String(
+            format: String(localized: "liveDiff.summary.agent", defaultValue: "Live changes by %@"),
+            model.agent
+        )
     }
 
     private var rowsList: some View {

@@ -415,6 +415,7 @@
 		D0B10010A1B2C3D4E5F60001 /* BonsplitTabBarDebug.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B10011A1B2C3D4E5F60001 /* BonsplitTabBarDebug.swift */; };
 		D0B10002A1B2C3D4E5F60001 /* BonsplitTabBarPassThrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B10003A1B2C3D4E5F60001 /* BonsplitTabBarPassThrough.swift */; };
 		AA1B2C3D4E5F60718 /* BonsplitTabDragUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B2C3D4E5F60719 /* BonsplitTabDragUITests.swift */; };
+		C57F4D4C0B8485C97E68366D /* BranchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7479044F477A7426ACA9D605 /* BranchBarView.swift */; };
 		B7E1A0000000000000000002 /* browser-repl in Resources */ = {isa = PBXBuildFile; fileRef = B7E1A0000000000000000001 /* browser-repl */; };
 		986900080000000000000001 /* BrowserAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986900080000000000000002 /* BrowserAction.swift */; };
 		986900020000000000000001 /* BrowserActionDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986900020000000000000002 /* BrowserActionDispatcher.swift */; };
@@ -1883,6 +1884,9 @@
 		C1713002C1713002C1713002 /* CommandPaletteShortcutRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1713001C1713001C1713001 /* CommandPaletteShortcutRouting.swift */; };
 		C1A90000000000000000000D /* CommandTreeDump.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A90000000000000000000C /* CommandTreeDump.swift */; };
 		CC0033E15A1B2C3D4E5F0005 /* CommentsListPayloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0033E15A1B2C3D4E5F0006 /* CommentsListPayloadTests.swift */; };
+		DDE05479BB5563041317576B /* CommitGraphModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1591583A36DED3F9E0D5B087 /* CommitGraphModel.swift */; };
+		241B902C747BF01C92BE7721 /* CommitGraphModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B4C5A4277CFC2054BCD1DB /* CommitGraphModelTests.swift */; };
+		ED2849BB8754CE7FF02FC072 /* CommitGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD728DB7C1D0461C833A97C /* CommitGraphView.swift */; };
 		A91C0D110000000000000002 /* CompletedRestoredAgentForkAvailabilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91C0D110000000000000001 /* CompletedRestoredAgentForkAvailabilityTests.swift */; };
 		E5807290DBD44C26BFC5434E /* CompletedRestoredAgentGenerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37946EDBC5645DCB867DE82 /* CompletedRestoredAgentGenerationTests.swift */; };
 		A91C0D100000000000000002 /* CompletedRestoredAgentInputRoutingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91C0D100000000000000001 /* CompletedRestoredAgentInputRoutingTests.swift */; };
@@ -5311,6 +5315,7 @@
 		D0B10011A1B2C3D4E5F60001 /* BonsplitTabBarDebug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonsplitTabBarDebug.swift; sourceTree = "<group>"; };
 		D0B10003A1B2C3D4E5F60001 /* BonsplitTabBarPassThrough.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonsplitTabBarPassThrough.swift; sourceTree = "<group>"; };
 		AA1B2C3D4E5F60719 /* BonsplitTabDragUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonsplitTabDragUITests.swift; sourceTree = "<group>"; };
+		7479044F477A7426ACA9D605 /* BranchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerColumn/Graph/BranchBarView.swift; sourceTree = "<group>"; };
 		B7E1A0000000000000000001 /* browser-repl */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; path = "browser-repl"; sourceTree = "<group>"; };
 		986900080000000000000002 /* BrowserAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserAction.swift; sourceTree = "<group>"; };
 		986900020000000000000002 /* BrowserActionDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserActionDispatcher.swift; sourceTree = "<group>"; };
@@ -6611,6 +6616,9 @@
 		C1713001C1713001C1713001 /* CommandPaletteShortcutRouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/CommandPaletteShortcutRouting.swift; sourceTree = "<group>"; };
 		C1A90000000000000000000C /* CommandTreeDump.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandTreeDump.swift; sourceTree = "<group>"; };
 		CC0033E15A1B2C3D4E5F0006 /* CommentsListPayloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsListPayloadTests.swift; sourceTree = "<group>"; };
+		1591583A36DED3F9E0D5B087 /* CommitGraphModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerColumn/Graph/CommitGraphModel.swift; sourceTree = "<group>"; };
+		77B4C5A4277CFC2054BCD1DB /* CommitGraphModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommitGraphModelTests.swift"; sourceTree = "<group>"; };
+		0CD728DB7C1D0461C833A97C /* CommitGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerColumn/Graph/CommitGraphView.swift; sourceTree = "<group>"; };
 		A91C0D110000000000000001 /* CompletedRestoredAgentForkAvailabilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedRestoredAgentForkAvailabilityTests.swift; sourceTree = "<group>"; };
 		A37946EDBC5645DCB867DE82 /* CompletedRestoredAgentGenerationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedRestoredAgentGenerationTests.swift; sourceTree = "<group>"; };
 		A91C0D100000000000000001 /* CompletedRestoredAgentInputRoutingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedRestoredAgentInputRoutingTests.swift; sourceTree = "<group>"; };
@@ -12753,6 +12761,9 @@
 				6CBC12BB3971E89525E06919 /* LiveDiffRows.swift */,
 				7C75A606154EC7995BB75796 /* AgentLiveDiffModel.swift */,
 				15411C4DBC53BFDB3C339A9F /* AgentLiveDiffView.swift */,
+				7479044F477A7426ACA9D605 /* BranchBarView.swift */,
+				1591583A36DED3F9E0D5B087 /* CommitGraphModel.swift */,
+				0CD728DB7C1D0461C833A97C /* CommitGraphView.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -14413,6 +14424,7 @@
 				7F98623DD7D448BCAB555171 /* FileExplorerChangeRouterTests.swift */,
 				467869F0029595F2018B9EFE /* AgentFileActivityTests.swift */,
 				E7996AF9504A37A889AC6546 /* LiveDiffRowsTests.swift */,
+				77B4C5A4277CFC2054BCD1DB /* CommitGraphModelTests.swift */,
 			);
 			path = cmuxTests;
 			sourceTree = "<group>";
@@ -15537,6 +15549,7 @@
 				74060000000000000000001B /* BonsplitConfiguration+RemoteTmuxEmbedded.swift in Sources */,
 					D0B10010A1B2C3D4E5F60001 /* BonsplitTabBarDebug.swift in Sources */,
 				D0B10002A1B2C3D4E5F60001 /* BonsplitTabBarPassThrough.swift in Sources */,
+				C57F4D4C0B8485C97E68366D /* BranchBarView.swift in Sources */,
 				986900080000000000000001 /* BrowserAction.swift in Sources */,
 				986900020000000000000001 /* BrowserActionDispatcher.swift in Sources */,
 				986900030000000000000001 /* BrowserActionTarget.swift in Sources */,
@@ -16092,6 +16105,8 @@
 				C0DEF4110000000000000001 /* CommandPaletteSettingsToggle.swift in Sources */,
 				C0DEF4E10000000000000001 /* CommandPaletteSettingsToggleCommands+AgentUsage.swift in Sources */,
 				C1713002C1713002C1713002 /* CommandPaletteShortcutRouting.swift in Sources */,
+				DDE05479BB5563041317576B /* CommitGraphModel.swift in Sources */,
+				ED2849BB8754CE7FF02FC072 /* CommitGraphView.swift in Sources */,
 					C0A7101A0000000000000002 /* ComputerUseAppDragSource.swift in Sources */,
 					C0A7101B0000000000000002 /* ComputerUseAppDragSourceView.swift in Sources */,
 					C0A710020000000000000002 /* ComputerUseCuaState.swift in Sources */,
@@ -19020,6 +19035,7 @@
 				C0DEF4120000000000000001 /* CommandPaletteSettingsToggleTests.swift in Sources */,
 				C1713006C1713006C1713006 /* CommandPaletteShortcutCustomizationTests.swift in Sources */,
 				CC0033E15A1B2C3D4E5F0005 /* CommentsListPayloadTests.swift in Sources */,
+				241B902C747BF01C92BE7721 /* CommitGraphModelTests.swift in Sources */,
 				A91C0D110000000000000002 /* CompletedRestoredAgentForkAvailabilityTests.swift in Sources */,
 				E5807290DBD44C26BFC5434E /* CompletedRestoredAgentGenerationTests.swift in Sources */,
 				A91C0D100000000000000002 /* CompletedRestoredAgentInputRoutingTests.swift in Sources */,

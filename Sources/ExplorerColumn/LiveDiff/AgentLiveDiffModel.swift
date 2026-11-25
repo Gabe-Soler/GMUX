@@ -1,4 +1,5 @@
 import CmuxFoundation
+import CmuxGit
 import Foundation
 import SwiftUI
 
@@ -10,8 +11,28 @@ import SwiftUI
 /// at a time so additions and removals can be watched as they land.
 @MainActor
 final class AgentLiveDiffModel: ObservableObject {
+    /// What the diff compares.
+    enum Source: Sendable, Equatable {
+        /// The file on disk against its last commit, updating as an agent edits it.
+        case workingTree(agent: String)
+        /// One file's change in a commit, against the commit's first parent. Static.
+        case commit(repositoryRoot: URL, sha: String, parentSHA: String?, path: String, oldPath: String?)
+    }
+
     let filePath: String
-    let agent: String
+    let source: Source
+
+    /// The agent editing the file, for a working-tree diff.
+    var agent: String {
+        if case .workingTree(let agent) = source { return agent }
+        return ""
+    }
+
+    /// The commit shown, for a commit diff.
+    var commitSHA: String? {
+        if case .commit(_, let sha, _, _, _) = source { return sha }
+        return nil
+    }
 
     @Published private(set) var rows: [LiveDiffRow] = []
     /// Rows not yet revealed by the line-by-line animation.
@@ -37,10 +58,14 @@ final class AgentLiveDiffModel: ObservableObject {
     private var watchTask: Task<Void, Never>?
     private var needsAnotherUpdate = false
 
-    init(filePath: String, agent: String) {
+    convenience init(filePath: String, agent: String) {
+        self.init(filePath: filePath, source: .workingTree(agent: agent))
+    }
+
+    init(filePath: String, source: Source) {
         self.filePath = filePath
-        self.agent = agent
-        startWatching()
+        self.source = source
+        if case .workingTree = source { startWatching() }
         refresh()
     }
 
@@ -63,13 +88,14 @@ final class AgentLiveDiffModel: ObservableObject {
             return
         }
         let path = filePath
+        let source = source
         let knownBaseline = baseline
         let previous = rows
         let firstId = nextId
         updateTask = Task { [weak self] in
             let result = await Task.detached(priority: .userInitiated) { () -> (baseline: [String], update: LiveDiffRows.Update?, notice: String?) in
-                let base = knownBaseline ?? Self.committedLines(of: path)
-                guard let current = Self.currentLines(of: path) else {
+                let base = knownBaseline ?? Self.baselineLines(of: path, source: source)
+                guard let current = Self.currentLines(of: path, source: source) else {
                     return (base, nil, String(localized: "liveDiff.notice.unreadable", defaultValue: "This file can't be shown as text."))
                 }
                 guard base.count <= LiveDiffRows.maximumLines, current.count <= LiveDiffRows.maximumLines else {
@@ -157,7 +183,24 @@ final class AgentLiveDiffModel: ObservableObject {
 
     // MARK: - Off-main readers
 
-    nonisolated private static func currentLines(of path: String) -> [String]? {
+    nonisolated private static func baselineLines(of path: String, source: Source) -> [String] {
+        switch source {
+        case .workingTree:
+            return committedLines(of: path)
+        case .commit(let root, _, let parentSHA, let commitPath, let oldPath):
+            guard let parentSHA else { return [] }
+            let text = GitHistoryService().fileContents(
+                repositoryRoot: root, revision: parentSHA, path: oldPath ?? commitPath
+            )
+            return text.map(LiveDiffRows.lines(of:)) ?? []
+        }
+    }
+
+    nonisolated private static func currentLines(of path: String, source: Source) -> [String]? {
+        if case .commit(let root, let sha, _, let commitPath, _) = source {
+            let text = GitHistoryService().fileContents(repositoryRoot: root, revision: sha, path: commitPath)
+            return text.map(LiveDiffRows.lines(of:)) ?? []
+        }
         guard FileManager.default.fileExists(atPath: path) else { return [] }
         guard let data = FileManager.default.contents(atPath: path) else { return nil }
         if data.prefix(8_000).contains(0) { return nil }

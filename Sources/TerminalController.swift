@@ -3487,7 +3487,7 @@ class TerminalController {
         case "automation.reload":
             return v2Result(id: id, v2AutomationReload())
         case "files.state", "files.tree", "files.reveal", "files.open",
-             "files.show", "files.hide", "files.toggle", "files.follow":
+             "files.show", "files.hide", "files.toggle", "files.follow", "files.graph":
             // GMUX Explorer column (Sources/ExplorerColumn/TerminalController+Files.swift).
             return v2Result(id: id, v2Files(method: method, params: params))
         case "caffeine.status":

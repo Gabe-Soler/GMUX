@@ -46,6 +46,16 @@ extension CMUXCLI {
                 params["max_entries"] = value
             }
             method = "files.tree"
+        case "graph":
+            let (limit, afterLimit) = parseOption(rest, name: "--limit")
+            rest = afterLimit
+            if let limit {
+                guard let value = Int(limit), value > 0 else {
+                    throw CLIError(message: "files graph: --limit must be a positive number")
+                }
+                params["limit"] = value
+            }
+            method = "files.graph"
         case "reveal", "open":
             let pin = hasFlag(rest, name: "--pin")
             let select = hasFlag(rest, name: "--select")
@@ -86,6 +96,8 @@ extension CMUXCLI {
             print(Self.renderFilesTree(payload))
         case "files.state":
             print(jsonString(payload))
+        case "files.graph":
+            print(Self.renderFilesGraph(payload))
         case "files.show", "files.hide", "files.toggle":
             print((payload["visible"] as? Bool ?? false) ? "OK visible" : "OK hidden")
         case "files.follow":
@@ -121,11 +133,47 @@ extension CMUXCLI {
         return lines.joined(separator: "\n")
     }
 
+    /// `git log --graph`-style text: one lane column per row, then refs and subject.
+    static func renderFilesGraph(_ payload: [String: Any]) -> String {
+        var lines: [String] = []
+        if let git = payload["git"] as? [String: Any] {
+            let branch = git["branch"] as? String ?? "(detached \((git["head"] as? String ?? "").prefix(7)))"
+            var header = "On \(branch)"
+            if let upstream = git["upstream"] as? String {
+                header += " (\(upstream): ↑\(git["ahead"] as? Int ?? 0) ↓\(git["behind"] as? Int ?? 0))"
+            }
+            lines.append(header)
+        }
+        guard payload["available"] as? Bool == true else {
+            lines.append("Graph unavailable: \(payload["reason"] as? String ?? "unknown")")
+            return lines.joined(separator: "\n")
+        }
+        let commits = payload["commits"] as? [[String: Any]] ?? []
+        if commits.isEmpty {
+            lines.append(payload["loaded"] as? Bool == true
+                ? "No commits."
+                : "The Graph section is collapsed; open it in the Explorer to load history.")
+        }
+        let width = commits.map { $0["lane_count"] as? Int ?? 1 }.max() ?? 1
+        for commit in commits {
+            let lane = commit["lane"] as? Int ?? 0
+            let through = Set(commit["through_lanes"] as? [Int] ?? [])
+            let graph = (0..<width).map { $0 == lane ? "*" : (through.contains($0) ? "|" : " ") }.joined(separator: " ")
+            let sha = String((commit["sha"] as? String ?? "").prefix(7))
+            let refs = (commit["refs"] as? [[String: String]] ?? []).map { ref -> String in
+                ref["kind"] == "tag" ? "tag: \(ref["name"] ?? "")" : (ref["kind"] == "head" ? "HEAD -> \(ref["name"] ?? "")" : ref["name"] ?? "")
+            }
+            let decoration = refs.isEmpty ? "" : " (\(refs.joined(separator: ", ")))"
+            lines.append("\(graph) \(sha)\(decoration) \(commit["subject"] as? String ?? "")")
+        }
+        return lines.joined(separator: "\n")
+    }
+
     static func filesUsage() -> String {
         String(
             localized: "cli.files.help",
             defaultValue: """
-        Usage: cmux files <state|tree|reveal|open|follow|show|hide|toggle> [args]
+        Usage: cmux files <state|tree|graph|reveal|open|follow|show|hide|toggle> [args]
 
         Drive the Explorer column: the file tree beside the workspace tabs.
         Paths may be absolute or relative to the current directory. Commands
@@ -134,7 +182,8 @@ extension CMUXCLI {
           cmux files tree [--depth N] [--max N]   Print the tree as shown (expanded folders only)
           cmux files reveal <path>                 Expand to, select and scroll to a file
           cmux files open <path> [--pin] [--select] Open in the preview tab (or pinned) and reveal
-          cmux files state                         Root, selection, expanded folders, preview tab
+          cmux files graph [--limit N]             Print the commit graph shown under the tree
+          cmux files state                         Root, branch, selection, expanded folders, preview tab
           cmux files show | hide | toggle          Show or hide the Explorer column
           cmux files follow [on|off]               Open each file an agent edits beside its terminal
 

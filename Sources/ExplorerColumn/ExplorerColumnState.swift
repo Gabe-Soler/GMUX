@@ -14,15 +14,43 @@ final class ExplorerColumnState {
     static let visibilityKey = "explorerColumn.isVisible"
     static let widthKey = "explorerColumn.width"
     static let followAgentKey = "explorerColumn.followAgent"
+    static let graphExpandedKey = "explorerColumn.graphExpanded"
+    static let graphHeightKey = "explorerColumn.graphHeight"
 
     static let defaultWidth: CGFloat = 240
     static let minimumWidth: CGFloat = 160
     static let maximumWidth: CGFloat = 640
+    static let defaultGraphHeight: CGFloat = 260
+    static let minimumGraphHeight: CGFloat = 80
 
     @ObservationIgnored private let defaults: UserDefaults
 
     /// The single-click "preview" tab of each workspace (VS Code semantics).
     @ObservationIgnored var previewPanelIdByWorkspace: [UUID: UUID] = [:]
+
+    /// The commit-diff tab each workspace shows, replaced by the next one opened.
+    @ObservationIgnored var commitDiffPanelIdByWorkspace: [UUID: UUID] = [:]
+
+    /// The branch bar and Graph section's git state.
+    @ObservationIgnored let graphModel = CommitGraphModel()
+
+    /// Whether the Graph section below the file tree is open.
+    var graphExpanded: Bool {
+        didSet {
+            guard graphExpanded != oldValue else { return }
+            defaults.set(graphExpanded, forKey: Self.graphExpandedKey)
+        }
+    }
+
+    /// The Graph section's height when open; the layout caps it to the column.
+    private(set) var graphHeight: CGFloat
+
+    func setGraphHeight(_ proposed: CGFloat) {
+        let clamped = max(proposed, Self.minimumGraphHeight)
+        guard clamped != graphHeight else { return }
+        graphHeight = clamped
+        defaults.set(Double(clamped), forKey: Self.graphHeightKey)
+    }
 
     /// The window's file tree, attached by its ContentView so `cmux files`
     /// commands can drive the same tree the person sees.
@@ -74,6 +102,12 @@ final class ExplorerColumnState {
         self.isVisible = visible
         self.hasBeenShown = visible
         self.followAgent = defaults.object(forKey: Self.followAgentKey) as? Bool ?? true
+        self.graphExpanded = defaults.object(forKey: Self.graphExpandedKey) as? Bool ?? true
+        let storedGraphHeight = defaults.double(forKey: Self.graphHeightKey)
+        self.graphHeight = max(
+            storedGraphHeight > 0 ? CGFloat(storedGraphHeight) : Self.defaultGraphHeight,
+            Self.minimumGraphHeight
+        )
         let storedWidth = defaults.double(forKey: Self.widthKey)
         self.width = Self.clampedWidth(storedWidth > 0 ? CGFloat(storedWidth) : Self.defaultWidth)
     }

@@ -679808,55 +679808,55 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Usage: cmux files <state|tree|reveal|open|follow|show|hide|toggle> [args]\n\nDrive the Explorer column: the file tree beside the workspace tabs.\nPaths may be absolute or relative to the current directory. Commands\nonly act on the workspace the person is viewing and never move focus.\n\n  cmux files tree [--depth N] [--max N]   Print the tree as shown (expanded folders only)\n  cmux files reveal <path>                 Expand to, select and scroll to a file\n  cmux files open <path> [--pin] [--select] Open in the preview tab (or pinned) and reveal\n  cmux files state                         Root, selection, expanded folders, preview tab\n  cmux files show | hide | toggle          Show or hide the Explorer column\n  cmux files follow [on|off]               Open each file an agent edits beside its terminal\n\nTree markers: M modified, A added, D deleted, R renamed, ? untracked, ! ignored."
+            "value": "Usage: cmux files <state|tree|graph|reveal|open|follow|show|hide|toggle> [args]\n\nDrive the Explorer column: the file tree beside the workspace tabs.\nPaths may be absolute or relative to the current directory. Commands\nonly act on the workspace the person is viewing and never move focus.\n\n  cmux files tree [--depth N] [--max N]   Print the tree as shown (expanded folders only)\n  cmux files reveal <path>                 Expand to, select and scroll to a file\n  cmux files open <path> [--pin] [--select] Open in the preview tab (or pinned) and reveal\n  cmux files graph [--limit N]             Print the commit graph shown under the tree\n  cmux files state                         Root, branch, selection, expanded folders, preview tab\n  cmux files show | hide | toggle          Show or hide the Explorer column\n  cmux files follow [on|off]               Open each file an agent edits beside its terminal\n\nTree markers: M modified, A added, D deleted, R renamed, ? untracked, ! ignored."
           }
         },
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "Usage: cmux files <state|tree|reveal|open|follow|show|hide|toggle> [args]\n\nيتحكم في عمود المستكشف: شجرة الملفات بجانب علامات تبويب مساحات العمل.\nيمكن أن تكون المسارات مطلقة أو نسبية إلى المجلد الحالي. تعمل الأوامر\nعلى مساحة العمل المعروضة فقط ولا تنقل التركيز أبدًا.\n\n  cmux files tree [--depth N] [--max N]   طباعة الشجرة كما تظهر (المجلدات الموسّعة فقط)\n  cmux files reveal <path>                 توسيع الشجرة حتى ملف وتحديده والتمرير إليه\n  cmux files open <path> [--pin] [--select] الفتح في علامة تبويب المعاينة (أو مثبّتًا) وإظهاره\n  cmux files state                         الجذر والتحديد والمجلدات الموسّعة وعلامة المعاينة\n  cmux files show | hide | toggle          إظهار عمود المستكشف أو إخفاؤه\n  cmux files follow [on|off]               فتح كل ملف يعدّله وكيل بجانب الطرفية الخاصة به\n\nعلامات الشجرة: M معدّل، A مضاف، D محذوف، R معاد تسميته، ? غير متتبَّع، ! متجاهَل."
+            "value": "Usage: cmux files <state|tree|graph|reveal|open|follow|show|hide|toggle> [args]\n\nيتحكم في عمود المستكشف: شجرة الملفات بجانب علامات تبويب مساحات العمل.\nيمكن أن تكون المسارات مطلقة أو نسبية إلى المجلد الحالي. تعمل الأوامر\nعلى مساحة العمل المعروضة فقط ولا تنقل التركيز أبدًا.\n\n  cmux files tree [--depth N] [--max N]   طباعة الشجرة كما تظهر (المجلدات الموسّعة فقط)\n  cmux files reveal <path>                 توسيع الشجرة حتى ملف وتحديده والتمرير إليه\n  cmux files open <path> [--pin] [--select] الفتح في علامة تبويب المعاينة (أو مثبّتًا) وإظهاره\n  cmux files graph [--limit N]             طباعة رسم عمليات الإيداع أسفل الشجرة\n  cmux files state                         الجذر والفرع والتحديد والمجلدات الموسّعة وعلامة المعاينة\n  cmux files show | hide | toggle          إظهار عمود المستكشف أو إخفاؤه\n  cmux files follow [on|off]               فتح كل ملف يعدّله وكيل بجانب الطرفية الخاصة به\n\nعلامات الشجرة: M معدّل، A مضاف، D محذوف، R معاد تسميته، ? غير متتبَّع، ! متجاهَل."
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Usage: cmux files <state|tree|reveal|open|follow|show|hide|toggle> [args]\n\nSteuert die Explorer-Spalte: den Dateibaum neben den Workspace-Tabs.\nPfade können absolut oder relativ zum aktuellen Verzeichnis sein. Befehle\nwirken nur auf den angezeigten Workspace und verschieben nie den Fokus.\n\n  cmux files tree [--depth N] [--max N]   Baum wie angezeigt ausgeben (nur aufgeklappte Ordner)\n  cmux files reveal <path>                 Zu einer Datei aufklappen, sie auswählen und hinscrollen\n  cmux files open <path> [--pin] [--select] Im Vorschau-Tab (oder angeheftet) öffnen und anzeigen\n  cmux files state                         Wurzel, Auswahl, aufgeklappte Ordner, Vorschau-Tab\n  cmux files show | hide | toggle          Explorer-Spalte ein- oder ausblenden\n  cmux files follow [on|off]               Jede von einem Agenten bearbeitete Datei neben seinem Terminal öffnen\n\nBaummarkierungen: M geändert, A hinzugefügt, D gelöscht, R umbenannt, ? nicht verfolgt, ! ignoriert."
+            "value": "Usage: cmux files <state|tree|graph|reveal|open|follow|show|hide|toggle> [args]\n\nSteuert die Explorer-Spalte: den Dateibaum neben den Workspace-Tabs.\nPfade können absolut oder relativ zum aktuellen Verzeichnis sein. Befehle\nwirken nur auf den angezeigten Workspace und verschieben nie den Fokus.\n\n  cmux files tree [--depth N] [--max N]   Baum wie angezeigt ausgeben (nur aufgeklappte Ordner)\n  cmux files reveal <path>                 Zu einer Datei aufklappen, sie auswählen und hinscrollen\n  cmux files open <path> [--pin] [--select] Im Vorschau-Tab (oder angeheftet) öffnen und anzeigen\n  cmux files graph [--limit N]             Den Commit-Graphen unter dem Baum ausgeben\n  cmux files state                         Wurzel, Branch, Auswahl, aufgeklappte Ordner, Vorschau-Tab\n  cmux files show | hide | toggle          Explorer-Spalte ein- oder ausblenden\n  cmux files follow [on|off]               Jede von einem Agenten bearbeitete Datei neben seinem Terminal öffnen\n\nBaummarkierungen: M geändert, A hinzugefügt, D gelöscht, R umbenannt, ? nicht verfolgt, ! ignoriert."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Usage: cmux files <state|tree|reveal|open|follow|show|hide|toggle> [args]\n\nControla la columna Explorador: el árbol de archivos junto a las pestañas de espacios de trabajo.\nLas rutas pueden ser absolutas o relativas a la carpeta actual. Los comandos\nsolo actúan sobre el espacio que se está viendo y nunca mueven el foco.\n\n  cmux files tree [--depth N] [--max N]   Imprime el árbol tal como se ve (solo carpetas expandidas)\n  cmux files reveal <path>                 Expande hasta un archivo, lo selecciona y se desplaza a él\n  cmux files open <path> [--pin] [--select] Abre en la pestaña de vista previa (o fijada) y lo muestra\n  cmux files state                         Raíz, selección, carpetas expandidas, pestaña de vista previa\n  cmux files show | hide | toggle          Muestra u oculta la columna Explorador\n  cmux files follow [on|off]               Abre cada archivo que edita un agente junto a su terminal\n\nMarcas: M modificado, A añadido, D eliminado, R renombrado, ? sin seguimiento, ! ignorado."
+            "value": "Usage: cmux files <state|tree|graph|reveal|open|follow|show|hide|toggle> [args]\n\nControla la columna Explorador: el árbol de archivos junto a las pestañas de espacios de trabajo.\nLas rutas pueden ser absolutas o relativas a la carpeta actual. Los comandos\nsolo actúan sobre el espacio que se está viendo y nunca mueven el foco.\n\n  cmux files tree [--depth N] [--max N]   Imprime el árbol tal como se ve (solo carpetas expandidas)\n  cmux files reveal <path>                 Expande hasta un archivo, lo selecciona y se desplaza a él\n  cmux files open <path> [--pin] [--select] Abre en la pestaña de vista previa (o fijada) y lo muestra\n  cmux files graph [--limit N]             Imprimir el gráfico de commits bajo el árbol\n  cmux files state                         Raíz, rama, selección, carpetas expandidas, pestaña de vista previa\n  cmux files show | hide | toggle          Muestra u oculta la columna Explorador\n  cmux files follow [on|off]               Abre cada archivo que edita un agente junto a su terminal\n\nMarcas: M modificado, A añadido, D eliminado, R renombrado, ? sin seguimiento, ! ignorado."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Usage: cmux files <state|tree|reveal|open|follow|show|hide|toggle> [args]\n\nPilote la colonne Explorateur : l’arborescence à côté des onglets d’espace de travail.\nLes chemins peuvent être absolus ou relatifs au dossier courant. Les commandes\nn’agissent que sur l’espace affiché et ne déplacent jamais le focus.\n\n  cmux files tree [--depth N] [--max N]   Affiche l’arborescence telle qu’elle apparaît (dossiers dépliés seulement)\n  cmux files reveal <path>                 Déplie jusqu’à un fichier, le sélectionne et le fait défiler\n  cmux files open <path> [--pin] [--select] Ouvre dans l’onglet d’aperçu (ou épinglé) et l’affiche\n  cmux files state                         Racine, sélection, dossiers dépliés, onglet d’aperçu\n  cmux files show | hide | toggle          Affiche ou masque la colonne Explorateur\n  cmux files follow [on|off]               Ouvre chaque fichier modifié par un agent à côté de son terminal\n\nMarqueurs : M modifié, A ajouté, D supprimé, R renommé, ? non suivi, ! ignoré."
+            "value": "Usage: cmux files <state|tree|graph|reveal|open|follow|show|hide|toggle> [args]\n\nPilote la colonne Explorateur : l’arborescence à côté des onglets d’espace de travail.\nLes chemins peuvent être absolus ou relatifs au dossier courant. Les commandes\nn’agissent que sur l’espace affiché et ne déplacent jamais le focus.\n\n  cmux files tree [--depth N] [--max N]   Affiche l’arborescence telle qu’elle apparaît (dossiers dépliés seulement)\n  cmux files reveal <path>                 Déplie jusqu’à un fichier, le sélectionne et le fait défiler\n  cmux files open <path> [--pin] [--select] Ouvre dans l’onglet d’aperçu (ou épinglé) et l’affiche\n  cmux files graph [--limit N]             Afficher le graphe des commits sous l’arborescence\n  cmux files state                         Racine, branche, sélection, dossiers dépliés, onglet d’aperçu\n  cmux files show | hide | toggle          Affiche ou masque la colonne Explorateur\n  cmux files follow [on|off]               Ouvre chaque fichier modifié par un agent à côté de son terminal\n\nMarqueurs : M modifié, A ajouté, D supprimé, R renommé, ? non suivi, ! ignoré."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "Usage: cmux files <state|tree|reveal|open|follow|show|hide|toggle> [args]\n\nエクスプローラー列を操作します: ワークスペースタブの横にあるファイルツリーです。\nパスは絶対パス、または現在のディレクトリからの相対パスで指定できます。コマンドは\n表示中のワークスペースにのみ作用し、フォーカスを移動しません。\n\n  cmux files tree [--depth N] [--max N]   表示どおりにツリーを出力（展開済みフォルダーのみ）\n  cmux files reveal <path>                 ファイルまで展開して選択し、スクロール\n  cmux files open <path> [--pin] [--select] プレビュータブ（または固定）で開いて表示\n  cmux files state                         ルート、選択項目、展開済みフォルダー、プレビュータブ\n  cmux files show | hide | toggle          エクスプローラー列の表示・非表示\n  cmux files follow [on|off]               エージェントが編集する各ファイルをそのターミナルの横に開く\n\nマーカー: M 変更、A 追加、D 削除、R 名前変更、? 未追跡、! 無視。"
+            "value": "Usage: cmux files <state|tree|graph|reveal|open|follow|show|hide|toggle> [args]\n\nエクスプローラー列を操作します: ワークスペースタブの横にあるファイルツリーです。\nパスは絶対パス、または現在のディレクトリからの相対パスで指定できます。コマンドは\n表示中のワークスペースにのみ作用し、フォーカスを移動しません。\n\n  cmux files tree [--depth N] [--max N]   表示どおりにツリーを出力（展開済みフォルダーのみ）\n  cmux files reveal <path>                 ファイルまで展開して選択し、スクロール\n  cmux files open <path> [--pin] [--select] プレビュータブ（または固定）で開いて表示\n  cmux files graph [--limit N]             ツリーの下にあるコミットグラフを出力\n  cmux files state                         ルート、ブランチ、選択項目、展開済みフォルダー、プレビュータブ\n  cmux files show | hide | toggle          エクスプローラー列の表示・非表示\n  cmux files follow [on|off]               エージェントが編集する各ファイルをそのターミナルの横に開く\n\nマーカー: M 変更、A 追加、D 削除、R 名前変更、? 未追跡、! 無視。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Usage: cmux files <state|tree|reveal|open|follow|show|hide|toggle> [args]\n\n탐색기 열을 제어합니다: 워크스페이스 탭 옆의 파일 트리입니다.\n경로는 절대 경로이거나 현재 디렉터리 기준 상대 경로일 수 있습니다. 명령은\n사용자가 보고 있는 워크스페이스에만 적용되며 포커스를 옮기지 않습니다.\n\n  cmux files tree [--depth N] [--max N]   보이는 그대로 트리 출력 (펼친 폴더만)\n  cmux files reveal <path>                 파일까지 펼치고 선택한 뒤 스크롤\n  cmux files open <path> [--pin] [--select] 미리보기 탭(또는 고정)으로 열고 표시\n  cmux files state                         루트, 선택 항목, 펼친 폴더, 미리보기 탭\n  cmux files show | hide | toggle          탐색기 열 표시 또는 숨기기\n  cmux files follow [on|off]               에이전트가 편집하는 각 파일을 터미널 옆에 열기\n\n트리 표시: M 수정됨, A 추가됨, D 삭제됨, R 이름 변경됨, ? 추적 안 됨, ! 무시됨."
+            "value": "Usage: cmux files <state|tree|graph|reveal|open|follow|show|hide|toggle> [args]\n\n탐색기 열을 제어합니다: 워크스페이스 탭 옆의 파일 트리입니다.\n경로는 절대 경로이거나 현재 디렉터리 기준 상대 경로일 수 있습니다. 명령은\n사용자가 보고 있는 워크스페이스에만 적용되며 포커스를 옮기지 않습니다.\n\n  cmux files tree [--depth N] [--max N]   보이는 그대로 트리 출력 (펼친 폴더만)\n  cmux files reveal <path>                 파일까지 펼치고 선택한 뒤 스크롤\n  cmux files open <path> [--pin] [--select] 미리보기 탭(또는 고정)으로 열고 표시\n  cmux files graph [--limit N]             트리 아래의 커밋 그래프 출력\n  cmux files state                         루트, 브랜치, 선택 항목, 펼친 폴더, 미리보기 탭\n  cmux files show | hide | toggle          탐색기 열 표시 또는 숨기기\n  cmux files follow [on|off]               에이전트가 편집하는 각 파일을 터미널 옆에 열기\n\n트리 표시: M 수정됨, A 추가됨, D 삭제됨, R 이름 변경됨, ? 추적 안 됨, ! 무시됨."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Usage: cmux files <state|tree|reveal|open|follow|show|hide|toggle> [args]\n\n控制资源管理器栏：工作区标签旁的文件树。\n路径可以是绝对路径，或相对于当前目录。命令只作用于\n用户正在查看的工作区，且绝不移动焦点。\n\n  cmux files tree [--depth N] [--max N]   按显示内容输出文件树（仅已展开的文件夹）\n  cmux files reveal <path>                 展开到文件、选中并滚动到该处\n  cmux files open <path> [--pin] [--select] 在预览标签（或固定）中打开并显示\n  cmux files state                         根目录、选中项、已展开文件夹、预览标签\n  cmux files show | hide | toggle          显示或隐藏资源管理器栏\n  cmux files follow [on|off]               在代理的终端旁打开其编辑的每个文件\n\n标记：M 已修改、A 已添加、D 已删除、R 已重命名、? 未跟踪、! 已忽略。"
+            "value": "Usage: cmux files <state|tree|graph|reveal|open|follow|show|hide|toggle> [args]\n\n控制资源管理器栏：工作区标签旁的文件树。\n路径可以是绝对路径，或相对于当前目录。命令只作用于\n用户正在查看的工作区，且绝不移动焦点。\n\n  cmux files tree [--depth N] [--max N]   按显示内容输出文件树（仅已展开的文件夹）\n  cmux files reveal <path>                 展开到文件、选中并滚动到该处\n  cmux files open <path> [--pin] [--select] 在预览标签（或固定）中打开并显示\n  cmux files graph [--limit N]             打印树下方的提交图表\n  cmux files state                         根目录、分支、选中项、已展开文件夹、预览标签\n  cmux files show | hide | toggle          显示或隐藏资源管理器栏\n  cmux files follow [on|off]               在代理的终端旁打开其编辑的每个文件\n\n标记：M 已修改、A 已添加、D 已删除、R 已重命名、? 未跟踪、! 已忽略。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Usage: cmux files <state|tree|reveal|open|follow|show|hide|toggle> [args]\n\n控制檔案總管欄：工作區分頁旁的檔案樹。\n路徑可以是絕對路徑，或相對於目前目錄。指令只作用於\n使用者正在檢視的工作區，且絕不移動焦點。\n\n  cmux files tree [--depth N] [--max N]   依顯示內容輸出檔案樹（僅已展開的資料夾）\n  cmux files reveal <path>                 展開至檔案、選取並捲動到該處\n  cmux files open <path> [--pin] [--select] 在預覽分頁（或釘選）中開啟並顯示\n  cmux files state                         根目錄、選取項目、已展開資料夾、預覽分頁\n  cmux files show | hide | toggle          顯示或隱藏檔案總管欄\n  cmux files follow [on|off]               在代理程式的終端機旁開啟其編輯的每個檔案\n\n標記：M 已修改、A 已新增、D 已刪除、R 已重新命名、? 未追蹤、! 已忽略。"
+            "value": "Usage: cmux files <state|tree|graph|reveal|open|follow|show|hide|toggle> [args]\n\n控制檔案總管欄：工作區分頁旁的檔案樹。\n路徑可以是絕對路徑，或相對於目前目錄。指令只作用於\n使用者正在檢視的工作區，且絕不移動焦點。\n\n  cmux files tree [--depth N] [--max N]   依顯示內容輸出檔案樹（僅已展開的資料夾）\n  cmux files reveal <path>                 展開至檔案、選取並捲動到該處\n  cmux files open <path> [--pin] [--select] 在預覽分頁（或釘選）中開啟並顯示\n  cmux files graph [--limit N]             列印樹狀結構下方的提交圖表\n  cmux files state                         根目錄、分支、選取項目、已展開資料夾、預覽分頁\n  cmux files show | hide | toggle          顯示或隱藏檔案總管欄\n  cmux files follow [on|off]               在代理程式的終端機旁開啟其編輯的每個檔案\n\n標記：M 已修改、A 已新增、D 已刪除、R 已重新命名、? 未追蹤、! 已忽略。"
           }
         }
       }
@@ -680270,6 +680270,832 @@
           "stringUnit": {
             "state": "translated",
             "value": "顯示檔案"
+          }
+        }
+      }
+    },
+    "explorerColumn.branch.detached": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Detached at %@"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "منفصل عند %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Losgelöst bei %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desacoplado en %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Détaché à %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ で切り離し"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@에서 분리됨"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已分离于 %@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已分離於 %@"
+          }
+        }
+      }
+    },
+    "explorerColumn.branch.noCommits": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No commits"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا توجد عمليات إيداع"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Commits"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin commits"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun commit"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "コミットなし"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "커밋 없음"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "没有提交"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "沒有提交"
+          }
+        }
+      }
+    },
+    "explorerColumn.branch.picker.local": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Branches"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الفروع"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lokale Branches"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ramas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Branches locales"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ブランチ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "브랜치"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "分支"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "分支"
+          }
+        }
+      }
+    },
+    "explorerColumn.branch.picker.remote": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remote branches"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الفروع البعيدة"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remote-Branches"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ramas remotas"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Branches distantes"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "リモートブランチ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "원격 브랜치"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "远程分支"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "遠端分支"
+          }
+        }
+      }
+    },
+    "explorerColumn.branch.picker.search": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Switch to branch…"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التبديل إلى فرع…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zu Branch wechseln…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambiar a rama…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passer à la branche…"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ブランチに切り替え…"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "브랜치로 전환…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "切换到分支…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "切換到分支…"
+          }
+        }
+      }
+    },
+    "explorerColumn.branch.tooltip": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Current branch. Click to switch branches."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الفرع الحالي. انقر للتبديل بين الفروع."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktueller Branch. Klicken, um den Branch zu wechseln."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rama actual. Haz clic para cambiar de rama."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Branche actuelle. Cliquez pour changer de branche."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "現在のブランチ。クリックしてブランチを切り替えます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "현재 브랜치. 클릭하여 브랜치를 전환합니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "当前分支。点击以切换分支。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "目前分支。按一下以切換分支。"
+          }
+        }
+      }
+    },
+    "explorerColumn.branch.uncommitted": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uncommitted changes"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تغييرات غير مودعة"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht committete Änderungen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambios sin confirmar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifications non validées"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未コミットの変更"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "커밋되지 않은 변경 사항"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未提交的更改"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未提交的變更"
+          }
+        }
+      }
+    },
+    "explorerColumn.graph.noCommits": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No commits yet."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا توجد عمليات إيداع بعد."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch keine Commits."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todavía no hay commits."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun commit pour l’instant."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "まだコミットはありません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "아직 커밋이 없습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚无提交。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚無提交。"
+          }
+        }
+      }
+    },
+    "explorerColumn.graph.notRepository": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This folder isn't in a git repository."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "هذا المجلد ليس ضمن مستودع git."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dieser Ordner liegt in keinem Git-Repository."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta carpeta no está en un repositorio git."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce dossier n’est pas dans un dépôt git."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このフォルダは git リポジトリ内にありません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 폴더는 git 저장소에 있지 않습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此文件夹不在 git 仓库中。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此資料夾不在 git 儲存庫中。"
+          }
+        }
+      }
+    },
+    "explorerColumn.graph.refresh": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Refresh"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تحديث"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktualisieren"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualizar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualiser"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更新"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "새로 고침"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "刷新"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重新整理"
+          }
+        }
+      }
+    },
+    "explorerColumn.graph.remote": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Graph isn't available for remote folders."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الرسم البياني غير متاح للمجلدات البعيدة."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Graph ist für entfernte Ordner nicht verfügbar."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El gráfico no está disponible para carpetas remotas."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le graphe n’est pas disponible pour les dossiers distants."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "リモートフォルダではグラフを利用できません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "원격 폴더에서는 그래프를 사용할 수 없습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "远程文件夹无法使用图表。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "遠端資料夾無法使用圖表。"
+          }
+        }
+      }
+    },
+    "explorerColumn.graph.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Graph"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الرسم البياني"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Commit-Graph"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gráfico"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Graphe"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "グラフ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "그래프"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "图表"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "圖表"
+          }
+        }
+      }
+    },
+    "liveDiff.summary.commit": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Changes in %@"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التغييرات في %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Änderungen in %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambios en %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifications dans %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ の変更"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@의 변경 사항"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 中的更改"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 中的變更"
+          }
+        }
+      }
+    },
+    "explorerColumn.branch.syncTooltip": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Commits to push ↑ and pull ↓ against %@"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عمليات إيداع للدفع ↑ والسحب ↓ مقابل %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Commits zum Pushen ↑ und Pullen ↓ gegenüber %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Commits para enviar ↑ y traer ↓ respecto a %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Commits à pousser ↑ et à tirer ↓ par rapport à %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ に対してプッシュ ↑ とプル ↓ するコミット"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 기준으로 푸시 ↑ 및 풀 ↓할 커밋"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "相对于 %@ 要推送 ↑ 和拉取 ↓ 的提交"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "相對於 %@ 要推送 ↑ 和拉取 ↓ 的提交"
           }
         }
       }

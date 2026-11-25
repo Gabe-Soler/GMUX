@@ -10,11 +10,13 @@ Everything in cmux still works. GMUX adds the following:
 - **Explorer column.** A file tree sits between the workspace tabs and the terminal, styled like VS Code's Explorer. It follows the focused terminal's folder and colours files by git status. Files your `.gitignore` excludes are dimmed. The tree updates live as files change anywhere in it. Toggle it with **⌃⌘E**.
 - **Preview tabs.** Single-click a file to preview it in a tab that the next click replaces. Double-click to keep it open.
 - **Agent markers.** Files an agent edited in the last 15 minutes get a dot. Folders containing them get one too, so collapsed folders show where the work is.
+- **Branch and commit graph.** The current branch sits at the top of the Explorer, with ↑/↓ counts of commits to push and pull and a dot when there are uncommitted changes. Click it to search and switch branches. The **Graph** section under the file tree shows history like VS Code's Source Control Graph: coloured branch lanes, merges, and branch, remote and tag labels. Click a commit to list its files, and click a file to see its red/green diff for that commit. Both update on their own when you commit, switch or fetch.
 - **Follow-agent mode.** Click the eye at the top of the Explorer to turn it on. While an agent edits, each file it touches opens beside the agent's terminal without taking focus. The file shows as a live diff against its last commit: removed lines in red, added lines in green, with new lines appearing one at a time. Files edited together open together, up to three stacked panes, then as tabs. **Show File** in a pane's header switches back to the normal editor.
 - **`cmux files` CLI.** Agents and scripts can drive the Explorer:
 
   ```bash
-  cmux files state                 # root, selection, follow mode, recent agent edits
+  cmux files state                 # root, branch, selection, follow mode, recent agent edits
+  cmux files graph --limit 20      # print the commit graph shown under the tree
   cmux files tree --depth 2        # print the tree
   cmux files reveal src/app.ts     # expand to a file and select it
   cmux files open README.md --pin  # open a file as a pinned tab

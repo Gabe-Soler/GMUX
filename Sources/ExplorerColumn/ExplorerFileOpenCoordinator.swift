@@ -1,4 +1,5 @@
 import Bonsplit
+import CmuxGit
 import Foundation
 
 /// VS Code-style preview tabs for files opened from the Explorer column.
@@ -61,6 +62,52 @@ struct ExplorerFileOpenCoordinator {
         } else if !panelIdsBeforeOpen.contains(panel.id) {
             state.previewPanelIdByWorkspace[workspace.id] = panel.id
         }
+        return true
+    }
+
+    /// Opens one file's change in a commit as a red/green diff tab. Like a
+    /// preview, the next commit file clicked replaces it in place.
+    @discardableResult
+    func openCommitDiff(
+        repositoryRoot: URL,
+        commit: GitCommit,
+        change: GitCommitFileChange,
+        workspace: Workspace,
+        pane: PaneID
+    ) -> Bool {
+        let path = repositoryRoot.appendingPathComponent(change.path).path
+        var targetIndex: Int?
+        var replacedPanelId: UUID?
+        if let previousId = state.commitDiffPanelIdByWorkspace[workspace.id],
+           workspace.panels[previousId] != nil,
+           workspace.paneId(forPanelId: previousId) == pane,
+           let index = Self.tabIndex(of: previousId, in: pane, workspace: workspace) {
+            targetIndex = index + 1
+            replacedPanelId = previousId
+        }
+        // Always a new tab: never take over a tab showing the file itself.
+        guard let panel = workspace.openFilePreviewSurfaces(
+            inPane: pane,
+            filePaths: [path],
+            focus: true,
+            targetIndex: targetIndex,
+            reuseExisting: false,
+            duplicateWhenFocused: true
+        ).first else { return false }
+        panel.agentLiveDiff = AgentLiveDiffModel(
+            filePath: path,
+            source: .commit(
+                repositoryRoot: repositoryRoot,
+                sha: commit.sha,
+                parentSHA: commit.parents.first,
+                path: change.path,
+                oldPath: change.oldPath
+            )
+        )
+        if let replacedPanelId, replacedPanelId != panel.id {
+            _ = workspace.closePanel(replacedPanelId, force: true)
+        }
+        state.commitDiffPanelIdByWorkspace[workspace.id] = panel.id
         return true
     }
 

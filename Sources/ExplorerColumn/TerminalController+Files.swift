@@ -1,4 +1,5 @@
 import AppKit
+import CmuxGit
 import Foundation
 
 /// `files.*` v2 socket methods: agents drive the Explorer column the person sees.
@@ -10,7 +11,7 @@ import Foundation
 extension TerminalController {
     static let explorerFilesMethods: [String] = [
         "files.state", "files.tree", "files.reveal", "files.open",
-        "files.show", "files.hide", "files.toggle", "files.follow",
+        "files.show", "files.hide", "files.toggle", "files.follow", "files.graph",
     ]
 
     @MainActor
@@ -32,6 +33,9 @@ extension TerminalController {
         case "files.follow":
             if let enabled = v2Bool(params, "enabled") { state.followAgent = enabled }
             return .ok(["follow": state.followAgent])
+        case "files.graph":
+            let limit = max(1, min(v2Int(params, "limit") ?? 50, 1_000))
+            return .ok(filesGraphPayload(model: state.graphModel, limit: limit))
         default:
             break
         }
@@ -110,12 +114,62 @@ extension TerminalController {
         return [
             "visible": state.isVisible,
             "follow": state.followAgent,
+            "git": Self.branchPayload(state.graphModel),
             "agent_edits": agentEdits,
             "root": store.rootPath,
             "selected": store.selectedPath ?? NSNull(),
             "expanded": store.expandedPaths.sorted(),
             "preview": previewPath,
         ]
+    }
+
+    private static func branchPayload(_ model: CommitGraphModel) -> Any {
+        guard model.availability == .ready, let status = model.branchStatus else { return NSNull() }
+        return [
+            "repository": model.repositoryRoot?.path ?? NSNull(),
+            "branch": status.branch ?? NSNull(),
+            "head": status.headSHA ?? NSNull(),
+            "detached": status.isDetached,
+            "upstream": status.upstream ?? NSNull(),
+            "ahead": status.ahead,
+            "behind": status.behind,
+        ] as [String: Any]
+    }
+
+    /// The commits the Graph section shows, newest first, with each row's lanes.
+    private func filesGraphPayload(model: CommitGraphModel, limit: Int) -> [String: Any] {
+        let commits: [[String: Any]] = model.rows.prefix(limit).map { row in
+            [
+                "sha": row.commit.sha,
+                "parents": row.commit.parents,
+                "subject": row.commit.subject,
+                "author": row.commit.authorName,
+                "timestamp": Int(row.commit.date.timeIntervalSince1970),
+                "refs": row.commit.refs.map { label -> [String: String] in
+                    let kind: String
+                    switch label.kind {
+                    case .head: kind = "head"
+                    case .localBranch: kind = "branch"
+                    case .remoteBranch: kind = "remote"
+                    case .tag: kind = "tag"
+                    }
+                    return ["kind": kind, "name": label.name]
+                },
+                "lane": row.lane,
+                "through_lanes": row.top.filter { $0.from == $0.to && $0.from != row.lane }.map(\.from),
+                "lane_count": row.laneCount,
+            ]
+        }
+        var payload: [String: Any] = [
+            "available": model.availability == .ready,
+            "loaded": model.isGraphVisible,
+            "git": Self.branchPayload(model),
+            "commits": commits,
+        ]
+        if model.availability != .ready {
+            payload["reason"] = "\(model.availability)"
+        }
+        return payload
     }
 
     /// The tree as the person sees it: loaded folders only, with git markers.

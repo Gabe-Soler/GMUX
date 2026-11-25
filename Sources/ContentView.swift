@@ -5,6 +5,7 @@ import CmuxCommandPalette
 import CmuxCore
 import CmuxFeedback
 import CmuxFoundation
+import CmuxGit
 import CmuxAgentJournal
 import CmuxNotifications
 import CmuxPanes
@@ -1895,7 +1896,12 @@ struct ContentView: View {
                         isFullScreen: isFullScreen,
                         runtimeCache: workspacePresentationModeRuntimeCache,
                         onOpenFilePreview: { openFileFromExplorerColumn($0, state: explorerColumnState, pin: true) },
-                        onPreviewFile: { openFileFromExplorerColumn($0, state: explorerColumnState, pin: false) }
+                        onPreviewFile: { openFileFromExplorerColumn($0, state: explorerColumnState, pin: false) },
+                        onOpenCommitFile: { root, commit, change in
+                            openCommitFileFromExplorerColumn(
+                                repositoryRoot: root, commit: commit, change: change, state: explorerColumnState
+                            )
+                        }
                     )
                 },
                 terminal: { terminalContentOnly(appearance: appearance) }
@@ -2479,6 +2485,23 @@ struct ContentView: View {
         sidebarSelectionState.selection = .tabs
         ExplorerFileOpenCoordinator(state: state).open(
             path: filePath, workspace: workspace, pane: paneId, pin: pin, focus: true
+        )
+    }
+
+    /// Opens one file's change in a commit, clicked in the Explorer's Graph.
+    private func openCommitFileFromExplorerColumn(
+        repositoryRoot: URL,
+        commit: GitCommit,
+        change: GitCommitFileChange,
+        state: ExplorerColumnState
+    ) {
+        guard let workspace = tabManager.selectedWorkspace,
+              let paneId = workspace.bonsplitController.focusedPaneId ?? workspace.bonsplitController.allPaneIds.first else {
+            return
+        }
+        sidebarSelectionState.selection = .tabs
+        ExplorerFileOpenCoordinator(state: state).openCommitDiff(
+            repositoryRoot: repositoryRoot, commit: commit, change: change, workspace: workspace, pane: paneId
         )
     }
 
