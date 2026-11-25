@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GMUX</title>
+<meta name="description" content="GMUX is a macOS terminal for AI coding agents, with a file explorer, a commit graph and live diffs of the files your agents edit. Clone it from GitHub and build it on your Mac.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<meta property="og:title" content="GMUX">
+<meta property="og:description" content="Watch your agents change the code. A macOS terminal with a file explorer and live diffs.">
+<meta property="og:image" content="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500&family=Geist+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css">
+<link rel="stylesheet" href="gmux.css">
+<script>document.documentElement.classList.add('g-js')</script>
+</head>
+<body class="g-root">
+<div class="g-site">
+
+  <header class="g-header g-grid">
+    <a class="g-logo" href="#"><img class="gmux-logo-img" src="icon.png" alt="">GMUX</a>
+    <nav><a class="g-link" href="#features">Features</a><a class="g-link" href="#install">Install</a><a class="g-link" href="#privacy">Privacy</a></nav>
+    <a class="g-header-end g-link" href="https://github.com/Gabe-Soler/GMUX">GitHub</a>
+    <a class="g-burger" href="https://github.com/Gabe-Soler/GMUX" aria-label="GitHub" style="font-size:13.5px;color:var(--g-text)">GitHub</a>
+  </header>
+
+  <main class="g-stack">
+
+    <!-- 1. hero: black card, text in the first third, terminal across thirds 2–3 -->
+    <section class="g-card g-card--navy g-card--tall g-reveal">
+      <div class="g-row g-ticks"><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i></div>
+      <div class="g-row g-row--tight g-grid">
+        <p class="g-eyebrow g-green g-t1 g-m-l g-fade" style="--i:0">Meet GMUX</p>
+        <p class="g-eyebrow g-t3 g-m-r g-end g-fade" style="--i:1;color:var(--g-on-dark-faded)">macOS · Apple Silicon</p>
+      </div>
+      <div class="g-row g-grid g-grow" style="align-content:center">
+        <div class="g-full g-ticks"><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i></div>
+        <div class="g-t1">
+          <img class="gmux-big-icon g-fade" style="--i:0;margin-bottom:28px" src="icon.png" alt="GMUX app icon">
+          <h1 class="g-xxl g-fade" style="--i:1;color:#fff">Watch your agents<br>change the code.</h1>
+          <p class="g-body g-fade" style="--i:2;margin-top:18px;color:rgba(255,255,255,.62)">GMUX is a Ghostty-based terminal for Claude, Codex and other coding agents. It adds a file explorer, a commit graph and live diffs of every file an agent touches.</p>
+          <div class="g-actions g-fade" style="--i:3;margin-top:24px">
+            <a class="g-chip g-chip--green" href="https://github.com/Gabe-Soler/GMUX#run-gmux-locally">Install from GitHub</a>
+            <a class="g-chip g-chip--white" href="#install">See the steps</a>
+          </div>
+        </div>
+        <div class="g-t23 g-fade" style="--i:3;align-self:center">
+          <div class="gmux-term" aria-label="Install commands">
+            <div class="gmux-term-bar"><span class="gmux-dots"><i></i><i></i><i></i></span><span>~/GMUX — zsh</span><span>00:00:30</span></div>
+<pre><span class="c"># clone and fetch the terminal library</span>
+<span class="p">&gt;_</span> git clone https://github.com/Gabe-Soler/GMUX.git ~/GMUX
+<span class="p">&gt;_</span> cd ~/GMUX &amp;&amp; ./scripts/setup.sh
+
+<span class="c"># build, install to /Applications and open</span>
+<span class="p">&gt;_</span> ./scripts/gmux-install.sh
+<span class="c">Installed /Applications/GMUX.app</span>
+<span class="p">&gt;_</span> <span class="gmux-cursor"></span></pre>
+          </div>
+        </div>
+      </div>
+      <div class="g-row g-ticks"><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i></div>
+    </section>
+
+    <!-- 2. features trio -->
+    <section id="features" class="g-card g-reveal">
+      <div class="g-row g-ticks"><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i></div>
+      <div class="g-row g-row--tight g-grid">
+        <div class="g-t1">
+          <h2 class="g-title g-fade" style="--i:0">Built on cmux.<br>Made to follow agents.</h2>
+          <p class="g-body g-fade" style="--i:1">Everything in cmux still works: vertical tabs, splits, notifications and the browser. GMUX adds the views you'd otherwise keep VS Code open for.</p>
+        </div>
+      </div>
+      <div class="g-row g-ticks" style="padding-top:calc(150 * var(--g-u))"><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i></div>
+      <div class="g-row g-row--tight"><p class="g-eyebrow">Features</p></div>
+      <div class="g-row g-grid" style="padding-top:calc(50 * var(--g-u))">
+        <article class="g-t1 g-feature g-fade" style="--i:0"><p class="g-mono g-num">01</p><p class="g-mono">Explorer column</p><p class="g-body" style="max-width:none">A file tree beside the terminal that follows the focused folder, colours files by git status and updates live. Toggle it with ⌃⌘E.</p></article>
+        <article class="g-t2 g-feature g-fade" style="--i:1"><p class="g-mono g-num">02</p><p class="g-mono">Follow-agent mode</p><p class="g-body" style="max-width:none">Each file an agent edits opens beside its terminal as a live diff, with removed lines in red and new lines in green.</p></article>
+        <article class="g-t3 g-feature g-fade" style="--i:2"><p class="g-mono g-num">03</p><p class="g-mono">Branch and commit graph</p><p class="g-body" style="max-width:none">Branch lanes, merges and tags under the tree. Click a commit to list its files and open each one's diff.</p></article>
+      </div>
+      <div class="g-row g-ticks" style="padding-top:calc(60 * var(--g-u))"><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i></div>
+      <div class="g-row g-grid" style="padding-top:calc(30 * var(--g-u))">
+        <article class="g-t1 g-feature g-fade" style="--i:0"><p class="g-mono g-num">04</p><p class="g-mono">Agent markers</p><p class="g-body" style="max-width:none">Files edited in the last 15 minutes get a dot, and so do the folders that hold them.</p></article>
+        <article class="g-t2 g-feature g-fade" style="--i:1"><p class="g-mono g-num">05</p><p class="g-mono">Preview tabs</p><p class="g-body" style="max-width:none">Single-click to preview a file in a reusable tab. Double-click to keep it open.</p></article>
+        <article class="g-t3 g-feature g-fade" style="--i:2"><p class="g-mono g-num">06</p><p class="g-mono">cmux files CLI</p><p class="g-body" style="max-width:none">Agents and scripts can reveal, open and follow files, or print the tree and graph.</p></article>
+      </div>
+      <div class="g-row g-ticks" style="padding-top:calc(50 * var(--g-u))"><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i></div>
+    </section>
+
+    <!-- 3. install: pale green card, three steps on the thirds -->
+    <section id="install" class="g-card g-card--mist g-reveal">
+      <div class="g-row g-ticks"><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i></div>
+      <div class="g-row g-row--tight g-grid">
+        <p class="g-eyebrow g-t1 g-m-l">Install</p><p class="g-eyebrow g-t3 g-m-r g-end">About 30 minutes</p>
+        <div class="g-t1" style="margin-top:calc(-16 * var(--g-u))">
+          <h2 class="g-title g-fade" style="--i:0">Clone it.<br>Build it on your Mac.</h2>
+          <p class="g-body g-fade" style="--i:1">GMUX is built from source on an Apple Silicon Mac. No Apple developer account is needed: the app is signed on your machine, for your own use.</p>
+          <div class="g-actions g-fade" style="--i:2;margin-top:24px"><a class="g-chip" href="https://github.com/Gabe-Soler/GMUX#run-gmux-locally">Full instructions on GitHub</a></div>
+        </div>
+      </div>
+      <div class="g-row g-ticks" style="padding-top:calc(120 * var(--g-u))"><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i></div>
+      <div class="g-row g-row--tight g-grid">
+        <article class="g-t1 g-fade" style="--i:0">
+          <p class="g-mono" style="color:var(--g-text-mist)">01</p><p class="g-mono">Install the tools</p>
+          <p class="g-body" style="max-width:none;margin-top:12px">Xcode from the App Store, opened once. Then the Metal toolchain, Rust and Zig 0.16.0.</p>
+          <div class="gmux-code"><button class="gmux-copy" type="button">Copy</button><pre><span class="p">&gt;_</span> xcodebuild -downloadComponent MetalToolchain
+<span class="p">&gt;_</span> curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+<span class="p">&gt;_</span> mkdir -p ~/.local/zig
+<span class="p">&gt;_</span> curl -L https://ziglang.org/download/0.16.0/zig-aarch64-macos-0.16.0.tar.xz | tar -xJ -C ~/.local/zig</pre></div>
+        </article>
+        <article class="g-t2 g-fade" style="--i:1">
+          <p class="g-mono" style="color:var(--g-text-mist)">02</p><p class="g-mono">Get the code</p>
+          <p class="g-body" style="max-width:none;margin-top:12px">Clone the repository and fetch the submodules and the prebuilt Ghostty library.</p>
+          <div class="gmux-code"><button class="gmux-copy" type="button">Copy</button><pre><span class="p">&gt;_</span> git clone https://github.com/Gabe-Soler/GMUX.git ~/GMUX
+<span class="p">&gt;_</span> cd ~/GMUX
+<span class="p">&gt;_</span> export PATH="$HOME/.local/zig/zig-aarch64-macos-0.16.0:$HOME/.cargo/bin:$PATH"
+<span class="p">&gt;_</span> ./scripts/setup.sh</pre></div>
+        </article>
+        <article class="g-t3 g-fade" style="--i:2">
+          <p class="g-mono" style="color:var(--g-text-mist)">03</p><p class="g-mono">Build and install</p>
+          <p class="g-body" style="max-width:none;margin-top:12px">Run it from macOS's Terminal app. It installs /Applications/GMUX.app and opens it. On first launch, right-click the app and choose Open.</p>
+          <div class="gmux-code"><button class="gmux-copy" type="button">Copy</button><pre><span class="p">&gt;_</span> cd ~/GMUX &amp;&amp; ./scripts/gmux-install.sh</pre></div>
+        </article>
+      </div>
+      <div class="g-row g-ticks" style="padding-top:calc(60 * var(--g-u))"><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i></div>
+      <div class="g-row g-row--tight g-grid">
+        <div class="g-t1"><p class="g-mono">Updating</p><p class="g-body" style="margin-top:12px">Pull the latest code and run the install script again.</p></div>
+        <div class="g-t23"><div class="gmux-code" style="margin-top:0"><button class="gmux-copy" type="button">Copy</button><pre><span class="p">&gt;_</span> cd ~/GMUX &amp;&amp; git pull &amp;&amp; ./scripts/gmux-install.sh</pre></div></div>
+      </div>
+      <div class="g-row g-ticks" style="padding-top:calc(50 * var(--g-u))"><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i></div>
+    </section>
+
+    <!-- 4. privacy: table of policies the installer turns on -->
+    <section id="privacy" class="g-card g-reveal">
+      <div class="g-row g-grid">
+        <div class="g-t1"><i class="g-tick"></i><h2 class="g-title g-fade" style="--i:0">Local by default.</h2><p class="g-body g-fade" style="--i:1">The installer switches off the parts of cmux that talk to cmux's servers, using cmux's own administrator policies. GMUX runs alongside a regular cmux install and keeps its own settings.</p></div>
+      </div>
+      <div class="g-row g-ticks" style="padding-top:calc(140 * var(--g-u))"><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i></div>
+      <div class="g-row g-row--tight">
+        <table class="g-table">
+          <colgroup><col style="width:33.6%"><col><col style="width:8%"></colgroup>
+          <thead><tr><th>Policy</th><th>Effect</th><th>State</th></tr></thead>
+          <tbody>
+            <tr><td>DisableTelemetry</td><td>No crash reports or anonymous analytics are sent.</td><td>Off</td></tr>
+            <tr><td>DisableAutoUpdate</td><td>Never replaced by an official cmux release.</td><td>Off</td></tr>
+            <tr><td>DisableCloud</td><td>cmux Cloud machines and the Cloud VPN are hidden.</td><td>Off</td></tr>
+            <tr><td>DisableRemoteControl</td><td>No iOS companion pairing.</td><td>Off</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="g-row g-ticks" style="padding-top:calc(30 * var(--g-u))"><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i></div>
+    </section>
+
+  </main>
+
+  <footer class="g-card g-card--navy g-footer g-on-dark">
+    <div class="g-row g-ticks"><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i></div>
+    <div class="g-row g-row--tight g-grid">
+      <div class="g-t1 g-col" style="display:flex;align-items:flex-start;gap:12px"><img class="gmux-logo-img" src="icon.png" alt=""><span class="g-l" style="font-size:20px;color:#fff;line-height:30px">GMUX</span></div>
+      <div class="g-t2 g-col"><p class="g-l">Built on cmux.<br>Made for agents at work.</p></div>
+      <div class="g-t3a g-col g-mono">
+        <a class="g-link" href="https://github.com/Gabe-Soler/GMUX">GitHub</a>
+        <a class="g-link" href="https://github.com/Gabe-Soler/GMUX#run-gmux-locally">Install guide</a>
+        <a class="g-link" href="https://github.com/manaflow-ai/cmux">Upstream cmux</a>
+        <a class="g-link" href="https://github.com/Gabe-Soler/GMUX/blob/main/LICENSE">License</a>
+      </div>
+      <div class="g-t3b g-col g-mono g-end"><a class="g-link g-green" href="https://github.com/Gabe-Soler/GMUX">&gt;_</a></div>
+    </div>
+    <div class="g-row g-grid" style="padding-top:clamp(60px, calc(200 * var(--g-u)), 200px)">
+      <p class="g-mono g-faded g-t1 g-m-l">GMUX by Gabe Soler.<br>A fork of cmux, GPL-3.0-or-later.</p>
+      <p class="g-mono g-faded g-t3 g-m-r g-end">cmux © Manaflow, Inc.<br>and contributors.</p>
+    </div>
+    <div class="g-row g-ticks"><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i><i class="g-tick"></i></div>
+  </footer>
+</div>
+
+<script>
+(() => {
+  // reveal: fade cards in, stagger text, draw ticks left to right
+  const els = document.querySelectorAll('.g-reveal');
+  document.querySelectorAll('.g-reveal .g-ticks').forEach(r => r.querySelectorAll('.g-tick').forEach((t, i) => t.style.setProperty('--i', i)));
+  if (!('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('is-in')); }
+  else {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { threshold: .1 });
+    els.forEach(e => io.observe(e));
+  }
+  // copy buttons: copy the commands without the >_ prompts
+  document.querySelectorAll('.gmux-copy').forEach(btn => btn.addEventListener('click', async () => {
+    const text = btn.nextElementSibling.textContent.split('\n').map(l => l.replace(/^>_\s*/, '')).join('\n');
+    try { await navigator.clipboard.writeText(text); btn.textContent = 'Copied'; }
+    catch { btn.textContent = 'Select'; }
+    setTimeout(() => { btn.textContent = 'Copy'; }, 1400);
+  }));
+})();
+</script>
+</body>
+</html>
