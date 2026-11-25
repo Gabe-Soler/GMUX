@@ -1,0 +1,110 @@
+/* Genesis-style tokens: measured from genesis.ai (rendered at 1440px and 390px, Oct 2026).
+ *
+ * Every size is a multiple of --g-u (the "unit"), so one token set serves every format:
+ *   web page            --g-u: 1px   (values below equal the live site at 1440px)
+ *   16:9 slide 1920w    --g-u: 2px
+ *   16:9 slide 1280w    --g-u: 1.333px
+ *   poster / social     --g-u: canvas-width / 720  (e.g. 1080w = 1.5px, A2 @150dpi 2480w = 3.44px)
+ *   pptx / Keynote 13.33in deck  --g-u: 1pt (960pt wide canvas)
+ *   print doc (A4/Letter)        --g-u: 0.75pt  (body 10.5pt, mono 7.5pt, title 24pt)
+ * Set --g-u on <html> (style="--g-u:2px") for a whole-artifact format, or on any element that ALSO
+ * has class "g-scale" (derived tokens are re-computed there). Setting --g-u on a plain child element
+ * does nothing, because custom properties resolve var() where they are declared.
+ */
+:root { --g-u: 1px; }
+:root, .g-scale {
+
+  /* ── colour ───────────────────────────────────────────── */
+  --g-page: #ffffff;          /* the page behind the cards */
+  --g-card: #f6f6f4;          /* default card: warm off-white */
+  --g-card-mist: #dee8eb;     /* "mist" card: pale blue-grey (about / mission / investors) */
+  --g-card-navy: #1a1d34;     /* navy card: footer, dark statements */
+  --g-ink: #1a1d34;           /* headlines + card titles (navy, never pure black) */
+  --g-ink-hard: #111516;      /* hard ink on light media ("theme-dark") */
+  --g-mono-ink: #000000;      /* mono labels on light cards */
+  --g-text: #8a8a8a;          /* body / descriptions: mid grey */
+  --g-text-mist: #7c828f;     /* body on the mist card (cooler grey) */
+  --g-text-strong: #353a3b;   /* secondary text when grey is too faint */
+  --g-on-dark: #dee8eb;       /* text on navy */
+  --g-on-dark-faded: rgba(222,232,235,.6);
+  --g-on-media: #ffffff;      /* text on photos / video */
+  --g-on-media-faded: rgba(255,255,255,.6);
+  --g-rule: #cacaca;          /* table/list row rules */
+  --g-tick: #1a1d34;          /* the 14px registration ticks */
+
+  /* chips (buttons) */
+  --g-chip-gray: #ebebeb;     /* + ink text: default on light cards */
+  --g-chip-dark: #282828;     /* + white text: on light media / hero */
+  --g-chip-white: #ffffff;    /* + ink text: on dark media */
+  --g-chip-blue: #cad4d9;     /* + ink text: on the mist card */
+  --g-chip-glass: rgba(247,247,245,.2); /* + white text + blur(7px): on media */
+
+  /* ── type ─────────────────────────────────────────────── */
+  /* Originals: Scto Grotesk A (Schick Toolbox) + Aeonik Mono (CoType), both commercial.
+     Free stand-ins: Inter + Geist Mono (Google Fonts). Tracking below is tuned for Inter;
+     with licensed Scto Grotesk A use the measured values: title -.05em, l -.05em, s -.03em. */
+  --g-sans: "Scto Grotesk A", "scto grotesk a - regular", "Inter", "Helvetica Neue", Arial, sans-serif;
+  --g-mono: "Aeonik Mono", "aeonik mono - medium", "Geist Mono", "JetBrains Mono", ui-monospace, Menlo, monospace;
+
+  /* sizes at --g-u = 1px are the desktop site exactly */
+  --g-fs-mono: calc(10 * var(--g-u));      /* eyebrow, label, button, table cell, timecode */
+  --g-fs-s: calc(14 * var(--g-u));         /* body, description, nav */
+  --g-fs-m: calc(16 * var(--g-u));
+  --g-fs-l: calc(18 * var(--g-u));         /* footer tagline, article body */
+  --g-fs-title: calc(32 * var(--g-u));     /* card title (the "big" headline) */
+  --g-fs-xxl: calc(40 * var(--g-u));       /* rare; hero statement on long pages */
+  --g-fs-statement: calc(64 * var(--g-u)); /* off-site extension: posters/covers ONLY */
+
+  --g-ls-title: -.04em;     /* Scto: -.05em (32px → -1.6px) */
+  --g-ls-l: -.035em;        /* Scto: -.05em */
+  --g-ls-s: -.015em;        /* Scto: -.03em (14px → -0.42px) */
+  --g-lh-title: 1.02;
+  --g-lh-s: 1.12;
+  --g-lh-mono: 1.18;
+
+  /* ── shape ────────────────────────────────────────────── */
+  --g-r-card: calc(16 * var(--g-u));
+  --g-r-media: calc(4 * var(--g-u));   /* images nested inside a card */
+  --g-r-chip: calc(6 * var(--g-u));
+
+  /* ── layout ───────────────────────────────────────────── */
+  --g-site-pad: calc(34 * var(--g-u));   /* page edge → card (14px on phones) */
+  --g-card-pad: calc(22 * var(--g-u));   /* card edge → content (18px on phones) */
+  --g-gap: calc(16 * var(--g-u));        /* grid column gap (14px on phones) */
+  --g-stack: calc(40 * var(--g-u));      /* vertical gap between cards */
+  --g-cols: 12;                          /* 4 on phones / narrow posters */
+  --g-tick-w: calc(14 * var(--g-u));
+  --g-tick-h: max(1px, var(--g-u));
+  --g-tick-gap: calc(14 * var(--g-u));   /* tick → text below it (10px on phones) */
+
+  /* ── motion ───────────────────────────────────────────── */
+  --g-ease-ui: ease-in-out;              /* .35s colour / underline / chip */
+  --g-ease-slide: cubic-bezier(.33,1,.68,1);
+  --g-fade: .4s ease-out;
+  --g-fade-start: .6s;                   /* first item delay */
+  --g-fade-step: .1s;                    /* per-item stagger */
+}
+
+@media (max-width: 899px) {
+  :root:not(.g-fixed) {
+    --g-site-pad: 14px;
+    --g-card-pad: 18px;
+    --g-gap: 14px;
+    --g-cols: 4;
+    --g-tick-gap: 10px;
+    --g-fs-title: 22px;     /* card title drops to 22px / -0.069rem / 1.08 */
+    --g-lh-title: 1.08;
+    --g-fs-s: 13.5px;
+  }
+}
+
+/* Dark mode: taken from the site's own color-scheme=dark rules */
+/* fixed formats (decks, posters, print) opt out of auto-dark with class="g-fixed" on <html> */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not(.g-fixed) { --g-page:#07070d; --g-card:#0e0f19; --g-card-mist:#10132a; --g-card-navy:#0e0f19;
+    --g-ink:#ffffff; --g-mono-ink:#ffffff; --g-text:#c1c9cc; --g-text-mist:#7c828f;
+    --g-tick:#dee8eb; --g-rule:#2a2d40; --g-chip-gray:#10132a; --g-chip-blue:#10132a; }
+}
+:root[data-theme="dark"] { --g-page:#07070d; --g-card:#0e0f19; --g-card-mist:#10132a; --g-card-navy:#0e0f19;
+  --g-ink:#ffffff; --g-mono-ink:#ffffff; --g-text:#c1c9cc; --g-text-mist:#7c828f;
+  --g-tick:#dee8eb; --g-rule:#2a2d40; --g-chip-gray:#10132a; --g-chip-blue:#10132a; }

@@ -1,0 +1,239 @@
+/* Genesis-style components. Requires tokens.css. Every size goes through --g-u, so the same
+   classes work for a web page, a 16:9 slide, a poster or a social tile. */
+
+*,*::before,*::after{box-sizing:border-box}
+.g-root, body.g-root{margin:0;background:var(--g-page);color:var(--g-ink);font-family:var(--g-sans);
+  font-size:var(--g-fs-s);line-height:var(--g-lh-s);letter-spacing:var(--g-ls-s);
+  -webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+:where(.g-root) :is(h1,h2,h3,h4,p){margin:0;font-weight:400}
+.g-root h1,.g-root h2,.g-root h3{text-wrap:balance}
+.g-root p{text-wrap:pretty}
+.g-root img,.g-root video{display:block;max-width:100%}
+:where(.g-root) a{color:inherit;text-decoration:none}
+
+/* ── page frame ───────────────────────────────────────── */
+.g-site{padding:0 var(--g-site-pad);max-width:2800px;margin:0 auto}
+.g-stack{display:flex;flex-direction:column;gap:var(--g-stack)}
+
+/* ── grid (12 cols desktop, 4 on phones) ──────────────── */
+.g-grid{display:grid;grid-template-columns:repeat(var(--g-cols),minmax(0,1fr));column-gap:var(--g-gap);row-gap:calc(40 * var(--g-u))}
+.g-pad{padding:var(--g-card-pad)}
+.g-padx{padding-left:var(--g-card-pad);padding-right:var(--g-card-pad)}
+/* placements: the card is read in THIRDS (cols 1 / 5 / 9). Text blocks
+   rarely use more than one third; long statements may run 1/-1. */
+.g-t1{grid-column:1/span 4}  .g-t2{grid-column:5/span 4}  .g-t3{grid-column:9/span 4}
+.g-t1-narrow{grid-column:1/span 3}            /* hero text column */
+.g-t3a{grid-column:9/span 3} .g-t3b{grid-column:12/span 1}   /* last third split 3+1 */
+.g-t3-half-a{grid-column:9/span 2} .g-t3-half-b{grid-column:11/span 2}
+.g-t23{grid-column:5/span 8} .g-t12{grid-column:1/span 8}
+.g-full{grid-column:1/-1}
+.g-end{justify-self:end;text-align:right}
+@media (max-width:899px){
+  :root:not(.g-fixed) :is(.g-t1,.g-t2,.g-t3,.g-t23,.g-t12,.g-t1-narrow){grid-column:1/-1}
+  :root:not(.g-fixed) :is(.g-t3a,.g-t3-half-a){grid-column:1/span 3}
+  :root:not(.g-fixed) :is(.g-t3b,.g-t3-half-b){grid-column:4/span 1}
+  /* label pairs (eyebrow left, timecode/label right) stay on one line on phones */
+  :root:not(.g-fixed) .g-m-l{grid-column:1/span 2;grid-row:1}
+  :root:not(.g-fixed) .g-m-r{grid-column:3/span 2;grid-row:1;justify-self:end;text-align:right}
+}
+/* narrow fixed canvases (portrait stories, phone-width tiles) add .g-narrow to collapse thirds */
+.g-narrow :is(.g-t1,.g-t2,.g-t3,.g-t23,.g-t12,.g-t1-narrow){grid-column:1/-1}
+.g-narrow :is(.g-t3a,.g-t3-half-a){grid-column:1/span 3}
+.g-narrow :is(.g-t3b,.g-t3-half-b){grid-column:4/span 1}
+
+/* ── header ───────────────────────────────────────────── */
+.g-header{padding-top:calc(20 * var(--g-u));padding-bottom:calc(64 * var(--g-u));align-items:start}
+.g-header .g-logo{grid-column:1/span 4;display:flex;align-items:center;gap:calc(10 * var(--g-u));
+  font-size:calc(22 * var(--g-u));letter-spacing:-.04em;color:var(--g-ink)}
+.g-header nav{grid-column:5/span 6;display:flex;justify-content:flex-end;gap:calc(60 * var(--g-u))}
+.g-header .g-header-end{grid-column:11/span 2;justify-self:end}
+.g-header a{font-size:var(--g-fs-s);color:var(--g-text)}
+.g-burger{display:none;background:none;border:0;padding:0;grid-column:4;justify-self:end;cursor:pointer}
+@media (max-width:899px){
+  :root:not(.g-fixed) .g-header{padding-top:58px;padding-bottom:40px}
+  :root:not(.g-fixed) .g-header nav,:root:not(.g-fixed) .g-header .g-header-end{display:none}
+  :root:not(.g-fixed) .g-burger{display:block}
+  :root:not(.g-fixed) .g-header .g-logo{grid-column:1/span 3}
+}
+
+/* ── links: grey → ink, 1px underline grows out from the centre ─ */
+.g-link{position:relative;transition:color .35s var(--g-ease-ui)}
+.g-link::before{content:"";position:absolute;left:50%;top:calc(100% + 1px);width:0;height:1px;
+  background:currentColor;opacity:.5;transition:width .35s var(--g-ease-ui),left .35s var(--g-ease-ui),opacity .35s var(--g-ease-ui)}
+.g-link:hover,.g-link:focus-visible{color:var(--g-ink);outline:none}
+.g-link:hover::before,.g-link:focus-visible::before{width:100%;left:0;opacity:1}
+.g-on-dark .g-link:hover,.g-on-media .g-link:hover{color:#fff}
+
+/* ── card: the unit everything lives in ────────────────── */
+.g-card{position:relative;background:var(--g-card);border-radius:var(--g-r-card);overflow:hidden;
+  display:flex;flex-direction:column;isolation:isolate}
+.g-card--mist{background:var(--g-card-mist)}
+.g-card--mist .g-body:not(.g-body--ink){color:var(--g-text-mist)}
+.g-card--navy{background:var(--g-card-navy);color:var(--g-on-dark)}
+.g-card--navy :is(.g-title,.g-l,.g-eyebrow,.g-mono,.g-body--ink){color:var(--g-on-dark)}
+.g-card--navy .g-tick{background:var(--g-on-dark)}
+.g-card--navy .g-faded,.g-card--navy .g-body{color:var(--g-on-dark-faded)}
+.g-card--tall{min-height:calc(720 * var(--g-u))}
+.g-card--169{aspect-ratio:16/9}
+@media (max-width:899px){
+  :root:not(.g-fixed) .g-card--tall{min-height:min(620px,78svh)}
+  :root:not(.g-fixed) .g-footer .g-col{min-height:0}
+  :root:not(.g-fixed) .g-card--169{aspect-ratio:9/16}
+}
+/* rows inside a card: top (eyebrow+ticks), middle (flex), bottom (ticks) */
+.g-row{padding:var(--g-card-pad) var(--g-card-pad) 0}
+.g-row:last-child{padding-bottom:var(--g-card-pad)}
+.g-row--tight{padding-top:var(--g-tick-gap)}   /* text row hanging under a tick row */
+.g-grow{flex:1}
+.g-row--end{margin-top:auto}
+
+/* media card: full-bleed image/video behind the rows */
+.g-card--media{background:#000;color:var(--g-on-media)}
+.g-card--media > .g-bg{position:absolute;inset:0;z-index:-1}
+.g-card--media > .g-bg img,.g-card--media > .g-bg video{width:100%;height:100%;object-fit:cover}
+.g-card--media :is(.g-title,.g-eyebrow,.g-mono,.g-body,.g-l,.g-statement,.g-figure){color:var(--g-on-media)}
+.g-card--media .g-tick{background:var(--g-on-media)}
+.g-card--media .g-faded{color:var(--g-on-media-faded)}
+/* light media (white studio render): flip back to ink */
+.g-card--media.g-light :is(.g-title,.g-eyebrow,.g-mono,.g-body,.g-l,.g-statement,.g-figure){color:#111516}
+.g-card--media.g-light .g-tick{background:#111516}
+/* mix-blend variant used on the site for text over busy footage */
+.g-card--media.g-difference .g-content{mix-blend-mode:difference}
+
+/* nested media (inside a card) gets the small radius */
+.g-img{border-radius:var(--g-r-media);overflow:hidden;background:#d9d9d6}
+.g-img img,.g-img video{width:100%;height:100%;object-fit:cover}
+
+/* ── registration ticks (the signature) ──────────────────
+   A 14×1 dash sits above every text block, and a row of four ticks marks
+   the thirds (cols 1 / 5 / 9) plus the right edge at a card's top,
+   middle and bottom. Markup: <div class="g-ticks"><i class="g-tick"></i>×4</div> */
+.g-tick{display:block;width:var(--g-tick-w);height:var(--g-tick-h);background:var(--g-tick);
+  margin-bottom:var(--g-tick-gap);transform-origin:left}
+.g-tick--bottom{margin:calc(12 * var(--g-u)) 0 0}
+.g-tick--compact{margin-bottom:calc(8 * var(--g-u))}
+.g-ticks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--g-gap)}
+.g-ticks > .g-tick{margin:0;grid-row:1}
+/* a tick row inside a .g-grid: pull the next grid row up to the normal tick gap */
+.g-grid > .g-ticks{margin-bottom:calc(var(--g-tick-gap) - 40 * var(--g-u))}
+.g-ticks > .g-tick:nth-child(1){grid-column:1}
+.g-ticks > .g-tick:nth-child(2){grid-column:2}
+.g-ticks > .g-tick:nth-child(3){grid-column:3}
+.g-ticks > .g-tick:nth-child(4){grid-column:3;justify-self:end;transform-origin:right}
+@media (max-width:899px){
+  :root:not(.g-fixed) .g-ticks{grid-template-columns:1fr 1fr}
+  :root:not(.g-fixed) .g-ticks > .g-tick:nth-child(2),:root:not(.g-fixed) .g-ticks > .g-tick:nth-child(3){display:none}
+  :root:not(.g-fixed) .g-ticks > .g-tick:nth-child(4){grid-column:2}
+}
+.g-narrow .g-ticks{grid-template-columns:1fr 1fr}
+.g-narrow .g-ticks > .g-tick:nth-child(2),.g-narrow .g-ticks > .g-tick:nth-child(3){display:none}
+.g-narrow .g-ticks > .g-tick:nth-child(4){grid-column:2}
+
+/* ── type ─────────────────────────────────────────────── */
+.g-eyebrow,.g-mono{font-family:var(--g-mono);font-weight:500;font-size:var(--g-fs-mono);
+  line-height:var(--g-lh-mono);letter-spacing:0;color:var(--g-mono-ink)}
+.g-title{font-size:var(--g-fs-title);line-height:var(--g-lh-title);letter-spacing:var(--g-ls-title);color:var(--g-ink)}
+.g-xxl{font-size:var(--g-fs-xxl);line-height:1.02;letter-spacing:-.05em;color:var(--g-ink)}
+.g-statement{font-size:var(--g-fs-statement);line-height:1;letter-spacing:-.055em;color:var(--g-ink)}
+.g-l{font-size:var(--g-fs-l);line-height:1.12;letter-spacing:var(--g-ls-l);color:var(--g-ink)}
+.g-body{font-size:var(--g-fs-s);line-height:var(--g-lh-s);letter-spacing:var(--g-ls-s);color:var(--g-text);max-width:calc(330 * var(--g-u))}
+.g-body--ink{color:var(--g-ink)}
+.g-faded{color:var(--g-text)}
+.g-measure{max-width:calc(330 * var(--g-u))}
+.g-title + .g-body,.g-xxl + .g-body,.g-statement + .g-body{margin-top:calc(26 * var(--g-u))}
+.g-body + .g-actions{margin-top:calc(24 * var(--g-u))}
+
+/* ── chips (buttons): 24px tall, 6px radius, mono 10px ──── */
+.g-actions{display:flex;flex-wrap:wrap;gap:calc(14 * var(--g-u))}
+.g-chip{position:relative;display:inline-flex;align-items:center;gap:calc(8 * var(--g-u));
+  height:calc(24 * var(--g-u));padding:0 calc(8 * var(--g-u));border:0;border-radius:var(--g-r-chip);
+  font-family:var(--g-mono);font-weight:500;font-size:var(--g-fs-mono);line-height:1;white-space:nowrap;
+  color:var(--g-ink);background:var(--g-chip-gray);cursor:pointer;
+  transition:padding-right .35s,color .35s,background-color .35s}
+.g-chip::before{content:"";position:absolute;inset:calc(-2 * var(--g-u));border-radius:var(--g-r-chip);
+  border:1px solid var(--g-chip-gray);opacity:0;transition:opacity .35s}
+.g-chip::after{content:"→";position:absolute;right:calc(8 * var(--g-u));opacity:0;transition:opacity .1s}
+.g-chip:hover{padding-right:calc(30 * var(--g-u))}
+.g-chip:hover::after{opacity:1;transition:opacity .3s .2s}
+.g-chip:focus-visible{outline:none}
+.g-chip:focus-visible::before{opacity:1}
+.g-chip--dark{background:var(--g-chip-dark);color:#fff}
+.g-chip--dark::before{border-color:var(--g-chip-dark)}
+.g-chip--white{background:var(--g-chip-white);color:#1a1d34}
+.g-chip--white::before{border-color:#fff}
+.g-chip--blue{background:var(--g-chip-blue);color:#1a1d34}
+.g-chip--blue::before{border-color:var(--g-chip-blue)}
+.g-chip--glass{background:var(--g-chip-glass);color:#fff;-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px)}
+.g-chip--glass::before{border-color:rgba(247,247,245,.2)}
+.g-chip--glass:hover{padding-right:calc(8 * var(--g-u))}
+.g-chip--glass:hover::after{opacity:0}
+.g-chip.is-active{background:#fff;color:#1a1d34}
+
+/* small square arrow button (carousel prev/next) */
+.g-arrow{display:inline-flex;align-items:center;justify-content:center;width:calc(18 * var(--g-u));height:calc(18 * var(--g-u));
+  border:0;border-radius:var(--g-r-chip);background:var(--g-chip-gray);color:var(--g-ink);font-size:var(--g-fs-mono);cursor:pointer}
+
+/* ── feature trio: image, 01, mono title, grey description ─ */
+.g-feature .g-img{aspect-ratio:432/300;margin-bottom:calc(16 * var(--g-u))}
+.g-feature .g-num{color:var(--g-text);margin-bottom:calc(2 * var(--g-u))}
+.g-feature .g-mono + .g-body{margin-top:calc(16 * var(--g-u))}
+
+/* ── table / list: mono cells, hairline rules, columns on the thirds ─ */
+.g-table{width:100%;border-collapse:collapse}
+.g-table th,.g-table td{font-family:var(--g-mono);font-weight:500;font-size:var(--g-fs-mono);line-height:var(--g-lh-mono);
+  text-align:left;vertical-align:top;padding:calc(20 * var(--g-u)) var(--g-gap) calc(20 * var(--g-u)) 0;color:var(--g-mono-ink)}
+.g-table th{padding-top:0;padding-bottom:calc(40 * var(--g-u));border-bottom:1px solid var(--g-rule);font-weight:500}
+.g-table td{border-bottom:1px solid var(--g-rule)}
+.g-table tr:last-child td{border-bottom:0}
+.g-table td:last-child,.g-table th:last-child{text-align:right;padding-right:0}
+.g-table .g-sub{display:block;color:var(--g-text)}
+.g-table tr{transition:opacity .35s}
+.g-table tbody:hover tr{opacity:.45}
+.g-table tbody tr:hover{opacity:1}
+
+/* key figure (off-site extension, for decks/posters that need numbers) */
+.g-figure{font-size:calc(64 * var(--g-u));line-height:1;letter-spacing:-.06em;color:var(--g-ink)}
+.g-figure sup{font-size:.4em;letter-spacing:0;vertical-align:top;margin-left:.06em}
+
+/* ── form (from the waitlist modal) ───────────────────── */
+.g-field{display:block;width:100%;background:none;border:0;border-bottom:1px solid var(--g-rule);
+  padding:0 0 calc(10 * var(--g-u));margin-bottom:calc(40 * var(--g-u));font:inherit;
+  font-size:var(--g-fs-l);letter-spacing:-.05em;color:var(--g-ink)}
+.g-field::placeholder{color:var(--g-text)}
+.g-field:focus{outline:none;border-bottom-color:var(--g-ink)}
+.g-on-dark .g-field{color:#fff;border-bottom-color:rgba(255,255,255,.3)}
+.g-on-dark .g-field::placeholder{color:#fff9}
+
+/* ── footer (a navy card) ─────────────────────────────── */
+.g-footer{margin:var(--g-stack) 0 var(--g-site-pad)}
+.g-footer .g-col{min-height:calc(180 * var(--g-u))}
+.g-footer a{display:block;padding-bottom:calc(4 * var(--g-u))}
+
+/* ── motion ───────────────────────────────────────────── */
+.g-js .g-reveal .g-fade{opacity:0}
+.g-js .g-reveal.is-in .g-fade{opacity:1;transition:opacity var(--g-fade);
+  transition-delay:calc(var(--g-fade-start) + var(--g-fade-step) * var(--i, 0))}
+.g-js .g-reveal .g-tick{transform:scaleX(0)}
+.g-js .g-reveal.is-in .g-tick{transform:scaleX(1);transition:transform .4s ease-in-out;
+  transition-delay:calc(var(--g-fade-step) * var(--i, 0))}
+.g-js .g-reveal.g-card{opacity:0}
+.g-js .g-reveal.g-card.is-in{opacity:1;transition:opacity .6s ease-out}
+@media (prefers-reduced-motion:reduce){
+  .g-js .g-reveal .g-fade,.g-js .g-reveal.g-card{opacity:1!important;transition:none!important}
+  .g-js .g-reveal .g-tick{transform:none!important;transition:none!important}
+  .g-chip,.g-link,.g-link::before{transition:none}
+}
+
+/* ── fixed-canvas formats (slides, posters, social) ───── */
+.g-fixed .g-root, .g-fixed body{margin:0}
+.g-canvas{position:relative;overflow:hidden;background:var(--g-page);width:var(--g-w);height:var(--g-h);
+  padding:var(--g-site-pad);display:flex;flex-direction:column;gap:var(--g-stack)}
+.g-canvas > .g-card{flex:1;min-height:0}
+.g-slide{--g-w:1920px;--g-h:1080px;--g-site-pad:48px;--g-stack:32px}  /* pair with <html style="--g-u:2px"> */
+.g-narrow{--g-cols:4}
+/* placeholder for imagery in examples ONLY: a soft high-key studio gradient.
+   Shipped work uses the project's own photos / renders. */
+.g-ph{background:radial-gradient(120% 90% at 78% 70%,#141414 0 34%,#3a3a3a 46%,#d8d8d6 62%,#efefed 80%)}
+.g-ph--room{background:linear-gradient(180deg,#5d6066 0%,#8b8a86 45%,#b39572 70%,#6f5a44 100%)}
+.g-ph--soft{background:radial-gradient(70% 80% at 50% 60%,#2b2b2b 0 22%,#9a9a98 48%,#e9e9e7 75%)}
+.g-ph--dark{background:linear-gradient(160deg,#3d4246 0%,#24282b 55%,#121416 100%)}
