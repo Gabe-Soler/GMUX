@@ -84,3 +84,6 @@
 @media (max-width: 899px) {
   :root:not(.g-fixed) { --g-fs-s: 16px; }
 }
+
+/* no registration ticks on this site */
+.g-tick { display: none !important; }
