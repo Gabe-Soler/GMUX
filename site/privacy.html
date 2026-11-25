@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Privacy and security · GMUX</title>
+<meta name="description" content="What the GMUX website and app collect, and how to report a security issue.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500&family=Geist+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css">
+<link rel="stylesheet" href="gmux.css">
+<style>
+  .gp-section h2 { margin-bottom: 16px; }
+  .gp-section .g-body { max-width: 640px; margin-top: 12px; }
+  .gp-section ul { margin: 12px 0 0; padding-left: 18px; color: var(--g-text); max-width: 640px; }
+  .gp-section li { margin-bottom: 8px; line-height: var(--g-lh-s); }
+  .gp-section a:not(.g-chip) { color: var(--g-ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+</style>
+</head>
+<body class="g-root">
+<div class="g-site">
+
+  <header class="g-header g-grid">
+    <a class="g-logo" href="./"><img class="gmux-logo-img" src="icon.png" alt="">GMUX</a>
+    <nav><a class="g-link" href="./#features">Features</a><a class="g-link" href="./#install">Install</a><a class="g-link" href="./#privacy">Privacy</a></nav>
+    <a class="g-header-end g-link" href="https://github.com/Gabe-Soler/GMUX">GitHub</a>
+    <a class="g-burger" href="./" aria-label="Home" style="font-size:13.5px;color:var(--g-text)">Home</a>
+  </header>
+
+  <main class="g-stack">
+
+    <section class="g-card g-card--navy">
+      <div class="g-row g-grid">
+        <p class="g-eyebrow g-green g-t1 g-m-l">Privacy and security</p>
+        <p class="g-eyebrow g-t3 g-m-r g-end" style="color:var(--g-on-dark-faded)">Updated 25 November 2026</p>
+      </div>
+      <div class="g-row" style="padding-top:80px">
+        <h1 class="g-xxl" style="color:#fff">No tracking.<br>No accounts. No data sold.</h1>
+        <p class="g-body" style="margin-top:20px;color:rgba(255,255,255,.62);max-width:560px">This page explains what the GMUX website and the GMUX app collect, who else sees data when you use them, and how to report a security problem.</p>
+      </div>
+      <div class="g-row" style="padding-top:60px"></div>
+    </section>
+
+    <section class="g-card gp-section">
+      <div class="g-row g-grid">
+        <div class="g-t1"><p class="g-mono">01 · This website</p></div>
+        <div class="g-t23">
+          <h2 class="g-title">The website collects nothing itself.</h2>
+          <p class="g-body">It has no analytics, no cookies, no forms and no tracking pixels. Nothing is stored in your browser. Two outside services are involved in showing it to you:</p>
+          <ul>
+            <li><strong style="font-weight:500;color:var(--g-ink)">GitHub Pages</strong> hosts the site. Like any web server, it receives your IP address and browser details to deliver the page, and may keep them in logs for security. See the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub Privacy Statement</a>.</li>
+            <li><strong style="font-weight:500;color:var(--g-ink)">Google Fonts</strong> serves the typefaces. Your browser requests them from Google, which receives your IP address. See the <a href="https://developers.google.com/fonts/faq/privacy">Google Fonts privacy FAQ</a>.</li>
+          </ul>
+          <p class="g-body">Links to GitHub and other sites are covered by those sites' own policies.</p>
+        </div>
+      </div>
+      <div class="g-row"></div>
+    </section>
+
+    <section class="g-card g-card--mist gp-section">
+      <div class="g-row g-grid">
+        <div class="g-t1"><p class="g-mono">02 · The GMUX app</p></div>
+        <div class="g-t23">
+          <h2 class="g-title">The app runs on your Mac.</h2>
+          <p class="g-body">GMUX is built from source on your own machine. The install script turns off the features that would contact the upstream project's servers:</p>
+          <ul>
+            <li>No crash reports or anonymous usage analytics are sent.</li>
+            <li>No automatic updates are checked for or downloaded.</li>
+            <li>Cloud machines, the cloud VPN and phone pairing are switched off.</li>
+          </ul>
+          <p class="g-body">Your files, terminal sessions and settings stay on your Mac. GMUX has no account system and no server of its own.</p>
+          <p class="g-body">The programs you run inside GMUX are separate. AI coding agents, package managers, git remotes and websites in the built-in browser send data to their own services, under their own terms.</p>
+        </div>
+      </div>
+      <div class="g-row"></div>
+    </section>
+
+    <section class="g-card gp-section">
+      <div class="g-row g-grid">
+        <div class="g-t1"><p class="g-mono">03 · Security</p></div>
+        <div class="g-t23">
+          <h2 class="g-title">Report issues privately.</h2>
+          <p class="g-body">A terminal runs your shell, so please don't post vulnerabilities in public issues. Report them privately instead:</p>
+          <ul>
+            <li><strong style="font-weight:500;color:var(--g-ink)">Problems specific to GMUX</strong> (the Explorer, follow-agent mode, the commit graph or the install script): use <a href="https://github.com/Gabe-Soler/GMUX/security/advisories/new">Report a vulnerability</a> on the GitHub repository.</li>
+            <li><strong style="font-weight:500;color:var(--g-ink)">Problems in the upstream terminal code</strong>: follow the upstream project's <a href="https://github.com/manaflow-ai/cmux/blob/main/SECURITY.md">security policy</a>, so the fix reaches everyone.</li>
+          </ul>
+          <p class="g-body">Include what an attacker could do, how to reproduce it, and your GMUX commit. Please don't send live tokens, keys or personal data.</p>
+          <p class="g-body">GMUX is open source under GPL-3.0-or-later, so you can read every line before you build it. Builds are signed on your Mac and not notarized by Apple, which is why macOS asks you to confirm the first launch.</p>
+          <div class="g-actions" style="margin-top:24px"><a class="g-chip" href="https://github.com/Gabe-Soler/GMUX/security/advisories/new">Report a vulnerability</a><a class="g-chip" href="https://github.com/Gabe-Soler/GMUX">View the source</a></div>
+        </div>
+      </div>
+      <div class="g-row"></div>
+    </section>
+
+    <section class="g-card gp-section">
+      <div class="g-row g-grid">
+        <div class="g-t1"><p class="g-mono">04 · Questions</p></div>
+        <div class="g-t23">
+          <h2 class="g-title">Changes and contact.</h2>
+          <p class="g-body">If what the site or app collects changes, this page will be updated and its date will change. For other questions, <a href="https://github.com/Gabe-Soler/GMUX/issues">open an issue on GitHub</a>.</p>
+        </div>
+      </div>
+      <div class="g-row"></div>
+    </section>
+
+  </main>
+
+  <footer class="g-card g-card--navy g-footer g-on-dark">
+    <div class="g-row g-grid">
+      <div class="g-t1 g-col" style="display:flex;align-items:flex-start;gap:12px"><img class="gmux-logo-img" src="icon.png" alt=""><span class="g-l" style="font-size:20px;color:#fff;line-height:30px">GMUX</span></div>
+      <div class="g-t2 g-col"><p class="g-l">Terminal and editor.<br>One window.</p></div>
+      <div class="g-t3a g-col g-mono">
+        <a class="g-link" href="https://github.com/Gabe-Soler/GMUX">GitHub</a>
+        <a class="g-link" href="https://github.com/Gabe-Soler/GMUX#run-gmux-locally">Install guide</a>
+        <a class="g-link" href="privacy.html">Privacy &amp; security</a>
+        <a class="g-link" href="https://github.com/manaflow-ai/cmux">Upstream cmux</a>
+        <a class="g-link" href="https://github.com/Gabe-Soler/GMUX/blob/main/LICENSE">License</a>
+      </div>
+      <div class="g-t3b g-col g-mono g-end"><a class="g-link g-green" href="./">&gt;_</a></div>
+    </div>
+    <div class="g-row g-grid" style="padding-top:clamp(60px, 200px, 200px)">
+      <p class="g-mono g-faded g-t1 g-m-l">GMUX by Gabe Soler.<br>A fork of cmux, GPL-3.0-or-later.</p>
+      <p class="g-mono g-faded g-t3 g-m-r g-end"><a class="g-link" href="privacy.html">Privacy &amp; security</a>cmux © Manaflow, Inc. and contributors.</p>
+    </div>
+    <div class="g-row"></div>
+  </footer>
+</div>
+</body>
+</html>
