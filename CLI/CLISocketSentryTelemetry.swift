@@ -112,6 +112,16 @@ final class CLISocketSentryTelemetry {
         return trimmed
     }
 
+    /// Whether the app bundle this CLI ships inside forces `DisableTelemetry`
+    /// through its Info.plist (a personal GMUX install; see
+    /// `ManagedDevicePolicy.bundleForcedPolicies`).
+    private static func enclosingAppForcesTelemetryOff() -> Bool {
+        let info = CLIExecutableLocator.enclosingAppBundle()?.infoDictionary
+        return ManagedDevicePolicy.bundleForcedPolicies(infoDictionary: info)[
+            ManagedDevicePolicyKey.disableTelemetry.rawValue
+        ] == true
+    }
+
     private static func currentSentryBundle() -> Bundle? {
         if Bundle.main.bundleIdentifier?.isEmpty == false {
             return Bundle.main
@@ -135,6 +145,7 @@ final class CLISocketSentryTelemetry {
         self.disabledByEnv =
             processEnv["CMUX_CLI_SENTRY_DISABLED"] == "1" ||
             processEnv["CMUX_CLAUDE_HOOK_SENTRY_DISABLED"] == "1" ||
+            Self.enclosingAppForcesTelemetryOff() ||
             Self.isFailOpenAgentHookAdmission(
                 command: command.lowercased(),
                 subcommand: commandArgs.first?.lowercased() ?? "help"

@@ -62,12 +62,29 @@ public struct ManagedDevicePolicy: Sendable {
         defaults: UserDefaults = .standard,
         releaseDomainDefaults: UserDefaults? = ManagedDevicePolicy.defaultReleaseDomainDefaults(),
         forcedObject: @escaping ForcedObjectProbe = { defaults, key in
-            defaults.objectIsForced(forKey: key) ? defaults.object(forKey: key) : nil
+            if let value = ManagedDevicePolicy.bundleForcedPolicies[key] { return value }
+            return defaults.objectIsForced(forKey: key) ? defaults.object(forKey: key) : nil
         }
     ) {
         self.defaults = defaults
         self.releaseDomainDefaults = releaseDomainDefaults
         self.forcedObject = forcedObject
+    }
+
+    /// The Info.plist key a personal GMUX install uses to force policies
+    /// without a configuration profile (`scripts/gmux-install.sh` writes it).
+    public static let bundleForcedPoliciesInfoKey = "GMUXForcedPolicies"
+
+    /// Policies forced by the running app's own Info.plist, read once.
+    /// Only Boolean values count; anything else is ignored.
+    public static let bundleForcedPolicies: [String: Bool] =
+        bundleForcedPolicies(infoDictionary: Bundle.main.infoDictionary)
+
+    /// Extracts the Boolean entries of the ``bundleForcedPoliciesInfoKey``
+    /// dictionary from an Info.plist dictionary.
+    public static func bundleForcedPolicies(infoDictionary: [String: Any]?) -> [String: Bool] {
+        guard let raw = infoDictionary?[bundleForcedPoliciesInfoKey] as? [String: Any] else { return [:] }
+        return raw.compactMapValues { $0 as? Bool }
     }
 
     /// The release-domain fallback suite for the running process, or `nil`

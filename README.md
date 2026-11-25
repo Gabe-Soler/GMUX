@@ -52,49 +52,37 @@ GMUX is built from source on your own Mac. No Apple developer account is needed:
 
 Go is not needed. It only powers cmux Cloud's VPN, which a locally signed build can't use.
 
-### Build
-
-Run these from the repo root. Each build takes several minutes and doesn't touch any running cmux or GMUX.
+### Build and install
 
 ```bash
 cd ~/GMUX
-export PATH="$HOME/.local/zig/zig-aarch64-macos-0.16.0:$HOME/.cargo/bin:$PATH"
-export CMUX_ZIG="$HOME/.local/zig/zig-aarch64-macos-0.16.0/zig"
-export CMUX_GHOSTTYKIT_PREPROVISIONED=1
-export CMUX_DEV_BACKEND_MODE=local
-export CMUX_WIREGUARD_GO_REQUIRE=0
-./scripts/reload.sh --tag gmux --release --build-only --no-global-cli-links
+./scripts/gmux-install.sh
 ```
 
-### Install into Applications
+Run it from macOS's Terminal app, not from a GMUX terminal, because installing quits GMUX and would kill the script. It builds GMUX in Release mode, which takes several minutes. It then quits GMUX if it's running, installs it as `/Applications/GMUX.app` and opens it. Run the same command again to update after you change the code or pull from upstream. `--no-open` skips opening the app, and `--skip-build` reinstalls the last build.
 
-Quit GMUX first if it's running, then:
-
-```bash
-APP="/Applications/GMUX.app"
-rm -rf "$APP"
-cp -R ~/Library/Developer/Xcode/DerivedData/cmux-gmux/Build/Products/Release/cmux.app "$APP"
-/usr/libexec/PlistBuddy \
-  -c "Set :CFBundleName GMUX" \
-  -c "Set :CFBundleDisplayName GMUX" \
-  -c "Set :SUEnableAutomaticChecks false" \
-  -c "Set :SUFeedURL ''" \
-  "$APP/Contents/Info.plist"
-codesign --force --sign - --preserve-metadata=entitlements,requirements,flags,runtime "$APP"
-open "$APP"
-```
-
-The `PlistBuddy` step names the app GMUX in the menu bar. It also turns off update checks, which would otherwise offer to replace GMUX with the official cmux release. `codesign` re-signs the app after that edit.
+The script only ever touches GMUX. It refuses to replace anything at `/Applications/GMUX.app` that isn't GMUX, and never quits or overwrites a regular cmux install.
 
 On first launch macOS may say the app is from an unidentified developer. Right-click **GMUX** in Applications, choose **Open**, then **Open** again. You only need to do this once.
 
-To update GMUX, pull or commit your changes, then run **Build** and **Install** again.
+### What the installed app has switched off
+
+The install step names the app GMUX in the menu bar and switches off the parts of cmux that talk to cmux's servers. It does this with cmux's own administrator policies, so they're enforced everywhere and Settings shows them as managed:
+
+| Policy | Effect |
+| --- | --- |
+| `DisableTelemetry` | No crash reports or anonymous analytics are sent. |
+| `DisableAutoUpdate` | GMUX never offers to replace itself with an official cmux release. |
+| `DisableCloud` | cmux Cloud machines and the Cloud VPN are hidden. They need cmux's servers. |
+| `DisableRemoteControl` | No iOS companion pairing. |
+
+To change the list, edit `POLICIES` in `scripts/gmux-install.sh` and reinstall.
 
 ### Good to know
 
-- **GMUX runs alongside cmux.** Its bundle ID is `com.cmuxterm.app.debug.gmux`, so it keeps its own settings and sessions and never touches an installed cmux.
-- **Telemetry.** The build includes cmux's crash reporting and anonymous analytics. To send nothing, turn off anonymous telemetry in GMUX's Settings and restart GMUX.
-- **cmux Cloud features don't work.** Cloud machines, sign-in, the Cloud VPN and the phone app need cmux's servers. The terminal, Explorer and agent features all run locally.
+- **GMUX runs alongside cmux.** Its bundle ID is `com.cmuxterm.app.debug.gmux`, so it keeps its own settings and sessions.
+- **The app is signed on your Mac.** It isn't notarized by Apple, which is why the first launch shows a warning. Nothing else differs.
+- **Sign-in does nothing.** The account menu may still appear, but there is no cmux backend behind a local build.
 - **Live diffs compare against the last commit.** A line the agent added and later changed fades out instead of turning red. Edits made through shell commands such as `sed` aren't followed. Only the agent's edit tools are.
 
 ### Dev builds
@@ -106,7 +94,7 @@ CMUX_DEV_BACKEND_MODE=local ./scripts/reload.sh --tag explorer
 open -n ~/Library/Developer/Xcode/DerivedData/cmux-explorer/Build/Products/Debug/"cmux DEV explorer.app"
 ```
 
-Use this with the same `export` lines as **Build**. See [CONTRIBUTING.md](CONTRIBUTING.md) for tests and the rest of the contributor workflow.
+First run the `export` lines in `scripts/gmux-install.sh`. See [CONTRIBUTING.md](CONTRIBUTING.md) for tests and the rest of the contributor workflow.
 
 ## Upstream
 

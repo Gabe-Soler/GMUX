@@ -244,3 +244,34 @@ struct ManagedDevicePolicyTests {
         #expect(policy.forcedValueSource(forUserDefaultsKey: key) == .appDomain)
     }
 }
+
+/// A personal GMUX install forces policies through its Info.plist instead of
+/// a configuration profile (`scripts/gmux-install.sh`).
+struct ManagedDevicePolicyBundleForcedTests {
+    @Test func gmuxInfoPlistDictionaryForcesBooleanPolicies() {
+        let info: [String: Any] = [
+            ManagedDevicePolicy.bundleForcedPoliciesInfoKey: [
+                "DisableTelemetry": true,
+                "DisableCloud": false,
+                "DisableAutoUpdate": "yes",
+            ],
+        ]
+        let forced = ManagedDevicePolicy.bundleForcedPolicies(infoDictionary: info)
+        #expect(forced == ["DisableTelemetry": true, "DisableCloud": false])
+    }
+
+    @Test func missingOrMalformedDictionaryForcesNothing() {
+        #expect(ManagedDevicePolicy.bundleForcedPolicies(infoDictionary: nil).isEmpty)
+        #expect(ManagedDevicePolicy.bundleForcedPolicies(infoDictionary: [:]).isEmpty)
+        #expect(ManagedDevicePolicy.bundleForcedPolicies(
+            infoDictionary: [ManagedDevicePolicy.bundleForcedPoliciesInfoKey: ["DisableTelemetry"]]
+        ).isEmpty)
+    }
+
+    @Test func testHostWithoutTheKeyLeavesPoliciesUnenforced() {
+        // The test host's Info.plist has no GMUX key, so the default probe
+        // falls through to the configuration-profile path as before.
+        #expect(ManagedDevicePolicy.bundleForcedPolicies.isEmpty)
+        #expect(!ManagedDevicePolicy(releaseDomainDefaults: nil).isEnforced(.disableTelemetry))
+    }
+}
