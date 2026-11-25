@@ -166,6 +166,8 @@
 		A77A000EA1B2C3D4E5F60001 /* AgentJournalLifecycleCenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77A000DA1B2C3D4E5F60001 /* AgentJournalLifecycleCenterTests.swift */; };
 		A77A000CA1B2C3D4E5F60001 /* AgentJournalTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77A000BA1B2C3D4E5F60001 /* AgentJournalTestSupport.swift */; };
 		C11757000000000000000041 /* AgentJournalTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77A000BA1B2C3D4E5F60001 /* AgentJournalTestSupport.swift */; };
+		9EC9912B9610468A9E953A24 /* AgentLiveDiffModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C75A606154EC7995BB75796 /* AgentLiveDiffModel.swift */; };
+		4A05FFA7CD147A166AE972C7 /* AgentLiveDiffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15411C4DBC53BFDB3C339A9F /* AgentLiveDiffView.swift */; };
 		F91571A81F2DEBDD19FA6A79 /* AgentMessageCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D8C93336B3DC2F9B4299AA /* AgentMessageCenter.swift */; };
 		394797E69DC05B736C321BA5 /* AgentMessageHookClaimTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9E0374E48A69A913AF07CE /* AgentMessageHookClaimTests.swift */; };
 		0B9B54FBC4F34942CE424D74 /* AgentMessageOffSwitchSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3A25C746823752FEDCE827 /* AgentMessageOffSwitchSettingsTests.swift */; };
@@ -2583,6 +2585,8 @@
 		110437021104370211043702 /* LiveAgentSessionOwnerObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110437011104370111043701 /* LiveAgentSessionOwnerObservation.swift */; };
 		110439021104390211043902 /* LiveAgentSessionOwnerSessionKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110439011104390111043901 /* LiveAgentSessionOwnerSessionKey.swift */; };
 		CFSF00000000000000000006 /* LiveCloudFileExplorerCommandRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFSR00000000000000000006 /* LiveCloudFileExplorerCommandRunner.swift */; };
+		2165E150B9EED3084105C136 /* LiveDiffRows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBC12BB3971E89525E06919 /* LiveDiffRows.swift */; };
+		7E623984EBC163649CBB2902 /* LiveDiffRowsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7996AF9504A37A889AC6546 /* LiveDiffRowsTests.swift */; };
 		D10799020000000000000001 /* LiveTabDragCapabilityResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10799010000000000000001 /* LiveTabDragCapabilityResolver.swift */; };
 		DB326399C791DD70E9D6997A /* LiveWorkspaceFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B507A66B0F521925687F2ED /* LiveWorkspaceFixture.swift */; };
 		DA7A10CA710E000000000003 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = DA7A10CA710E000000000001 /* Localizable.xcstrings */; };
@@ -5068,6 +5072,8 @@
 		A77A0006A1B2C3D4E5F60001 /* AgentJournalLifecycleCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentJournalLifecycleCenter.swift; sourceTree = "<group>"; };
 		A77A000DA1B2C3D4E5F60001 /* AgentJournalLifecycleCenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentJournalLifecycleCenterTests.swift; sourceTree = "<group>"; };
 		A77A000BA1B2C3D4E5F60001 /* AgentJournalTestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentJournalTestSupport.swift; sourceTree = "<group>"; };
+		7C75A606154EC7995BB75796 /* AgentLiveDiffModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerColumn/LiveDiff/AgentLiveDiffModel.swift; sourceTree = "<group>"; };
+		15411C4DBC53BFDB3C339A9F /* AgentLiveDiffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerColumn/LiveDiff/AgentLiveDiffView.swift; sourceTree = "<group>"; };
 		B4D8C93336B3DC2F9B4299AA /* AgentMessageCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentMessageCenter.swift; sourceTree = "<group>"; };
 		AE9E0374E48A69A913AF07CE /* AgentMessageHookClaimTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AgentMessageHookClaimTests.swift"; sourceTree = "<group>"; };
 		EE3A25C746823752FEDCE827 /* AgentMessageOffSwitchSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AgentMessageOffSwitchSettingsTests.swift"; sourceTree = "<group>"; };
@@ -7304,6 +7310,8 @@
 		110437011104370111043701 /* LiveAgentSessionOwnerObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAgentSessionOwnerObservation.swift; sourceTree = "<group>"; };
 		110439011104390111043901 /* LiveAgentSessionOwnerSessionKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAgentSessionOwnerSessionKey.swift; sourceTree = "<group>"; };
 		CFSR00000000000000000006 /* LiveCloudFileExplorerCommandRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCloudFileExplorerCommandRunner.swift; sourceTree = "<group>"; };
+		6CBC12BB3971E89525E06919 /* LiveDiffRows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerColumn/LiveDiff/LiveDiffRows.swift; sourceTree = "<group>"; };
+		E7996AF9504A37A889AC6546 /* LiveDiffRowsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LiveDiffRowsTests.swift"; sourceTree = "<group>"; };
 		D10799010000000000000001 /* LiveTabDragCapabilityResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTabDragCapabilityResolver.swift; sourceTree = "<group>"; };
 		7B507A66B0F521925687F2ED /* LiveWorkspaceFixture.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LiveWorkspaceFixture.swift; sourceTree = "<group>"; };
 		DA7A10CA710E000000000001 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -12742,6 +12750,9 @@
 				CAAEDFC768C380469D539F5A /* TerminalController+Files.swift */,
 				DBAE48EA08373F6BB178334F /* AgentFileActivity.swift */,
 				3E45C959941C5038D64E6C37 /* ExplorerFollowAgent.swift */,
+				6CBC12BB3971E89525E06919 /* LiveDiffRows.swift */,
+				7C75A606154EC7995BB75796 /* AgentLiveDiffModel.swift */,
+				15411C4DBC53BFDB3C339A9F /* AgentLiveDiffView.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -14401,6 +14412,7 @@
 				4200027F3A5A628912110BFC /* ExplorerColumnStateTests.swift */,
 				7F98623DD7D448BCAB555171 /* FileExplorerChangeRouterTests.swift */,
 				467869F0029595F2018B9EFE /* AgentFileActivityTests.swift */,
+				E7996AF9504A37A889AC6546 /* LiveDiffRowsTests.swift */,
 			);
 			path = cmuxTests;
 			sourceTree = "<group>";
@@ -15358,6 +15370,8 @@
 				C3C8079F2C1B6648739BA1A6 /* AgentJournalLifecycleCenter+Notifications.swift in Sources */,
 				009E54A15EB3D846E02D2650 /* AgentJournalLifecycleCenter+Projection.swift in Sources */,
 				A77A0005A1B2C3D4E5F60001 /* AgentJournalLifecycleCenter.swift in Sources */,
+				9EC9912B9610468A9E953A24 /* AgentLiveDiffModel.swift in Sources */,
+				4A05FFA7CD147A166AE972C7 /* AgentLiveDiffView.swift in Sources */,
 				F91571A81F2DEBDD19FA6A79 /* AgentMessageCenter.swift in Sources */,
 				E506942F7E8A3C80F94EA4EB /* AgentNotificationAdmissionWaiters.swift in Sources */,
 				0A1107110000000000000010 /* AgentNotificationDelivery.swift in Sources */,
@@ -16543,6 +16557,7 @@
 				110437021104370211043702 /* LiveAgentSessionOwnerObservation.swift in Sources */,
 				110439021104390211043902 /* LiveAgentSessionOwnerSessionKey.swift in Sources */,
 				CFSF00000000000000000006 /* LiveCloudFileExplorerCommandRunner.swift in Sources */,
+				2165E150B9EED3084105C136 /* LiveDiffRows.swift in Sources */,
 				D10799020000000000000001 /* LiveTabDragCapabilityResolver.swift in Sources */,
 				8F3CFE9C065FF1BD53D150CF /* LocalSurfaceProvider.swift in Sources */,
 				A1329C010000000000000101 /* LocalTerminalSharingController.swift in Sources */,
@@ -19210,6 +19225,7 @@
 				87C609D63F03597AC12C8B0A /* LastSurfaceClosePreferenceTests.swift in Sources */,
 				9492CAFE0000000000000002 /* LastTerminalChildExitRecoveryTests.swift in Sources */,
 				F4546C489F49091431D0238F /* LeftSidebarRemoteCommandTests.swift in Sources */,
+				7E623984EBC163649CBB2902 /* LiveDiffRowsTests.swift in Sources */,
 				DB326399C791DD70E9D6997A /* LiveWorkspaceFixture.swift in Sources */,
 				540A9F26DCDFD0C16B257D6F /* LocalSurfaceProviderTests.swift in Sources */,
 				A6583EF34D0856BB46D469D3 /* LocalTerminalSizingHostLifecycleTests.swift in Sources */,

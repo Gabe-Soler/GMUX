@@ -36,8 +36,13 @@ extension AppDelegate {
                           let store = state.attachedStore
                     else { return }
                     store.recordAgentEdits(paths: paths, agent: agent, workspaceId: workspaceId)
-                    if let path = paths.last, let workspace = tabManager.tabs.first(where: { $0.id == workspaceId }) {
-                        ExplorerFollowAgent.enqueue(path: path, workspace: workspace, agentPanelId: agentPanelId, state: state)
+                    if let workspace = tabManager.tabs.first(where: { $0.id == workspaceId }) {
+                        for path in paths {
+                            ExplorerFollowAgent.enqueue(
+                                path: path, agent: agent, workspace: workspace,
+                                agentPanelId: agentPanelId, state: state
+                            )
+                        }
                     }
                 }
             }

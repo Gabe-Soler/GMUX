@@ -1259,6 +1259,9 @@ final class FilePreviewPanel: Panel, ObservableObject, FilePreviewTextEditingPan
     @Published private(set) var isSaving = false
     @Published private(set) var focusFlashToken = 0
     @Published private(set) var previewMode: FilePreviewMode
+    /// GMUX follow-agent mode: when set, the panel shows a live diff of the
+    /// agent's edits instead of the editor (Sources/ExplorerColumn/LiveDiff).
+    @Published var agentLiveDiff: AgentLiveDiffModel?
     let previewRevisionState = FilePreviewRevision()
     private let textContentRevisionState = FilePreviewRevision()
 
@@ -1777,7 +1780,17 @@ struct FilePreviewPanelView: View {
             filePath: panel.filePath,
             foregroundColor: themeForegroundColor
         ) {
-            if panel.previewMode == .text {
+            if panel.agentLiveDiff != nil {
+                PanelHeaderIconButton(
+                    systemName: "doc.text",
+                    label: String(localized: "liveDiff.showFile", defaultValue: "Show File"),
+                    action: {
+                        panel.agentLiveDiff?.stop()
+                        panel.agentLiveDiff = nil
+                        panel.loadTextContent()
+                    }
+                )
+            } else if panel.previewMode == .text {
                 PanelHeaderIconButton(
                     systemName: "arrow.counterclockwise",
                     label: String(localized: "filePreview.revert", defaultValue: "Revert"),
@@ -1805,7 +1818,13 @@ struct FilePreviewPanelView: View {
 
     @ViewBuilder
     private func content(previewRevision: Int) -> some View {
-        if panel.isFileUnavailable {
+        if let liveDiff = panel.agentLiveDiff {
+            AgentLiveDiffView(
+                model: liveDiff,
+                foregroundColor: themeForegroundColor,
+                backgroundColor: contentBackgroundColor
+            )
+        } else if panel.isFileUnavailable {
             fileUnavailableView
         } else {
             switch panel.previewMode {

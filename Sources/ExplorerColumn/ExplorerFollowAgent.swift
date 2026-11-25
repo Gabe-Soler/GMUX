@@ -1,33 +1,42 @@
 import Bonsplit
 import Foundation
 
-/// Follow-agent mode: each file an agent edits opens in a "follow pane" beside
-/// the agent's terminal, replacing the previous one, and is revealed in the
-/// Explorer. Keyboard focus never moves, so typing to the agent is never
-/// interrupted. The open file refreshes from disk as each edit lands.
+/// Follow-agent mode: every file an agent edits opens as a live diff (red
+/// removals, green additions, animated line by line) in panes beside the
+/// agent's terminal. Up to ``maximumStackedPanes`` files are visible at once,
+/// stacked; further files open as tabs. Keyboard focus never moves, so typing
+/// to the agent is never interrupted.
 @MainActor
 enum ExplorerFollowAgent {
     struct Pending {
         let path: String
+        let agent: String
         let agentPanelId: UUID?
         weak var workspace: Workspace?
     }
 
-    /// Bursts of edits collapse into one jump at most this often.
-    static let minimumInterval: Duration = .milliseconds(600)
+    static let maximumStackedPanes = 3
     /// A file an agent is about to create may not exist yet (PreToolUse fires first).
     static let creationWait: Duration = .milliseconds(250)
     static let creationAttempts = 8
 
-    static func enqueue(path: String, workspace: Workspace, agentPanelId: UUID?, state: ExplorerColumnState) {
+    static func enqueue(
+        path: String,
+        agent: String,
+        workspace: Workspace,
+        agentPanelId: UUID?,
+        state: ExplorerColumnState
+    ) {
         guard state.followAgent, state.isVisible else { return }
-        state.followPending = Pending(path: path, agentPanelId: agentPanelId, workspace: workspace)
+        // A file already showing live updates itself from disk; nothing to open.
+        if liveDiffPanel(for: path, in: workspace) != nil { return }
+        guard !state.followPending.contains(where: { $0.path == path }) else { return }
+        state.followPending.append(Pending(path: path, agent: agent, agentPanelId: agentPanelId, workspace: workspace))
         guard state.followTask == nil else { return }
         state.followTask = Task { @MainActor [weak state] in
-            while let state, let pending = state.followPending {
-                state.followPending = nil
+            while let state, !state.followPending.isEmpty {
+                let pending = state.followPending.removeFirst()
                 await show(pending, state: state)
-                try? await Task.sleep(for: minimumInterval)
             }
             state?.followTask = nil
         }
@@ -35,6 +44,8 @@ enum ExplorerFollowAgent {
 
     private static func show(_ pending: Pending, state: ExplorerColumnState) async {
         guard let workspace = pending.workspace else { return }
+        // Wait briefly for a file the agent is creating; the diff also handles
+        // a missing file, but a new pane for a path never written is noise.
         var attempts = 0
         while !FileManager.default.fileExists(atPath: pending.path), attempts < creationAttempts {
             attempts += 1
@@ -45,38 +56,58 @@ enum ExplorerFollowAgent {
               !isDirectory.boolValue,
               // Only the workspace the person is looking at; never switch views.
               workspace.owningTabManager?.selectedTabId == workspace.id,
-              state.followAgent else { return }
+              state.followAgent,
+              liveDiffPanel(for: pending.path, in: workspace) == nil else { return }
 
-        open(pending.path, in: workspace, agentPanelId: pending.agentPanelId, state: state)
+        guard let panel = openPanel(for: pending, in: workspace, state: state) else { return }
+        panel.agentLiveDiff = AgentLiveDiffModel(filePath: pending.path, agent: pending.agent)
         if let store = state.attachedStore, store.workspaceRootIdentity == workspace.id {
             _ = await store.reveal(path: pending.path)
         }
     }
 
-    private static func open(_ path: String, in workspace: Workspace, agentPanelId: UUID?, state: ExplorerColumnState) {
-        let opener = ExplorerFileOpenCoordinator(state: state)
+    /// Opens a pane (or tab) for the file without taking focus.
+    private static func openPanel(for pending: Pending, in workspace: Workspace, state: ExplorerColumnState) -> FilePreviewPanel? {
         let controller = workspace.bonsplitController
-        if let pane = state.followPaneByWorkspace[workspace.id], controller.allPaneIds.contains(pane) {
-            opener.open(path: path, workspace: workspace, pane: pane, pin: false, focus: false)
-            return
+        var panes = (state.followPanesByWorkspace[workspace.id] ?? []).filter { controller.allPaneIds.contains($0) }
+        defer { state.followPanesByWorkspace[workspace.id] = panes }
+
+        if panes.count < maximumStackedPanes {
+            let splitResult: FilePreviewPanel?
+            if let lastPane = panes.last {
+                // Stack the next file under the previous one.
+                splitResult = workspace.splitPaneWithFilePreview(
+                    targetPane: lastPane, orientation: .vertical, insertFirst: false,
+                    filePath: pending.path, focus: false
+                )
+            } else {
+                let sourcePanelId = pending.agentPanelId.flatMap { workspace.panels[$0] != nil ? $0 : nil }
+                    ?? workspace.focusedPanelId
+                splitResult = sourcePanelId
+                    .flatMap { workspace.paneId(forPanelId: $0) }
+                    .flatMap { sourcePane in
+                        workspace.splitPaneWithFilePreview(
+                            targetPane: sourcePane, orientation: .horizontal, insertFirst: false,
+                            filePath: pending.path, focus: false
+                        )
+                    }
+            }
+            if let panel = splitResult, let pane = workspace.paneId(forPanelId: panel.id) {
+                panes.append(pane)
+                return panel
+            }
         }
-        let sourcePanelId = agentPanelId.flatMap { workspace.panels[$0] != nil ? $0 : nil } ?? workspace.focusedPanelId
-        guard let sourcePanelId else { return }
-        // Reuse a pane already to the right of the agent (as Cmd-click does), else split one off.
-        if let rightPane = workspace.preferredRightSideTargetPane(fromPanelId: sourcePanelId) {
-            state.followPaneByWorkspace[workspace.id] = rightPane
-            opener.open(path: path, workspace: workspace, pane: rightPane, pin: false, focus: false)
-            return
-        }
-        guard let sourcePane = workspace.paneId(forPanelId: sourcePanelId),
-              let panel = workspace.splitPaneWithFilePreview(
-                  targetPane: sourcePane,
-                  orientation: .horizontal,
-                  insertFirst: false,
-                  filePath: path,
-                  focus: false
-              ) else { return }
-        state.followPaneByWorkspace[workspace.id] = workspace.paneId(forPanelId: panel.id)
-        state.previewPanelIdByWorkspace[workspace.id] = panel.id
+        // Full (or no room to split): add a tab to the follow pane edited longest ago.
+        guard let pane = panes.first else { return nil }
+        panes.append(panes.removeFirst())
+        return workspace.openFilePreviewSurfaces(
+            inPane: pane, filePaths: [pending.path], focus: false, reuseExisting: false
+        ).first
+    }
+
+    private static func liveDiffPanel(for path: String, in workspace: Workspace) -> FilePreviewPanel? {
+        workspace.panels.values.lazy
+            .compactMap { $0 as? FilePreviewPanel }
+            .first { $0.agentLiveDiff != nil && $0.filePath == path }
     }
 }

@@ -37,10 +37,10 @@ final class ExplorerColumnState {
         }
     }
 
-    /// The pane each workspace shows followed files in.
-    @ObservationIgnored var followPaneByWorkspace: [UUID: PaneID] = [:]
-    /// The newest edit waiting to be shown; bursts collapse to the latest file.
-    @ObservationIgnored var followPending: ExplorerFollowAgent.Pending?
+    /// The stacked live-diff panes each workspace shows followed files in.
+    @ObservationIgnored var followPanesByWorkspace: [UUID: [PaneID]] = [:]
+    /// Edits waiting to be shown, one entry per file, oldest first.
+    @ObservationIgnored var followPending: [ExplorerFollowAgent.Pending] = []
     @ObservationIgnored var followTask: Task<Void, Never>?
 
     /// Whether the person wants the column shown.
